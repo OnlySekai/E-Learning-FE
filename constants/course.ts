@@ -1,0 +1,1 @@
+export const COURSE_NAME = 'Xác suất thống kê'
