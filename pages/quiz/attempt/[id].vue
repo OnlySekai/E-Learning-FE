@@ -3,7 +3,7 @@
     <a-layout-header class="sheet-header">
       <div class="logo" />
       <a-typography-title class="title"
-        >{{ courseStore.courseName }}
+        >{{ courseStore.$state.courseName }}
         <ReadOutlined />
       </a-typography-title>
     </a-layout-header>
@@ -27,14 +27,12 @@
 
 <script lang="ts" setup>
 const courseStore = useCourseStore()
-const sheetId = useRoute().params.id as string
-
-await useAsyncData('get-course', () => courseStore.fetchCourse(sheetId))
+await useAsyncData('get-course', () => courseStore.fetchCourse())
 </script>
 
 <style scoped lang="scss">
 .sheet-header {
-  display: flex;
+  display: flex;  
   align-items: center;
   > .title {
     color: $primary;

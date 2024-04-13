@@ -1,18 +1,29 @@
-export const E_LEARNING_ENDPOINT = {
+import type { EndPointConfigInterface } from '~/types/entities/endpoint.entity'
+
+export const API_URL = useRuntimeConfig().public.apiBase
+
+export const QUIZ_ENDPOINT: Record<string, EndPointConfigInterface> = {
   joinQuiz: {
-    path: `${process.env.API_URL}/quiz`,
+    path: `${API_URL}/quiz`,
     method: 'POST',
   },
   submitQuiz: {
-    path: `${process.env.API_URL}/quiz`,
+    path: `${API_URL}/quiz`,
     method: 'PATCH',
   },
   submitAnswer: {
-    path: `${process.env.API_URL}/quiz`,
+    path: `${API_URL}/quiz`,
     method: 'PUT',
   },
   getQuizSession: {
-    path: `${process.env.API_URL}/quiz/{sessionId}`,
+    path: `${API_URL}/quiz/{sessionId}`,
+    method: 'GET',
+  },
+}
+
+export const COURSE_ENDPOINT: Record<string, EndPointConfigInterface> = {
+  getCourseById: {
+    path: `${API_URL}/course/{courseId}`,
     method: 'GET',
   },
 }

@@ -1,32 +1,20 @@
-import type { Course } from "~/types/course.dto";
+import type { Course } from '~/types/course.dto'
 
-// export const useCourseStore = defineStore("course", () => {
-//   const course = ref<Course | null>(null);
-
-//   async function fetchCourse(courseId: string) {
-//     // const response = await $fetch(`/api/course/${courseId}`);
-//     const response: Course = {
-//       courseId: "1",
-//       courseName: "XÁC SUẤT THỐNG KÊ ĐẠI HỌC BÁCH KHOA HÀ NỘI",
-//     };
-//     course.value = response as Course;
-//   }
-//   return { course, fetchCourse };
-// });
-
-export const useCourseStore = defineStore("course", {
-  state: (): Course => ({
-    courseId: "1",
-    courseName: "XÁC SUẤT THỐNG KÊ - ĐẠI HỌC BÁCH KHOA HÀ NỘI",
+import { COURSE_ENDPOINT } from '~/constants/endpoint'
+import { COURSE_ID } from '~/constants/course'
+export const useCourseStore = defineStore('course', {
+  state: (): Partial<Course> => ({
+    chapters: [],
   }),
   actions: {
-    async fetchCourse(courseId: string) {
-      // const response = await $fetch(`/api/course/${courseId}`);
-      const response: Course = {
-        courseId: "1",
-        courseName: "XÁC SUẤT THỐNG KÊ ĐẠI HỌC BÁCH KHOA HÀ NỘI",
-      };
-      this.$patch(response);
+    async fetchCourse() {
+      const response = await $fetch(
+        COURSE_ENDPOINT.getCourseById.path.replace('{courseId}', COURSE_ID),
+        {
+          method: COURSE_ENDPOINT.getCourseById.method,
+        }
+      )
+      this.$patch(response as Course)
     },
   },
-});
+})
