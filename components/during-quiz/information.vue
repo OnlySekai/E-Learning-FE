@@ -5,7 +5,7 @@
       @finish="() => console.log('end')"
       class="count-down"
     />
-    <a-card :title="courseStore.courseName">
+    <a-card :title="courseStore.$state.courseName">
       <a-space direction="vertical">
         <a-typography-text strong
           >Số câu:
@@ -39,8 +39,10 @@
 <script setup lang="ts" script>
 const courseStore = useCourseStore()
 const quizStore = useQuizStore()
-const duration = computed(() => quizStore.quizDuration / 60 / 1000)
-const endTimeCountDown = computed(() => Date.now() + quizStore.quizDuration)
+const duration = computed(() => quizStore.$state.quizDuration / 60 / 1000)
+const endTimeCountDown = computed(
+  () => Date.now() + quizStore.$state.quizDuration
+)
 </script>
 
 <style scoped lang="scss">

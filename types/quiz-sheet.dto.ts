@@ -2,12 +2,14 @@
 
 export interface AnswerHistory {
   answers: unknown[]
+  start: Date
   duration: number
   correct?: boolean
 }
 
 export interface LeanerQuestion {
   question: string
+  images: string[]
   histories: AnswerHistory[]
   options?: string[]
   answers?: string[]
@@ -15,7 +17,7 @@ export interface LeanerQuestion {
 }
 
 export interface QuizAnswerSheet {
-  configId: string
+  configType: string
   courseId: string
   quizDuration: number
   fullName: String

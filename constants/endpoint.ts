@@ -2,7 +2,7 @@ import type { EndPointConfigInterface } from '~/types/entities/endpoint.entity'
 
 export const API_URL = useRuntimeConfig().public.apiBase
 
-export const QUIZ_ENDPOINT: Record<string, EndPointConfigInterface> = {
+export const QUIZ_ENDPOINT = {
   joinQuiz: {
     path: `${API_URL}/quiz`,
     method: 'POST',

@@ -27,12 +27,24 @@
 
 <script lang="ts" setup>
 const courseStore = useCourseStore()
-await useAsyncData('get-course', () => courseStore.fetchCourse())
+const quizStore = useQuizStore()
+const route = useRoute()
+await Promise.all([
+  await useAsyncData('get-quiz', () =>
+    quizStore.fetchQuizSheet(route.params.id as string)
+  ),
+  await useAsyncData('get-course', () => courseStore.fetchCourse()),
+])
+quizStore.currentQuestion.histories.push({
+  answers: [],
+  start: new Date(),
+  duration: 0,
+})
 </script>
 
 <style scoped lang="scss">
 .sheet-header {
-  display: flex;  
+  display: flex;
   align-items: center;
   > .title {
     color: $primary;

@@ -1,4 +1,5 @@
-import type { QuizAnswerSheet } from '~/types/quiz-sheet.dto'
+import { QUIZ_ENDPOINT } from '~/constants/endpoint'
+import type { LeanerQuestion, QuizAnswerSheet } from '~/types/quiz-sheet.dto'
 
 // export const useQuizStore = defineStore("quiz", () => {
 //   const quizSheet: Ref<QuizAnswerSheet | null> = ref(null);
@@ -19,81 +20,58 @@ interface UseQuizStateInterface extends QuizAnswerSheet {
 
 export const useQuizStore = defineStore('quiz', {
   state: (): UseQuizStateInterface => ({
-    configId: '',
+    configType: '',
     courseId: '',
     quizDuration: 0,
     questions: [],
     fullName: '',
     questionIndex: 1,
   }),
+  getters: {
+    currentQuestion(state): LeanerQuestion {
+      return state.questions[this.questionIndex - 1]
+    },
+  },
   actions: {
     async fetchQuizSheet(sheetId: string) {
       // fetch quiz sheet from api
-      // const response: QuizAnswerSheet = await $fetch(
-      //   `/api/quiz-sheet/${sheetId}`
-      // );
-      // set quiz sheet to the store
-      const response: QuizAnswerSheet = {
-        configId: '1',
-        courseId: '1',
-        quizDuration: 60 * 60 * 1000,
-        fullName: 'Nguyễn V',
-        questions: [
-          {
-            question: 'Câu hỏi 1',
-            histories: [
-              {
-                answers: ['A'],
-                duration: 10,
-                correct: true,
-              },
-            ],
-            correct: true,
-          },
-          {
-            question: 'Câu hỏi 2',
-            histories: [
-              {
-                answers: ['A'],
-                duration: 10,
-                correct: true,
-              },
-            ],
-            correct: true,
-          },
-          {
-            question: 'Câu hỏi 3',
-            histories: [
-              {
-                answers: ['A'],
-                duration: 10,
-                correct: true,
-              },
-            ],
-            correct: true,
-          },
-          {
-            question: 'Câu hỏi 4',
-            histories: [
-              {
-                answers: ['A'],
-                duration: 10,
-                correct: true,
-              },
-            ],
-            correct: true,
-          },
-        ],
+      const response = await $fetch(
+        QUIZ_ENDPOINT.getQuizSession.path.replace('{sessionId}', sheetId)
+      )
+      const { questions, ...sheetInfo } = response as {
+        questions: any[]
+        [key: string]: any
       }
-      response.questions.forEach((value) => {
-        value.options = ['A', 'B', 'C', 'D']
-        value.answers = []
+      const mapQuestion = questions.map(({ question: questionConfig }) => {
+        const {
+          question,
+          images,
+          config: { options },
+        } = questionConfig
+        // remove all path after /d 1 path in image url
+        return {
+          question,
+          images,
+          options,
+          histories: [],
+          correct: false,
+        }
       })
-      this.$patch(response)
+      // set quiz sheet to the store
+      this.$patch({ ...sheetInfo, questions: mapQuestion, questionIndex: 1 })
     },
     goToQuestion(value: number) {
       if (value < 1 || value > this.questions.length) return
+      const currentHistory = this.currentQuestion.histories.at(-1)!
+      currentHistory.duration = Date.now() - currentHistory.start.valueOf()
+      this.currentQuestion.histories.at(-1)!.answers =
+        this.currentQuestion.answers || []
       this.questionIndex = value
+      this.currentQuestion.histories.push({
+        answers: [],
+        start: new Date(),
+        duration: 0,
+      })
     },
   },
 })

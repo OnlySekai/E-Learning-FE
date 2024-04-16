@@ -1,13 +1,17 @@
 <template>
   <a-flex gap="middle" vertical class="working-area">
-    <a-card class="question">
-      <a-typography-text strong
-        >Câu hỏi <span>{{ quizStore.questionIndex }}</span
-        >:
-      </a-typography-text>
+    <a-card class="question" :title="questionTittle">
       <a-typography-text class="question-content">
         {{ selectedQuestion?.question }}</a-typography-text
       >
+      <div class="list-image-wrapper">
+        <app-image
+          v-for="link in selectedQuestion.images"
+          :key="link"
+          :src="link"
+          class="question-image"
+        />
+      </div>
     </a-card>
     <a-card class="-center">
       <a-checkbox-group
@@ -16,12 +20,12 @@
         :options="selectedQuestion.options"
       />
       <template #actions>
-        <a-typography-text key="back" @click="() => goToQuestion(-1)"
-          >Câu trước</a-typography-text
+        <a-typography-link key="back" @click="() => goToQuestion(-1)"
+          >Câu trước</a-typography-link
         >
-        <a-typography-text key="submit">Submit</a-typography-text>
-        <a-typography-text key="next" @click="() => goToQuestion(1)"
-          >Câu tiếp theo</a-typography-text
+        <a-typography-link key="submit" @click="">Lưu</a-typography-link>
+        <a-typography-link key="next" @click="() => goToQuestion(1)"
+          >Câu tiếp theo</a-typography-link
         >
       </template>
     </a-card>
@@ -30,20 +34,18 @@
       v-model:current="quizStore.questionIndex"
       show-quick-jumper
       :total="quizStore.questions.length * 10"
-      @change="quizStore.goToQuestion"
     />
   </a-flex>
 </template>
 
 <script setup lang="ts">
-const quizStore = useQuizStore();
-await useAsyncData("get-quiz", () => quizStore.fetchQuizSheet("1"));
-const selectedQuestion = computed(
-  () => quizStore.questions[quizStore.questionIndex - 1]
-);
+const quizStore = useQuizStore()
+const selectedQuestion = computed(() => quizStore.currentQuestion)
+
+const questionTittle = computed(() => `Câu hỏi ${quizStore.questionIndex}:`)
 
 function goToQuestion(offset: number) {
-  quizStore.goToQuestion(quizStore.questionIndex + offset);
+  quizStore.goToQuestion(quizStore.questionIndex + offset)
 }
 </script>
 
@@ -51,8 +53,7 @@ function goToQuestion(offset: number) {
 .working-area {
   min-width: 50%;
   > .question {
-    min-height: 34%;
-    background-color: $yellow;
+    min-height: 35%;
   }
   .-center {
     text-align: center;
