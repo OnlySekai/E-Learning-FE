@@ -1,3 +1,3 @@
-import type { QuizAnswerSheet } from '~/types/quiz-sheet.dto'
+import type { QuizAnswerSheetEntity } from "~/stores/quiz/entity/quizSheet.entity";
 
-export interface GetQuizSheetResponse extends QuizAnswerSheet {}
+export interface GetQuizSheetResponse extends QuizAnswerSheetEntity {}

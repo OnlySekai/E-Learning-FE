@@ -1,8 +1,11 @@
-import type { EndPointConfigInterface } from '~/types/entities/endpoint.entity'
-
 export const API_URL = useRuntimeConfig().public.apiBase
 
-export const QUIZ_ENDPOINT: Record<string, EndPointConfigInterface> = {
+export interface EndPointConfigEntity {
+  path: string
+  method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE'
+}
+
+export const QUIZ_ENDPOINT: Record<string, EndPointConfigEntity> = {
   joinQuiz: {
     path: `${API_URL}/quiz`,
     method: 'POST',
@@ -21,7 +24,7 @@ export const QUIZ_ENDPOINT: Record<string, EndPointConfigInterface> = {
   },
 }
 
-export const COURSE_ENDPOINT: Record<string, EndPointConfigInterface> = {
+export const COURSE_ENDPOINT: Record<string, EndPointConfigEntity> = {
   getCourseById: {
     path: `${API_URL}/course/{courseId}`,
     method: 'GET',

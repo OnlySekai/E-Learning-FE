@@ -1,13 +1,10 @@
 import { QUIZ_ENDPOINT } from '~/constants/endpoint'
-import type { LeanerQuestion, QuizAnswerSheet } from '~/types/quiz-sheet.dto'
-import type { SubmitAnswerRequest } from './dto/request/submitAnswer.dto'
-
-interface UseQuizStateInterface extends QuizAnswerSheet {
-  questionIndex: number
-}
+import type { SubmitQuizSheetRequest } from './dto/submitQuizSheet.request'
+import type { LeanerQuestionEntity } from './entity/quizSheet.entity'
+import type { QuizStateEntity } from './entity/state.entity'
 
 export const useQuizStore = defineStore('quiz', {
-  state: (): UseQuizStateInterface => ({
+  state: (): QuizStateEntity => ({
     configType: '',
     courseId: '',
     quizDuration: 0,
@@ -16,7 +13,7 @@ export const useQuizStore = defineStore('quiz', {
     questionIndex: 1,
   }),
   getters: {
-    currentQuestion(state): LeanerQuestion {
+    currentQuestion(state): LeanerQuestionEntity {
       return state.questions[this.questionIndex - 1]
     },
   },
@@ -51,6 +48,7 @@ export const useQuizStore = defineStore('quiz', {
       // set quiz sheet to the store
       this.$patch({ ...sheetInfo, questions: mapQuestion, questionIndex: 1 })
     },
+
     async submitAnswer(
       questionIdx: number,
       payload: Omit<SubmitAnswerRequest, 'sheetId' | 'questionIdx'>
@@ -65,11 +63,21 @@ export const useQuizStore = defineStore('quiz', {
       })
     },
 
+    async submitQuizSheet() {
+      const payload: SubmitQuizSheetRequest = {
+        sheetId: useRoute().params.sheetId as string,
+      }
+      this.result = (await $fetch(QUIZ_ENDPOINT.submitQuizSheet.path, {
+        method: QUIZ_ENDPOINT.submitQuizSheet.method,
+        body: payload,
+      })) as SubmitQuizSheetResponse
+    },
+
     goToQuestion(value: number) {
       if (value < 1 || value > this.questions.length) return
       const currentHistory = this.currentQuestion.histories.at(-1)!
       currentHistory.duration = Date.now() - currentHistory.start.valueOf()
-      currentHistory.answers = this.currentQuestion.answers
+      currentHistory.answers = [...this.currentQuestion.answers]
       this.submitAnswer(this.questionIndex, currentHistory).catch(console.error)
       this.questionIndex = value
       this.currentQuestion.answers = [

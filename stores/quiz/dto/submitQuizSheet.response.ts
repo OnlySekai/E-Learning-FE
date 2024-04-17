@@ -1,4 +1,4 @@
-export interface SubmitQuizResponse {
+export interface SubmitQuizSheetResponse {
   sheetId: string
   score: number
   correctAnswers: number

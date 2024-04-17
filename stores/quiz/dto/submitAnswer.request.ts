@@ -1,6 +1,6 @@
 export interface SubmitAnswerRequest {
   sheetId: string
   questionIdx: number
-  answers: unknown[]
+  answers: string[]
   duration: number
 }
