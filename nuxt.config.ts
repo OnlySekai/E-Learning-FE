@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     },
   },
   modules: ['@ant-design-vue/nuxt', '@pinia/nuxt'],
+  pinia: { storesDirs: ['./stores/**'] },
   runtimeConfig: {
     public: {
       apiBase: process.env.API_URL,

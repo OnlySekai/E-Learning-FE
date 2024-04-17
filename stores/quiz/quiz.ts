@@ -1,18 +1,6 @@
 import { QUIZ_ENDPOINT } from '~/constants/endpoint'
 import type { LeanerQuestion, QuizAnswerSheet } from '~/types/quiz-sheet.dto'
-
-// export const useQuizStore = defineStore("quiz", () => {
-//   const quizSheet: Ref<QuizAnswerSheet | null> = ref(null);
-
-//   // function to fetch quiz sheet
-//   async function fetchQuizSheet(sheetId: string) {
-//     // fetch quiz sheet from api
-//     const response = await $fetch(`/api/quiz-sheet/${sheetId}`);
-//     // set quiz sheet to the store
-//     quizSheet.value = response as QuizAnswerSheet;
-//   }
-//   return { quizSheet, fetchQuizSheet };
-// });
+import type { SubmitAnswerRequest } from './dto/request/submitAnswer.dto'
 
 interface UseQuizStateInterface extends QuizAnswerSheet {
   questionIndex: number
@@ -42,31 +30,51 @@ export const useQuizStore = defineStore('quiz', {
         questions: any[]
         [key: string]: any
       }
-      const mapQuestion = questions.map(({ question: questionConfig }) => {
-        const {
-          question,
-          images,
-          config: { options },
-        } = questionConfig
-        // remove all path after /d 1 path in image url
-        return {
-          question,
-          images,
-          options,
-          histories: [],
-          correct: false,
+      const mapQuestion = questions.map(
+        ({ question: questionConfig, histories }) => {
+          const {
+            question,
+            images,
+            config: { options },
+          } = questionConfig
+          const currentAnswers = histories.at(-1)?.answers || []
+          return {
+            question,
+            images,
+            options,
+            histories: histories || [],
+            answers: [...currentAnswers],
+            correct: false,
+          }
         }
-      })
+      )
       // set quiz sheet to the store
       this.$patch({ ...sheetInfo, questions: mapQuestion, questionIndex: 1 })
     },
+    async submitAnswer(
+      questionIdx: number,
+      payload: Omit<SubmitAnswerRequest, 'sheetId' | 'questionIdx'>
+    ) {
+      await $fetch(QUIZ_ENDPOINT.submitAnswer.path, {
+        method: QUIZ_ENDPOINT.submitAnswer.method,
+        body: {
+          ...payload,
+          sheetId: useRoute().params.sheetId,
+          questionIdx: questionIdx - 1,
+        },
+      })
+    },
+
     goToQuestion(value: number) {
       if (value < 1 || value > this.questions.length) return
       const currentHistory = this.currentQuestion.histories.at(-1)!
       currentHistory.duration = Date.now() - currentHistory.start.valueOf()
-      this.currentQuestion.histories.at(-1)!.answers =
-        this.currentQuestion.answers || []
+      currentHistory.answers = this.currentQuestion.answers
+      this.submitAnswer(this.questionIndex, currentHistory).catch(console.error)
       this.questionIndex = value
+      this.currentQuestion.answers = [
+        ...(this.currentQuestion.histories.at(-1)?.answers || []),
+      ]
       this.currentQuestion.histories.push({
         answers: [],
         start: new Date(),

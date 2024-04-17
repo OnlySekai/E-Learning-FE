@@ -23,7 +23,6 @@
         <a-typography-link key="back" @click="() => goToQuestion(-1)"
           >Câu trước</a-typography-link
         >
-        <a-typography-link key="submit" @click="">Lưu</a-typography-link>
         <a-typography-link key="next" @click="() => goToQuestion(1)"
           >Câu tiếp theo</a-typography-link
         >

@@ -31,10 +31,11 @@ const quizStore = useQuizStore()
 const route = useRoute()
 await Promise.all([
   await useAsyncData('get-quiz', () =>
-    quizStore.fetchQuizSheet(route.params.id as string)
+    quizStore.fetchQuizSheet(route.params.sheetId as string)
   ),
   await useAsyncData('get-course', () => courseStore.fetchCourse()),
 ])
+
 quizStore.currentQuestion.histories.push({
   answers: [],
   start: new Date(),

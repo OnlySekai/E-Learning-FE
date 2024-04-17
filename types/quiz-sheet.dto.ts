@@ -1,7 +1,7 @@
 // create interface quiz sheet link quiz-answers.schema.ts
 
 export interface AnswerHistory {
-  answers: unknown[]
+  answers: string[]
   start: Date
   duration: number
   correct?: boolean
@@ -12,7 +12,7 @@ export interface LeanerQuestion {
   images: string[]
   histories: AnswerHistory[]
   options?: string[]
-  answers?: string[]
+  answers: string[]
   correct: boolean
 }
 
