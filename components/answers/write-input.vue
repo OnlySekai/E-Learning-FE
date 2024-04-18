@@ -1,12 +1,12 @@
 <template>
   <a-textarea
-    v-model:value="value"
-    placeholder="Autosize height based on content lines"
+    v-model:value='value'
+    placeholder='Autosize height based on content lines'
     auto-size
   />
 </template>
 
-<script setup lang="ts">
+<script setup lang='ts'>
 defineProps<{
   value: string
 }>()
