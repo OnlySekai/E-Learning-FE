@@ -1,20 +1,33 @@
 <template>
-  <div class='target-page'>
+  <div class="target-page">
     <CourseCarousel />
-    <div class='target-title'>
+    <div class="target-title">
       <p>NHẬP THÔNG TIN ĐỂ TẠO LỘ TRÌNH CÁ NHÂN</p>
     </div>
-    <a-row :gutter='[40,40]'>
-      <a-col v-for='(rows, index) in splitCols' :key='index' :span='12'>
-        <a-flex v-for='item in rows' :key='item.id' :vertical='true' style='margin-top: 20px'>
+    <a-row :gutter="[40, 40]">
+      <a-col v-for="(rows, index) in splitCols" :key="index" :span="12">
+        <a-flex
+          v-for="item in rows"
+          :key="item.id"
+          :vertical="true"
+          style="margin-top: 20px"
+        >
           <label>
             {{ item.config.label }}
           </label>
-          <a-select v-if="item.type === 'select'" :options='item.config.options'
-                    v-model:value='data[item.id]'>
+          <a-select
+            v-if="item.type === 'select'"
+            :options="item.config.options"
+            v-model:value="data[item.id]"
+          >
           </a-select>
-          <a-input-number v-else v-model:value='data[item.id]' :min='item.config.min!'
-                          :max='item.config.max!' style='width: 100%'>
+          <a-input-number
+            v-else
+            v-model:value="data[item.id]"
+            :min="item.config.min!"
+            :max="item.config.max!"
+            style="width: 100%"
+          >
             <template #upIcon>
               <ArrowUpOutlined />
             </template>
@@ -25,45 +38,57 @@
         </a-flex>
       </a-col>
     </a-row>
-    <a-flex :vertical='false' justify='space-between' class='tutorial-details' style='margin-top: 20px'>
-      <div class='testTutorial' style='width: 65%'>
+    <a-flex
+      :vertical="false"
+      justify="space-between"
+      class="tutorial-details"
+      style="margin-top: 20px"
+    >
+      <div class="testTutorial" style="width: 65%">
         <p>Hướng dẫn làm bài trắc nghiệm:</p>
-        <p>1. Click vào nút "Bắt đầu làm bài" để tiến hành làm bài thi <br>
-          2. Ở mỗi câu hỏi, chọn đáp án đúng <br>
-          3. Hết thời gian làm bài, hệ thống tự thu bài. Bạn có thể nộp bài trước khi thời gian kết thúc bằng cách ấn
-          vào
-          nút nộp bài.</p>
+        <p>
+          1. Click vào nút "Bắt đầu làm bài" để tiến hành làm bài thi <br />
+          2. Ở mỗi câu hỏi, chọn đáp án đúng <br />
+          3. Hết thời gian làm bài, hệ thống tự thu bài. Bạn có thể nộp bài
+          trước khi thời gian kết thúc bằng cách ấn vào nút nộp bài.
+        </p>
       </div>
-      <div style='display: flex; justify-content: center; align-items: center; width: 35%'>
-        <a-button type='primary' @click='onSubmit'>Bắt đầu làm bài</a-button>
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 35%;
+        "
+      >
+        <a-button type="primary" @click="onSubmit">Bắt đầu làm bài</a-button>
       </div>
     </a-flex>
   </div>
 </template>
-<script setup lang='ts'>
+<script setup lang="ts">
 definePageMeta({
   layout: 'course',
 })
 
 interface selectType {
-  id: string,
+  id: string
   type: 'inputNumber' | 'select'
   config: {
-    label: string,
-    min?: number,
-    max?: number,
+    label: string
+    min?: number
+    max?: number
     options?: {
-      value: unknown,
-      label: string,
+      value: unknown
+      label: string
     }[]
   }
 }
 
-
 const chapters = useCourseStore().$state.chapters
 const figures: {
-  value: unknown,
-  label: string,
+  value: unknown
+  label: string
 }[] = []
 
 chapters?.map((chapter) => {
@@ -74,7 +99,6 @@ chapters?.map((chapter) => {
     })
   })
 })
-
 
 const selectConfig: selectType[] = [
   {
@@ -134,10 +158,10 @@ const splitCols = [
 ]
 
 interface dataType {
-  score: number | null,
-  period: number | null,
-  remainDays: number | null,
-  studiedChapter: string | null,
+  score: number | null
+  period: number | null
+  remainDays: number | null
+  studiedChapter: string | null
 }
 
 const data = reactive<dataType>({
@@ -162,7 +186,7 @@ function onSubmit() {
   }
 }
 </script>
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .target-title {
   align-content: center;
   text-align: center;
