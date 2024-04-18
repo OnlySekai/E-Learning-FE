@@ -37,6 +37,6 @@ const formState = reactive({
 
 <style lang="scss" scoped>
 body {
-  background-color: $blue;
+  background-color: blue;
 }
 </style>
