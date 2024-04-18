@@ -22,15 +22,18 @@
     </a-card>
     <a-card class="action-button">
       <template #actions>
-        <a-typography-link strong @click="() => console.log('submit')"
-          >Nộp bài</a-typography-link
-        >
         <a-typography-text
+          strong
+          type="danger"
+          @click="useQuizStore."
+          >Nộp bài</a-typography-text
+        >
+        <!-- <a-typography-text
           strong
           type="danger"
           @click="() => console.log('exit')"
           >Thoát</a-typography-text
-        >
+        > -->
       </template>
     </a-card>
   </a-flex>
