@@ -38,6 +38,9 @@
 </template>
 
 <script setup lang="ts">
+defineProps({
+  readonly: Boolean,
+})
 const quizStore = useQuizStore()
 const selectedQuestion = computed(() => quizStore.currentQuestion)
 

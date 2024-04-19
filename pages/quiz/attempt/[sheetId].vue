@@ -5,24 +5,28 @@
     <a-breadcrumb-item>App</a-breadcrumb-item>
   </a-breadcrumb>
   <a-flex justify="center" gap="middle">
-    <DuringQuizInformation />
-    <DuringQuizWorkingArea />
+    <DuringQuizInformation v-if="!readonly" />
+    <DuringQuizWorkingArea :readonly="readOnly" />
   </a-flex>
 </template>
 
 <script lang="ts" setup>
+import { VIEW_MODES } from '~/constants/course'
+
 definePageMeta({
   layout: 'course',
 })
+
 const quizStore = useQuizStore()
 const route = useRoute()
-  await useAsyncData('get-quiz', () =>
-    quizStore.fetchQuizSheet(route.params.sheetId as string)
-  ),
+await useAsyncData('get-quiz', () =>
+  quizStore.fetchQuizSheet(route.params.sheetId as string)
+),
+  quizStore.currentQuestion.histories.push({
+    answers: [],
+    start: new Date(),
+    duration: 0,
+  })
 
-quizStore.currentQuestion.histories.push({
-  answers: [],
-  start: new Date(),
-  duration: 0,
-})
+const readOnly = computed(() => route.query.mode === VIEW_MODES.READ)
 </script>
