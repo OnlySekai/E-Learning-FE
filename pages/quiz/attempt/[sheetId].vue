@@ -1,25 +1,24 @@
 <template>
-      <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>Home</a-breadcrumb-item>
-        <a-breadcrumb-item>List</a-breadcrumb-item>
-        <a-breadcrumb-item>App</a-breadcrumb-item>
-      </a-breadcrumb>
-      <a-flex justify="center" gap="middle">
-        <DuringQuizInformation />
-        <DuringQuizWorkingArea />
-      </a-flex>
+  <a-breadcrumb style="margin: 16px 0">
+    <a-breadcrumb-item>Home</a-breadcrumb-item>
+    <a-breadcrumb-item>List</a-breadcrumb-item>
+    <a-breadcrumb-item>App</a-breadcrumb-item>
+  </a-breadcrumb>
+  <a-flex justify="center" gap="middle">
+    <DuringQuizInformation />
+    <DuringQuizWorkingArea />
+  </a-flex>
 </template>
 
 <script lang="ts" setup>
-const courseStore = useCourseStore()
+definePageMeta({
+  layout: 'course',
+})
 const quizStore = useQuizStore()
 const route = useRoute()
-await Promise.all([
   await useAsyncData('get-quiz', () =>
     quizStore.fetchQuizSheet(route.params.sheetId as string)
   ),
-  await useAsyncData('get-course', () => courseStore.fetchCourse()),
-])
 
 quizStore.currentQuestion.histories.push({
   answers: [],

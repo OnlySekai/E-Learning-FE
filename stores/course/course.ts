@@ -1,9 +1,10 @@
-import type { Course } from '~/types/course.dto'
 
 import { COURSE_ENDPOINT } from '~/constants/endpoint'
 import { COURSE_ID } from '~/constants/course'
+import type { CourseEntity } from './entities/course.entity'
+
 export const useCourseStore = defineStore('course', {
-  state: (): Partial<Course> => ({
+  state: (): Partial<CourseEntity> => ({
     chapters: [],
   }),
   actions: {
@@ -14,7 +15,7 @@ export const useCourseStore = defineStore('course', {
           method: COURSE_ENDPOINT.getCourseById.method,
         }
       )
-      this.$patch(response as Course)
+      this.$patch(response as CourseEntity)
     },
   },
 })
