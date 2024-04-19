@@ -25,7 +25,7 @@
         <a-typography-text
           strong
           type="danger"
-          @click="useQuizStore."
+          @click="quizStore.submitQuizSheet"
           >Nộp bài</a-typography-text
         >
         <!-- <a-typography-text
