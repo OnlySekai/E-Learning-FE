@@ -67,7 +67,6 @@ export const useQuizStore = defineStore('quiz', {
       const payload: SubmitQuizSheetRequest = {
         sheetId: useRoute().params.sheetId as string,
       }
-      console.log(payload)
       this.result = (await $fetch(QUIZ_ENDPOINT.submitQuiz.path, {
         method: QUIZ_ENDPOINT.submitQuiz.method,
         body: payload,

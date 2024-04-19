@@ -22,10 +22,7 @@
     </a-card>
     <a-card class="action-button">
       <template #actions>
-        <a-typography-text
-          strong
-          type="danger"
-          @click="quizStore.submitQuizSheet"
+        <a-typography-text strong type="danger" @click="openConfirmSubmitSheet"
           >Nộp bài</a-typography-text
         >
         <!-- <a-typography-text
