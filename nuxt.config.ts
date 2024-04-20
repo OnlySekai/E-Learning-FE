@@ -25,6 +25,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: process.env.API_URL,
+      mockEnable: process.env.MOCK_ENABLE,
     },
   },
 })

@@ -13,7 +13,9 @@
         >
 
         <a-typography-text strong
-          >Thời gian: <span>{{ duration }}</span> phút</a-typography-text
+          >Thời gian:
+          <span>{{ duration / 60 / 1000 }}</span>
+          phút</a-typography-text
         >
         <a-typography-text strong
           >Họ và Tên: <span>{{ quizStore.fullName }}</span></a-typography-text
@@ -22,8 +24,14 @@
     </a-card>
     <a-card class="action-button">
       <template #actions>
-        <a-typography-text strong type="danger" @click="openConfirmSubmitSheet"
-          >Nộp bài</a-typography-text
+        <a-typography-text
+          strong
+          type="danger"
+          @click="
+            () =>
+              props.readonly ? useRouter().push('/') : openConfirmSubmitSheet()
+          "
+          >{{ `${props.readonly ? 'Thoát' : 'Nộp bài'}` }}</a-typography-text
         >
         <!-- <a-typography-text
           strong
@@ -37,12 +45,15 @@
 </template>
 
 <script setup lang="ts" script>
+const props = defineProps<{
+  readonly: boolean
+}>()
 const courseStore = useCourseStore()
 const quizStore = useQuizStore()
-const duration = computed(() => quizStore.$state.quizDuration / 60 / 1000)
-const endTimeCountDown = computed(
-  () => Date.now() + quizStore.$state.quizDuration
+const duration = computed(() =>
+  props.readonly ? 0 : quizStore.$state.quizDuration
 )
+const endTimeCountDown = computed(() => Date.now() + duration.value)
 </script>
 
 <style scoped lang="scss">

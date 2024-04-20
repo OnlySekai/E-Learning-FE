@@ -3,6 +3,10 @@ import type { SubmitQuizSheetRequest } from './dto/submitQuizSheet.request'
 import type { LeanerQuestionEntity } from './entity/quizSheet.entity'
 import type { QuizStateEntity } from './entity/state.entity'
 
+import quiz from '~/assets/mock/quiz.json'
+
+const isMock = useRuntimeConfig().public.mockEnable
+
 export const useQuizStore = defineStore('quiz', {
   state: (): QuizStateEntity => ({
     configType: '',
@@ -12,7 +16,7 @@ export const useQuizStore = defineStore('quiz', {
     fullName: '',
     questionIndex: 1,
   }),
-  getters: {
+  getters: {  
     currentQuestion(state): LeanerQuestionEntity {
       return state.questions[this.questionIndex - 1]
     },
@@ -20,19 +24,22 @@ export const useQuizStore = defineStore('quiz', {
   actions: {
     async fetchQuizSheet(sheetId: string) {
       // fetch quiz sheet from api
-      const response = await $fetch(
-        QUIZ_ENDPOINT.getQuizSession.path.replace('{sessionId}', sheetId)
-      )
+      const response = isMock
+        ? quiz
+        : await $fetch(
+            QUIZ_ENDPOINT.getQuizSession.path.replace('{sessionId}', sheetId)
+          )
+
       const { questions, ...sheetInfo } = response as {
         questions: any[]
         [key: string]: any
       }
-      const mapQuestion = questions.map(
+      const mapQuestion: LeanerQuestionEntity[] = questions.map(
         ({ question: questionConfig, histories }) => {
           const {
             question,
             images,
-            config: { options },
+            config: { options, answers = [] },
           } = questionConfig
           const currentAnswers = histories.at(-1)?.answers || []
           return {
@@ -41,6 +48,7 @@ export const useQuizStore = defineStore('quiz', {
             options,
             histories: histories || [],
             answers: [...currentAnswers],
+            rightAnswers: answers,
             correct: false,
           }
         }
@@ -64,13 +72,19 @@ export const useQuizStore = defineStore('quiz', {
     },
 
     async submitQuizSheet() {
+      const sheetId = useRoute().params.sheetId as string
       const payload: SubmitQuizSheetRequest = {
-        sheetId: useRoute().params.sheetId as string,
+        sheetId,
       }
-      this.result = (await $fetch(QUIZ_ENDPOINT.submitQuiz.path, {
-        method: QUIZ_ENDPOINT.submitQuiz.method,
-        body: payload,
-      })) as SubmitQuizSheetResponse
+      // this.result = await $fetch(QUIZ_ENDPOINT.submitQuiz.path, {
+      //   method: QUIZ_ENDPOINT.submitQuiz.method,
+      //   body: payload,
+      // })
+      this.result = {
+        score: 10,
+        correctAnswers: 10,
+        sheetId,
+      }
     },
 
     goToQuestion(value: number) {

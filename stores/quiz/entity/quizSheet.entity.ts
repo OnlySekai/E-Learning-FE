@@ -13,7 +13,7 @@ export interface LeanerQuestionEntity {
   histories: AnswerHistoryEntity[]
   options?: string[]
   answers: string[]
-  rightAnswers?: string[]
+  rightAnswers: string[]
   correct: boolean
 }
 

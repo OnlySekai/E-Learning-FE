@@ -16,9 +16,14 @@
     <a-card class="-center">
       <a-checkbox-group
         class="checkbox-group"
-        v-model:value="selectedQuestion.answers"
+        v-model:value="chossenAnwser"
+        :disabled="readonly"
         :options="selectedQuestion.options"
-      />
+      >
+        <template #label="{ value }">
+          <span :class="{ '-error': isWrongAnswer(value) }">{{ value }}</span>
+        </template>
+      </a-checkbox-group>
       <template #actions>
         <a-typography-link key="back" @click="() => goToQuestion(-1)"
           >Câu trước</a-typography-link
@@ -38,16 +43,33 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
   readonly: Boolean,
 })
 const quizStore = useQuizStore()
 const selectedQuestion = computed(() => quizStore.currentQuestion)
 
+const chossenAnwser = computed(() =>
+  props.readonly
+    ? selectedQuestion.value.rightAnswers
+    : selectedQuestion.value.answers
+)
+
 const questionTittle = computed(() => `Câu hỏi ${quizStore.questionIndex}:`)
 
+const emit = defineEmits(['changePage'])
+
 function goToQuestion(offset: number) {
+  emit('changePage', questionTittle.value)
   quizStore.goToQuestion(quizStore.questionIndex + offset)
+}
+
+function isWrongAnswer(value: string) {
+  return (
+    props.readonly &&
+    !selectedQuestion.value.rightAnswers.includes(value) &&
+    selectedQuestion.value.answers.includes(value)
+  )
 }
 </script>
 
@@ -65,5 +87,8 @@ function goToQuestion(offset: number) {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+}
+.-error {
+  color: red;
 }
 </style>

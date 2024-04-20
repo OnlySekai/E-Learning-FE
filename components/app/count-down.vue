@@ -1,10 +1,10 @@
 <template>
-  <a-card title='Thời gian còn lại' class='count-down'>
-    <a-typography-text class='time'>{{ time }}</a-typography-text>
+  <a-card title="Thời gian còn lại" class="count-down">
+    <a-typography-text class="time">{{ time }}</a-typography-text>
   </a-card>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 export default defineComponent({
   props: {
     // Thời gian bắt đầu (timestamp)
@@ -62,6 +62,7 @@ export default defineComponent({
       clearInterval(this.interval!)
       this.isCounting = false
       // Emit sự kiện endCountDown
+      console.log('finish')
       this.$emit('finish')
     },
   },

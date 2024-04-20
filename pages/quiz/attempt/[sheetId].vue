@@ -5,8 +5,11 @@
     <a-breadcrumb-item>App</a-breadcrumb-item>
   </a-breadcrumb>
   <a-flex justify="center" gap="middle">
-    <DuringQuizInformation v-if="!readonly" />
-    <DuringQuizWorkingArea :readonly="readOnly" />
+    <DuringQuizInformation :readonly="readonly" />
+    <DuringQuizWorkingArea
+      :readonly="readonly"
+      @changePage="(value) => console.log(value)"
+    />
   </a-flex>
 </template>
 
@@ -28,5 +31,5 @@ await useAsyncData('get-quiz', () =>
     duration: 0,
   })
 
-const readOnly = computed(() => route.query.mode === VIEW_MODES.READ)
+const readonly = computed(() => route.query.mode === VIEW_MODES.READ)
 </script>
