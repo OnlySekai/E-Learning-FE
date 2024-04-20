@@ -1,10 +1,10 @@
 <template>
-  <a-card title='Thời gian còn lại' class='count-down'>
-    <a-typography-text class='time'>{{ time }}</a-typography-text>
+  <a-card title="Thời gian còn lại" class="count-down">
+    <a-typography-text class="time">{{ time }}</a-typography-text>
   </a-card>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 export default defineComponent({
   props: {
     // Thời gian bắt đầu (timestamp)
@@ -76,7 +76,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .count-down {
   text-align: center;
 
