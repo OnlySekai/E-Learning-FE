@@ -8,6 +8,7 @@ export interface AnswerHistoryEntity {
 }
 
 export interface LeanerQuestionEntity {
+  type: number
   question: string
   images: string[]
   histories: AnswerHistoryEntity[]
@@ -15,6 +16,7 @@ export interface LeanerQuestionEntity {
   answers: string[]
   rightAnswers: string[]
   correct: boolean
+  isRandom?: boolean
 }
 
 export interface QuizAnswerSheetEntity {

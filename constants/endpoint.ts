@@ -29,4 +29,8 @@ export const COURSE_ENDPOINT: Record<string, EndPointConfigEntity> = {
     path: `${API_URL}/course/{courseId}`,
     method: 'GET',
   },
+  submitTarget: {
+    path: `${API_URL}/course/{courseId}`,
+    method: 'POST',
+  },
 }

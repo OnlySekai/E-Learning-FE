@@ -76,7 +76,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .count-down {
   text-align: center;
 

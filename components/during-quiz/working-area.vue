@@ -1,6 +1,14 @@
 <template>
   <a-flex gap="middle" vertical class="working-area">
     <a-card class="question" :title="questionTittle">
+      <template #extra>
+        <a-checkbox
+          v-model:checked="selectedQuestion.isRandom"
+          v-if="props.readonly"
+        >
+          Đánh dấu là khoanh bừa
+        </a-checkbox>
+      </template>
       <a-typography-text class="question-content">
         {{ selectedQuestion?.question }}</a-typography-text
       >
@@ -15,6 +23,7 @@
     </a-card>
     <a-card class="-center">
       <a-checkbox-group
+        v-if="selectedQuestion.type === QUESTION_TYPE.MULTIPLE_CHOICE"
         class="checkbox-group"
         v-model:value="chossenAnwser"
         :disabled="readonly"
@@ -24,6 +33,28 @@
           <span :class="{ '-error': isWrongAnswer(value) }">{{ value }}</span>
         </template>
       </a-checkbox-group>
+      <div
+        class="write-input"
+        v-if="selectedQuestion.type === QUESTION_TYPE.WRITE_INPUT"
+      >
+        <a-input
+          v-model:value="chossenAnwser[0]"
+          show-count
+          :disabled="readonly"
+        >
+          <template #addonBefore>
+            <a-typography-text>Đáp án:</a-typography-text>
+          </template>
+        </a-input>
+        <a-typography-text
+          v-if="$props.readonly"
+          :type="
+            isWrongAnswer(selectedQuestion.answers[0]) ? 'danger' : 'success'
+          "
+          >Đáp án bạn chọn là
+          {{ selectedQuestion.answers[0] }}</a-typography-text
+        >
+      </div>
       <template #actions>
         <a-typography-link key="back" @click="() => goToQuestion(-1)"
           >Câu trước</a-typography-link
@@ -43,6 +74,7 @@
 </template>
 
 <script setup lang="ts">
+import { QUESTION_TYPE } from '~/constants/course'
 const props = defineProps({
   readonly: Boolean,
 })
@@ -60,8 +92,7 @@ const questionTittle = computed(() => `Câu hỏi ${quizStore.questionIndex}:`)
 const emit = defineEmits(['changePage'])
 
 function goToQuestion(offset: number) {
-  emit('changePage', questionTittle.value)
-  quizStore.goToQuestion(quizStore.questionIndex + offset)
+  quizStore.goToQuestion(quizStore.questionIndex + offset, !props.readonly)
 }
 
 function isWrongAnswer(value: string) {
@@ -90,5 +121,6 @@ function isWrongAnswer(value: string) {
 }
 .-error {
   color: red;
+  border-color: red;
 }
 </style>
