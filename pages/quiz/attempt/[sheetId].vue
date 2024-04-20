@@ -31,5 +31,7 @@ await useAsyncData('get-quiz', () =>
     duration: 0,
   })
 
-const readonly = computed(() => route.query.mode === VIEW_MODES.READ)
+const readonly = computed(
+  () => route.query.mode === VIEW_MODES.READ || !!quizStore.$state.submittedAt
+)
 </script>

@@ -25,7 +25,7 @@ export interface QuizAnswerSheetEntity {
   quizDuration: number
   fullName: String
   questions: LeanerQuestionEntity[]
-  submitted?: boolean
+  submittedAt?: Date
   score?: number
   createdAt?: Date
 }

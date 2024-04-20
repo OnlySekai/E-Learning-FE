@@ -9,6 +9,7 @@
           Đánh dấu là khoanh bừa
         </a-checkbox>
       </template>
+
       <a-typography-text class="question-content">
         {{ selectedQuestion?.question }}</a-typography-text
       >
@@ -25,7 +26,8 @@
       <a-checkbox-group
         v-if="selectedQuestion.type === QUESTION_TYPE.MULTIPLE_CHOICE"
         class="checkbox-group"
-        v-model:value="chossenAnwser"
+        :value="chossenAnwser"
+        @update:value="(value) => selectedQuestion.answers = value as string[]"
         :disabled="readonly"
         :options="selectedQuestion.options"
       >

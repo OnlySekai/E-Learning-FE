@@ -30,7 +30,7 @@ export const useQuizStore = defineStore('quiz', {
             QUIZ_ENDPOINT.getQuizSession.path.replace('{sessionId}', sheetId)
           )
 
-      const { questions, ...sheetInfo } = response as {
+      const { questions, submittedAt, ...sheetInfo } = response as {
         questions: any[]
         [key: string]: any
       }
@@ -56,7 +56,12 @@ export const useQuizStore = defineStore('quiz', {
         }
       )
       // set quiz sheet to the store
-      this.$patch({ ...sheetInfo, questions: mapQuestion, questionIndex: 1 })
+      this.$patch({
+        ...sheetInfo,
+        submittedAt: submittedAt ? new Date(submittedAt) : undefined,
+        questions: mapQuestion,
+        questionIndex: 1,
+      })
     },
 
     async submitAnswer(

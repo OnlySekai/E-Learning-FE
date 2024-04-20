@@ -47,7 +47,7 @@
         "chapter": 1,
         "level": 2,
         "config": {
-          "answers": [],
+          "answers": ["C"],
           "options": ["A", "B", "C", "D", "E", "F"],
           "componentScore": false
         }
@@ -582,6 +582,5 @@
   "createdAt": "2024-04-16T13:04:24.297Z",
   "updatedAt": "2024-04-20T13:09:25.114Z",
   "__v": 0,
-  "score": 0,
-  "submittedAt": "2024-04-19T10:44:23.170Z"
+  "score": 0
 }
