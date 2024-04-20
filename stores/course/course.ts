@@ -4,6 +4,7 @@ import type { CourseEntity } from './entities/course.entity'
 import course from '~/assets/mock/course.json'
 
 const isMock = useRuntimeConfig().public.mockEnable
+
 import type { targetEntity } from '~/stores/course/entities/target.entity'
 
 export const useCourseStore = defineStore('course', {
@@ -22,14 +23,17 @@ export const useCourseStore = defineStore('course', {
           )
       this.$patch(response as CourseEntity)
     },
-    async submitTarget(target: targetEntity) {
-      const response = await $fetch(COURSE_ENDPOINT.getCourseById.path.replace('{courseId}', COURSE_ID),
-        {
-          method: COURSE_ENDPOINT.submitTarget.method,
-          body: JSON.stringify(target),
-        },
-      )
-      console.log(response)
+    async submitTarget(target: targetEntity): Promise<string> {
+      const response = isMock
+        ? '123'
+        : await $fetch(
+            COURSE_ENDPOINT.getCourseById.path.replace('{courseId}', COURSE_ID),
+            {
+              method: COURSE_ENDPOINT.submitTarget.method,
+              body: JSON.stringify(target),
+            }
+          )
+      return response as string
     },
   },
 })

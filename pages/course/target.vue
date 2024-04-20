@@ -17,8 +17,8 @@
           </label>
           <a-select
             v-if="item.type === 'select'"
-            :options="item.config.options"
             v-model:value="data[item.id]"
+            :options="item.config.options as DefaultOptionType[]"
           >
           </a-select>
           <a-input-number
@@ -67,6 +67,8 @@
   </div>
 </template>
 <script setup lang="ts">
+import type { DefaultOptionType } from 'ant-design-vue/es/select'
+
 definePageMeta({
   layout: 'course',
 })
@@ -165,25 +167,25 @@ interface dataType {
 }
 
 const data = reactive<dataType>({
-  score: null,
-  period: null,
-  remainDays: null,
-  studiedChapter: null,
+  score: 0,
+  period: 0,
+  remainDays: 0,
+  studiedChapter: '',
 })
 
-function onSubmit() {
+async function onSubmit() {
   if (!data.score || !data.period || !data.remainDays || !data.studiedChapter) {
     message.error('Vui lòng nhập đầy đủ thông tin')
     return
-  } else {
-    const target = {
-      score: data.score,
-      period: data.period,
-      remainDays: data.remainDays,
-      studiedChapter: data.studiedChapter.split(' ').map(Number),
-    }
-    useCourseStore().submitTarget(target)
   }
+  const target = {
+    score: data.score,
+    period: data.period,
+    remainDays: data.remainDays,
+    studiedChapter: data.studiedChapter?.split(' ').map(Number),
+  }
+  const sheetId = await useCourseStore().submitTarget(target)
+  useRouter().push(`/quiz/attempt/${sheetId}`)
 }
 </script>
 <style scoped lang="scss">

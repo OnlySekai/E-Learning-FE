@@ -16,7 +16,7 @@ export const useQuizStore = defineStore('quiz', {
     fullName: '',
     questionIndex: 1,
   }),
-  getters: {  
+  getters: {
     currentQuestion(state): LeanerQuestionEntity {
       return state.questions[this.questionIndex - 1]
     },
@@ -39,10 +39,12 @@ export const useQuizStore = defineStore('quiz', {
           const {
             question,
             images,
+            type,
             config: { options, answers = [] },
           } = questionConfig
           const currentAnswers = histories.at(-1)?.answers || []
           return {
+            type,
             question,
             images,
             options,
@@ -87,8 +89,12 @@ export const useQuizStore = defineStore('quiz', {
       }
     },
 
-    goToQuestion(value: number) {
+    goToQuestion(value: number, isCreateHistory = true) {
       if (value < 1 || value > this.questions.length) return
+      if (!isCreateHistory) {
+        //TODO: mark as random
+        this.questionIndex = value
+      }
       const currentHistory = this.currentQuestion.histories.at(-1)!
       currentHistory.duration = Date.now() - currentHistory.start.valueOf()
       currentHistory.answers = [...this.currentQuestion.answers]

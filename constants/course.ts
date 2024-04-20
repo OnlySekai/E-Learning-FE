@@ -4,3 +4,8 @@ export const VIEW_MODES = {
   READ: 'read',
   EDIT: 'edit',
 }
+
+export const QUESTION_TYPE = {
+  MULTIPLE_CHOICE: 0,
+  WRITE_INPUT: 1,
+}

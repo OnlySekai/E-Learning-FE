@@ -6,7 +6,7 @@
     {
       "question": {
         "_id": "661a3142e76300e76fdb0909",
-        "type": 0,
+        "type": 1,
         "question": "",
         "images": [
           "https://drive.google.com/file/d/1v_unA0ySwL9LolDnCLiMBmnE4hJpdroK/view?usp=drive_link"
@@ -17,14 +17,14 @@
         "chapter": 1,
         "level": 1,
         "config": {
-          "answers": ["A", "B"],
+          "answers": ["A"],
           "options": ["A", "B", "C", "D", "E", "F"],
           "componentScore": false
         }
       },
       "histories": [
         {
-          "answers": ["C"],
+          "answers": ["A"],
           "duration": 0,
           "correct": false,
           "_id": "6623be85a99891a992d0cef2"
