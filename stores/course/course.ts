@@ -1,4 +1,4 @@
-import { COURSE_ENDPOINT } from '~/constants/endpoint'
+import { COURSE_ENDPOINT, QUIZ_ENDPOINT } from '~/constants/endpoint'
 import { COURSE_ID } from '~/constants/course'
 import type { CourseEntity } from './entities/course.entity'
 import course from '~/assets/mock/course.json'
@@ -25,15 +25,11 @@ export const useCourseStore = defineStore('course', {
     },
     async submitTarget(target: targetEntity): Promise<string> {
       const response = isMock
-        ? '123'
-        : await $fetch(
-            COURSE_ENDPOINT.getCourseById.path.replace('{courseId}', COURSE_ID),
-            {
-              method: COURSE_ENDPOINT.submitTarget.method,
-              body: JSON.stringify(target),
-            }
-          )
-      return response as string
+        ? { sheetId: '123' }
+        : ((await $fetch(QUIZ_ENDPOINT.joinQuiz.path, {
+            method: QUIZ_ENDPOINT.joinQuiz.method,
+          })) as { sheetId: string })
+      return response.sheetId
     },
   },
 })

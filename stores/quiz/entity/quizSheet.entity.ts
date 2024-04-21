@@ -17,6 +17,7 @@ export interface LeanerQuestionEntity {
   rightAnswers: string[]
   correct: boolean
   isRandom?: boolean
+  isWeak?: boolean
 }
 
 export interface QuizAnswerSheetEntity {

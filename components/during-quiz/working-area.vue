@@ -2,12 +2,10 @@
   <a-flex gap="middle" vertical class="working-area">
     <a-card class="question" :title="questionTittle">
       <template #extra>
-        <a-checkbox
-          v-model:checked="selectedQuestion.isRandom"
-          v-if="props.readonly"
-        >
-          Đánh dấu là khoanh bừa
-        </a-checkbox>
+        <a-button @click="openModalReportQuestion">
+          <alert-filled />
+          Báo cáo sai đề
+        </a-button>
       </template>
 
       <a-typography-text class="question-content">
@@ -27,7 +25,7 @@
         v-if="selectedQuestion.type === QUESTION_TYPE.MULTIPLE_CHOICE"
         class="checkbox-group"
         :value="chossenAnwser"
-        @update:value="(value) => selectedQuestion.answers = value as string[]"
+        @update:value="(value) => (selectedQuestion.answers = value)"
         :disabled="readonly"
         :options="selectedQuestion.options"
       >
@@ -66,9 +64,19 @@
         >
       </template>
     </a-card>
+
+    <a-card title="Khảo sát" v-if="$props.readonly">
+      <a-checkbox v-model:checked="selectedQuestion.isRandom">
+        Bạn có khoanh bừa câu hỏi này không?
+      </a-checkbox>
+      <a-checkbox v-model:checked="selectedQuestion.isWeak">
+        Bạn có thấy mình yếu câu này không?
+      </a-checkbox>
+    </a-card>
     <a-pagination
       class="-center"
-      v-model:current="quizStore.questionIndex"
+      :current="quizStore.questionIndex"
+      @change="(page) => quizStore.goToQuestion(page, !props.readonly)"
       show-quick-jumper
       :total="quizStore.questions.length * 10"
     />

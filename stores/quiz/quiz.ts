@@ -83,22 +83,17 @@ export const useQuizStore = defineStore('quiz', {
       const payload: SubmitQuizSheetRequest = {
         sheetId,
       }
-      // this.result = await $fetch(QUIZ_ENDPOINT.submitQuiz.path, {
-      //   method: QUIZ_ENDPOINT.submitQuiz.method,
-      //   body: payload,
-      // })
-      this.result = {
-        score: 10,
-        correctAnswers: 10,
-        sheetId,
-      }
+      this.result = await $fetch(QUIZ_ENDPOINT.submitQuiz.path, {
+        method: QUIZ_ENDPOINT.submitQuiz.method,
+        body: payload,
+      })
     },
 
     goToQuestion(value: number, isCreateHistory = true) {
       if (value < 1 || value > this.questions.length) return
       if (!isCreateHistory) {
-        //TODO: mark as random
         this.questionIndex = value
+        return
       }
       const currentHistory = this.currentQuestion.histories.at(-1)!
       currentHistory.duration = Date.now() - currentHistory.start.valueOf()
