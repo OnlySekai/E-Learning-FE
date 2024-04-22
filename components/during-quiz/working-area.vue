@@ -11,6 +11,9 @@
       <a-typography-text class="question-content">
         {{ selectedQuestion?.question }}</a-typography-text
       >
+      <a-typography-text>
+        {{ selectedQuestion.note }}
+      </a-typography-text>
       <div class="list-image-wrapper">
         <app-image
           v-for="link in selectedQuestion.images"
@@ -25,7 +28,7 @@
         v-if="selectedQuestion.type === QUESTION_TYPE.MULTIPLE_CHOICE"
         class="checkbox-group"
         :value="chossenAnwser"
-        @update:value="(value) => (selectedQuestion.answers = value)"
+        @update:value="(value) => (selectedQuestion.answers = value as string[])"
         :disabled="readonly"
         :options="selectedQuestion.options"
       >
@@ -33,6 +36,7 @@
           <span :class="{ '-error': isWrongAnswer(value) }">{{ value }}</span>
         </template>
       </a-checkbox-group>
+
       <div
         class="write-input"
         v-if="selectedQuestion.type === QUESTION_TYPE.WRITE_INPUT"
@@ -46,15 +50,16 @@
             <a-typography-text>Đáp án:</a-typography-text>
           </template>
         </a-input>
-        <a-typography-text
-          v-if="$props.readonly"
-          :type="
-            isWrongAnswer(selectedQuestion.answers[0]) ? 'danger' : 'success'
-          "
-          >Đáp án bạn chọn là
-          {{ selectedQuestion.answers[0] }}</a-typography-text
-        >
       </div>
+      <a-typography-text
+        v-if="$props.readonly"
+        :type="getIsWrongQuestion ? 'danger' : 'success'"
+      >
+        <CloseCircleOutlined v-if="getIsWrongQuestion" />
+        <CheckCircleOutlined v-else />
+        Đáp án bạn chọn là
+        {{ selectedQuestion.answers.join(',') }}</a-typography-text
+      >
       <template #actions>
         <a-typography-link key="back" @click="() => goToQuestion(-1)"
           >Câu trước</a-typography-link
@@ -85,6 +90,7 @@
 
 <script setup lang="ts">
 import { QUESTION_TYPE } from '~/constants/course'
+import { compareTwoArray } from '~/utils'
 const props = defineProps({
   readonly: Boolean,
 })
@@ -98,6 +104,12 @@ const chossenAnwser = computed(() =>
 )
 
 const questionTittle = computed(() => `Câu hỏi ${quizStore.questionIndex}:`)
+const getIsWrongQuestion = computed(() => {
+  const type = quizStore.currentQuestion.type
+  return type
+    ? isChooseWrongMultiple()
+    : isWrongAnswer(selectedQuestion.value.answers[0])
+})
 
 const emit = defineEmits(['changePage'])
 
@@ -110,6 +122,15 @@ function isWrongAnswer(value: string) {
     props.readonly &&
     !selectedQuestion.value.rightAnswers.includes(value) &&
     selectedQuestion.value.answers.includes(value)
+  )
+}
+
+function isChooseWrongMultiple() {
+  selectedQuestion.value.answers.sort()
+  selectedQuestion.value.rightAnswers.sort()
+  return !compareTwoArray(
+    selectedQuestion.value.answers,
+    selectedQuestion.value.rightAnswers
   )
 }
 </script>

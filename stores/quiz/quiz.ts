@@ -41,9 +41,11 @@ export const useQuizStore = defineStore('quiz', {
             images,
             type,
             config: { options, answers = [] },
+            note,
           } = questionConfig
           const currentAnswers = histories.at(-1)?.answers || []
           return {
+            note,
             type,
             question,
             images,
@@ -68,6 +70,7 @@ export const useQuizStore = defineStore('quiz', {
       questionIdx: number,
       payload: Omit<SubmitAnswerRequest, 'sheetId' | 'questionIdx'>
     ) {
+      if (isMock) return
       await $fetch(QUIZ_ENDPOINT.submitAnswer.path, {
         method: QUIZ_ENDPOINT.submitAnswer.method,
         body: {
@@ -83,10 +86,18 @@ export const useQuizStore = defineStore('quiz', {
       const payload: SubmitQuizSheetRequest = {
         sheetId,
       }
-      this.result = await $fetch(QUIZ_ENDPOINT.submitQuiz.path, {
-        method: QUIZ_ENDPOINT.submitQuiz.method,
-        body: payload,
-      })
+
+      this.result = isMock
+        ? {
+            score: 100,
+            correctAnswers: 10,
+            sheetId: sheetId,
+            submittedAt: new Date(),
+          }
+        : await $fetch(QUIZ_ENDPOINT.submitQuiz.path, {
+            method: QUIZ_ENDPOINT.submitQuiz.method,
+            body: payload,
+          })
     },
 
     goToQuestion(value: number, isCreateHistory = true) {

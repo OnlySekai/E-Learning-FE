@@ -8,6 +8,7 @@ export interface AnswerHistoryEntity {
 }
 
 export interface LeanerQuestionEntity {
+  note: string
   type: number
   question: string
   images: string[]
