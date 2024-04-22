@@ -1,9 +1,11 @@
-import { QUIZ_ENDPOINT } from '~/constants/endpoint'
+import { QUIZ_ENDPOINT, REPORT_ENDPOINT } from '~/constants/endpoint'
 import type { SubmitQuizSheetRequest } from './dto/submitQuizSheet.request'
 import type { LeanerQuestionEntity } from './entity/quizSheet.entity'
 import type { QuizStateEntity } from './entity/state.entity'
 
 import quiz from '~/assets/mock/quiz.json'
+import type { SubmitSurveryRequest } from './dto/submitSurvey.request'
+import type { ReportQuestionRequest } from './dto/reportQuestion.request'
 
 const isMock = useRuntimeConfig().public.mockEnable
 
@@ -35,9 +37,10 @@ export const useQuizStore = defineStore('quiz', {
         [key: string]: any
       }
       const mapQuestion: LeanerQuestionEntity[] = questions.map(
-        ({ question: questionConfig, histories }) => {
+        ({ question: questionConfig, histories, isRandom, isWeak }) => {
           const {
             question,
+            _id,
             images,
             type,
             config: { options, answers = [] },
@@ -47,6 +50,7 @@ export const useQuizStore = defineStore('quiz', {
           return {
             note,
             type,
+            questionId: _id,
             question,
             images,
             options,
@@ -54,6 +58,8 @@ export const useQuizStore = defineStore('quiz', {
             answers: [...currentAnswers],
             rightAnswers: answers,
             correct: false,
+            isRandom,
+            isWeak,
           }
         }
       )
@@ -71,13 +77,36 @@ export const useQuizStore = defineStore('quiz', {
       payload: Omit<SubmitAnswerRequest, 'sheetId' | 'questionIdx'>
     ) {
       if (isMock) return
-      await $fetch(QUIZ_ENDPOINT.submitAnswer.path, {
-        method: QUIZ_ENDPOINT.submitAnswer.method,
-        body: {
-          ...payload,
-          sheetId: useRoute().params.sheetId,
-          questionIdx: questionIdx - 1,
-        },
+      try {
+        await $fetch(QUIZ_ENDPOINT.submitAnswer.path, {
+          method: QUIZ_ENDPOINT.submitAnswer.method,
+          body: {
+            ...payload,
+            sheetId: useRoute().params.sheetId,
+            questionIdx: questionIdx - 1,
+          },
+        })
+        message.success(`Submit question ${questionIdx} successfully`)
+      } catch (error) {
+        message.error(`Submit question ${questionIdx} failed`)
+      }
+    },
+
+    async submitAnswerSurvey(payload: SubmitSurveryRequest) {
+      await $fetch(QUIZ_ENDPOINT.submitSurvey.path, {
+        method: QUIZ_ENDPOINT.submitSurvey.method,
+        body: payload,
+      })
+    },
+
+    async reportQuestion(message: string) {
+      const payload: ReportQuestionRequest = {
+        questionId: this.currentQuestion.questionId,
+        message,
+      }
+      await $fetch(REPORT_ENDPOINT.reportQuestion.path, {
+        method: REPORT_ENDPOINT.reportQuestion.method,
+        body: payload,
       })
     },
 
@@ -103,6 +132,13 @@ export const useQuizStore = defineStore('quiz', {
     goToQuestion(value: number, isCreateHistory = true) {
       if (value < 1 || value > this.questions.length) return
       if (!isCreateHistory) {
+        const payload: SubmitSurveryRequest = {
+          sheetId: useRoute().params.sheetId as string,
+          questionIdx: this.questionIndex - 1,
+          isRandom: this.currentQuestion.isRandom,
+          isWeak: this.currentQuestion.isWeak,
+        }
+        this.submitAnswerSurvey(payload).catch(console.error)
         this.questionIndex = value
         return
       }

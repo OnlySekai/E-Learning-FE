@@ -22,6 +22,17 @@ export const QUIZ_ENDPOINT: Record<string, EndPointConfigEntity> = {
     path: `${API_URL}/quiz/{sessionId}`,
     method: 'GET',
   },
+  submitSurvey: {
+    path: `${API_URL}/quiz/survey`,
+    method: 'PATCH',
+  },
+}
+
+export const REPORT_ENDPOINT: Record<string, EndPointConfigEntity> = {
+  reportQuestion: {
+    path: `${API_URL}/report`,
+    method: 'POST',
+  },
 }
 
 export const COURSE_ENDPOINT: Record<string, EndPointConfigEntity> = {

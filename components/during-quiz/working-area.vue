@@ -107,8 +107,8 @@ const questionTittle = computed(() => `Câu hỏi ${quizStore.questionIndex}:`)
 const getIsWrongQuestion = computed(() => {
   const type = quizStore.currentQuestion.type
   return type
-    ? isChooseWrongMultiple()
-    : isWrongAnswer(selectedQuestion.value.answers[0])
+    ? isWrongAnswer(selectedQuestion.value.answers[0])
+    : isChooseWrongMultiple()
 })
 
 const emit = defineEmits(['changePage'])

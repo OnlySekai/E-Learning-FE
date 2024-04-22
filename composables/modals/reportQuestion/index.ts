@@ -1,7 +1,9 @@
+import { useQuizStore } from '#imports'
 import { Input } from 'ant-design-vue'
 
 export const openModalReportQuestion = () => {
   let reason = ''
+  const quizStore = useQuizStore()
   return Modal.confirm({
     title: 'Báo cáo câu hỏi',
     content: h(Input, {
@@ -13,9 +15,11 @@ export const openModalReportQuestion = () => {
     cancelText: 'Hủy',
     onOk: async () => {
       try {
-        console.log(reason)
+        await quizStore.reportQuestion(reason)
+        message.success('Báo cáo thành công')
       } catch (error) {
-        window.alert('Có lỗi xảy ra, vui lòng thử lại sau')
+        console.error(error)
+        message.error('Báo cáo thất bại')
       }
     },
   })
