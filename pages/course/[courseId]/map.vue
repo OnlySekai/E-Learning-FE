@@ -1,8 +1,13 @@
 <template>
   <a-layout>
-    <a-layout-sider>
-      <a-card title="Lộ trình học">
-        <app-calendar> </app-calendar>
+    <a-layout-sider
+      reverseArrow
+      breakpoint="lg"
+      collapsedWidth="0"
+      class="layout-sider"
+    >
+      <a-card>
+        <app-calendar class="calendar" </app-calendar>
         <a-tree :tree-data="treeData"> </a-tree>
       </a-card>
     </a-layout-sider>
@@ -50,11 +55,14 @@
 <script lang="ts" setup>
 import { BookOutlined } from '@ant-design/icons-vue'
 import type { TreeDataItem } from 'ant-design-vue/es/tree'
+import { useStudyMapStore } from '~/stores/map'
 
 definePageMeta({
   layout: 'logined',
 })
-
+const studyMapStore = useStudyMapStore()
+// const remainDays = studyMapStore.$state.remainDays/
+await useAsyncData('get-study-map', () => studyMapStore.fetchStudyMap())
 const treeData: TreeDataItem[] = [
   {
     title: 'parent 1',
@@ -80,3 +88,9 @@ const treeData: TreeDataItem[] = [
   },
 ]
 </script>
+
+<style lang="scss" scoped>
+.ant-layout-sider:not(.ant-layout-sider-collapsed) {
+  min-width: 320px !important;
+}
+</style>

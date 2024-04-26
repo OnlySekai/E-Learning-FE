@@ -116,7 +116,7 @@ export const useQuizStore = defineStore('quiz', {
         sheetId,
       }
 
-      this.result = isMock
+      const result: SubmitQuizSheetResponse = isMock
         ? {
             score: 100,
             correctAnswers: 10,
@@ -127,6 +127,7 @@ export const useQuizStore = defineStore('quiz', {
             method: QUIZ_ENDPOINT.submitQuiz.method,
             body: payload,
           })
+      this.$patch({ result })
     },
 
     goToQuestion(value: number, isCreateHistory = true) {

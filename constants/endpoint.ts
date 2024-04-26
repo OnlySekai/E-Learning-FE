@@ -45,3 +45,5 @@ export const COURSE_ENDPOINT: Record<string, EndPointConfigEntity> = {
     method: 'POST',
   },
 }
+
+export const USER_ENDPOINT: Record<string, EndPointConfigEntity> = {}

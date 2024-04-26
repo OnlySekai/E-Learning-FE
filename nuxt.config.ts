@@ -10,7 +10,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  modules: ['@ant-design-vue/nuxt', '@pinia/nuxt'],
+  modules: ['@ant-design-vue/nuxt', '@pinia/nuxt', 'dayjs-nuxt'],
   imports: {
     dirs: [
       // Scan top-level modules

@@ -1022,7 +1022,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxt/kit@npm:3.11.2, @nuxt/kit@npm:^3.11.1, @nuxt/kit@npm:^3.11.2, @nuxt/kit@npm:^3.5.0, @nuxt/kit@npm:^3.8.1":
+"@nuxt/kit@npm:3.11.2, @nuxt/kit@npm:^3.11.1, @nuxt/kit@npm:^3.11.2, @nuxt/kit@npm:^3.5.0, @nuxt/kit@npm:^3.7.4, @nuxt/kit@npm:^3.8.1":
   version: 3.11.2
   resolution: "@nuxt/kit@npm:3.11.2"
   dependencies:
@@ -3125,7 +3125,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.10.5":
+"dayjs-nuxt@npm:^2.1.9":
+  version: 2.1.9
+  resolution: "dayjs-nuxt@npm:2.1.9"
+  dependencies:
+    "@nuxt/kit": "npm:^3.7.4"
+    dayjs: "npm:^1.11.10"
+  checksum: 10/e49872330ae54028f2dbf5939e16b0655b2af7b3dd56336745158f0668c8bb939e5ef0bea84a7f5346ede0f08b3408916cd2a31ac64327e5e65fa3311e7aa6ec
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.10.5, dayjs@npm:^1.11.10":
   version: 1.11.10
   resolution: "dayjs@npm:1.11.10"
   checksum: 10/27e8f5bc01c0a76f36c656e62ab7f08c2e7b040b09e613cd4844abf03fb258e0350f0a83b02c887b84d771c1f11e092deda0beef8c6df2a1afbc3f6c1fade279
@@ -5471,6 +5481,8 @@ __metadata:
     "@pinia/nuxt": "npm:^0.5.1"
     "@types/moment": "npm:^2.13.0"
     ant-design-vue: "npm:^4.1.2"
+    dayjs: "npm:^1.11.10"
+    dayjs-nuxt: "npm:^2.1.9"
     moment: "npm:^2.30.1"
     nuxt: "npm:^3.10.0"
     sass: "npm:^1.69.5"

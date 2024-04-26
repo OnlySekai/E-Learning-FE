@@ -1,15 +1,18 @@
 <template>
-  <div style="width: 300px; border: 1px solid #d9d9d9; border-radius: 4px">
+  <div style="width: 270px; border: 1px solid #d9d9d9; border-radius: 4px">
     <a-calendar
       v-model:value="value"
       :fullscreen="false"
-      @panelChange="onPanelChange"
+      @panelChange="onPanelChange!"
+      @select=""
     >
-      <template #headerRender="{ value, type, onChange, onTypeChange }">
+      <template
+        #headerRender="{ value: current, type, onChange, onTypeChange }"
+      >
         <div style="padding: 10px">
-          <div style="margin-bottom: 10px">
-            Còn lại <span style="color: red">{{ remainDay }}</span> ngày
-          </div>
+          <a-typography-title :level="3"
+            >Còn lại {{ remainDays || 0 }} ngày</a-typography-title
+          >
           <a-row type="flex" justify="space-between">
             <a-col>
               <a-radio-group
@@ -26,15 +29,15 @@
                 size="small"
                 :dropdown-match-select-width="false"
                 class="my-year-select"
-                :value="String(value.year())"
+                :value="String(current.year())"
                 @change="
                   (newYear) => {
-                    onChange(value.clone().year(newYear))
+                    onChange(current.year(+newYear!))
                   }
                 "
               >
                 <a-select-option
-                  v-for="val in getYears(value)"
+                  v-for="val in getYears(current)"
                   :key="String(val)"
                   class="year-item"
                 >
@@ -46,15 +49,15 @@
               <a-select
                 size="small"
                 :dropdown-match-select-width="false"
-                :value="String(value.month())"
+                :value="String(current.month())"
                 @change="
                   (selectedMonth) => {
-                    onChange(value.clone().month(parseInt(selectedMonth, 10)))
+                    onChange(current.month(parseInt(String(selectedMonth), 10)))
                   }
                 "
               >
                 <a-select-option
-                  v-for="(val, index) in getMonths(value)"
+                  v-for="(val, index) in getMonths(current)"
                   :key="String(index)"
                   class="month-item"
                 >
@@ -65,31 +68,67 @@
           </a-row>
         </div>
       </template>
+      <template #dateFullCellRender="{ current }">
+        <a-popover title="Title" v-if="getStudyNotif(current)">
+          <template #content>
+            <p>{{ getStudyNotif(current)?.message }}</p>
+          </template>
+          <a-typography-text
+            :disabled="!isSameMonth(current)"
+            :strong="isSameDay(current, today)"
+            :underline="isSameDay(value, current)"
+            type="danger"
+            >{{ current.date() }}</a-typography-text
+          >
+        </a-popover>
+        <a-typography-text
+          v-else
+          :disabled="!isSameMonth(current)"
+          :strong="isSameDay(current, today)"
+          :underline="isSameDay(value, current)"
+          >{{ current.date() }}</a-typography-text
+        >
+      </template>
     </a-calendar>
   </div>
 </template>
 <script lang="ts" setup>
-import type { Moment } from 'moment'
+import { ref } from 'vue'
+import dayjs from 'dayjs'
+import type { Dayjs } from 'dayjs'
+const today = dayjs()
+const studyMapStore = useStudyMapStore()
+const { remainDays, calendar } = studyMapStore.$state
 
-const remainDay = 10
-const value = ref<Moment>()
+const value = ref<Dayjs>(today)
+function getStudyNotif(value: Dayjs): CaLendarStudyEntity | undefined {
+  const dateString = value.format('YYYY-MM-DD')
+  if (!calendar) return
+  return calendar[dateString]
+}
 
-const onPanelChange = (value: Moment, mode: string) => {
+function isSameMonth(day: Dayjs): boolean {
+  return day.month() === value.value?.month()
+}
+
+function isSameDay(day1: Dayjs, day2: Dayjs): boolean {
+  return day1.isSame(day2, 'date')
+}
+
+const onPanelChange = (value: Dayjs, mode: string) => {
   console.log(value, mode)
 }
 
-const getMonths = (value: Moment) => {
-  const current = value.clone()
+const getMonths = (value: Dayjs) => {
   const localeData = value.localeData()
   const months = []
   for (let i = 0; i < 12; i++) {
-    current.month(i)
-    months.push(localeData.monthsShort(current))
+    months.push(localeData.monthsShort(value.month(i)))
   }
   return months
 }
 
-const getYears = (value: Moment) => {
+const getYears = (value: Dayjs) => {
   const year = value.year()
   const years = []
   for (let i = year - 10; i < year + 10; i += 1) {

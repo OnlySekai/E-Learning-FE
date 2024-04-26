@@ -18,6 +18,6 @@
 
 <script lang="ts" setup>
 const quizStore = useQuizStore()
-const { correctAnswers, score } = quizStore.result || {}
+const { correctAnswers, score } = quizStore.$state.result || {}
 const numberQuestions = quizStore.questions.length
 </script>
