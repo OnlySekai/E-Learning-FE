@@ -37,7 +37,13 @@ export const useQuizStore = defineStore('quiz', {
         [key: string]: any
       }
       const mapQuestion: LeanerQuestionEntity[] = questions.map(
-        ({ question: questionConfig, histories, isRandom, isWeak }) => {
+        ({
+          question: questionConfig,
+          histories,
+          isRandom,
+          isWeak,
+          correct,
+        }) => {
           const {
             question,
             _id,
@@ -57,7 +63,7 @@ export const useQuizStore = defineStore('quiz', {
             histories: histories || [],
             answers: [...currentAnswers],
             rightAnswers: answers,
-            correct: false,
+            correct,
             isRandom,
             isWeak,
           }

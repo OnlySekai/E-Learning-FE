@@ -117,10 +117,7 @@ const chossenAnwser = computed(() =>
 
 const questionTittle = computed(() => `Câu hỏi ${quizStore.questionIndex}:`)
 const getIsWrongQuestion = computed(() => {
-  const type = quizStore.currentQuestion.type
-  return type
-    ? isWrongAnswer(selectedQuestion.value.answers[0])
-    : isChooseWrongMultiple()
+  return !quizStore.currentQuestion.correct
 })
 
 const emit = defineEmits(['changePage'])
@@ -165,9 +162,5 @@ function isChooseWrongMultiple() {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-}
-.-error {
-  color: red;
-  border-color: red;
 }
 </style>
