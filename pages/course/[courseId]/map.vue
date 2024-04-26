@@ -6,14 +6,17 @@
       collapsedWidth="0"
       class="layout-sider"
     >
-      <a-card>
+      <a-card >
+        <a-typography-title :level="3">
+            <CalendarOutlined />Lộ trình học </a-typography-title>
+        <a-flex vertical gap="large">
         <app-calendar class="calendar" </app-calendar>
-        <a-tree :tree-data="treeData"> </a-tree>
+        <a-tree :tree-data="treeData" @select="console.log"> </a-tree>
+      </a-flex>
       </a-card>
     </a-layout-sider>
     <a-layout-content>
-      <CourseMapChapter chapterName="Chương 1" figureName="Dang 1" />
-      <CourseMapChapter chapterName="Chương 2" figureName="Hình 2.1" />
+      <CourseMapChapter v-for="(item, index) in mapContent" :chapter-name="item.chapterName" :figure-name="item.figureName" :key="index" />
     </a-layout-content>
     <a-layout-sider>
       <a-card>
@@ -54,39 +57,43 @@
 
 <script lang="ts" setup>
 import { BookOutlined } from '@ant-design/icons-vue'
-import type { TreeDataItem } from 'ant-design-vue/es/tree'
+import type { DataNode, TreeDataItem } from 'ant-design-vue/es/tree'
 import { useStudyMapStore } from '~/stores/map'
 
 definePageMeta({
   layout: 'logined',
 })
 const studyMapStore = useStudyMapStore()
-// const remainDays = studyMapStore.$state.remainDays/
 await useAsyncData('get-study-map', () => studyMapStore.fetchStudyMap())
-const treeData: TreeDataItem[] = [
-  {
-    title: 'parent 1',
-    key: '0-0',
-    children: [
-      {
-        title: 'parent 1-0',
-        key: '0-0-0',
-        children: [
-          { title: 'leaf', key: '0-0-0-0' },
-          { title: 'leaf', key: '0-0-0-1' },
-        ],
-      },
-      {
-        title: 'parent 1-1',
-        key: '0-0-1',
-        children: [
-          { title: 'leaf', key: '0-0-1-0' },
-          { title: 'leaf', key: '0-0-1-1' },
-        ],
-      },
-    ],
-  },
-]
+const {chapters =[]} = studyMapStore.$state
+const treeData = computed(():TreeDataItem[] => {
+  return chapters.map((chapter):DataNode  => {
+    const {chapterNumber, chapterName, figures} = chapter
+    return {
+      key: `${chapterNumber}`,
+      title: `Chương ${chapterNumber}: ${chapterName}`,
+      children: figures.map((figure):DataNode => {
+        const {figureNumber, figureName} = figure
+        return {
+          key: `${chapterNumber}-${figureNumber}`,
+          title: `Dạng ${figureNumber}: ${figureName}`,
+        }
+      }),
+    }
+  })
+})
+
+const mapContent = computed(() => {
+  const mapStudyConfig: {figureName: string; chapterName: string}[] = []
+  chapters.forEach((chapter) => {
+    const {chapterName, figures,chapterNumber} = chapter
+    figures.forEach((figure) => {
+      const {figureName, figureNumber} = figure
+      mapStudyConfig.push({figureName: `Dạng ${figureNumber} ${figureName}`, chapterName: ` Chương ${chapterNumber}: ${chapterName}`})
+    })
+  })
+  return mapStudyConfig
+})
 </script>
 
 <style lang="scss" scoped>

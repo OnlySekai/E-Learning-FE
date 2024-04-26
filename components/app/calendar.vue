@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 270px; border: 1px solid #d9d9d9; border-radius: 4px">
+  <div style="width: 270px">
     <a-calendar
       v-model:value="value"
       :fullscreen="false"

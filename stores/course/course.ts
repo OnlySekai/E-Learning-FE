@@ -28,7 +28,9 @@ export const useCourseStore = defineStore('course', {
         ? { sheetId: '123' }
         : ((await $fetch(QUIZ_ENDPOINT.joinQuiz.path, {
             method: QUIZ_ENDPOINT.joinQuiz.method,
+            body: target,
           })) as { sheetId: string })
+      console.log(target)
       return response.sheetId
     },
   },

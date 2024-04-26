@@ -33,7 +33,16 @@
         :options="selectedQuestion.options"
       >
         <template #label="{ value }">
-          <span :class="{ '-error': isWrongAnswer(value) }">{{ value }}</span>
+          <a-typography-text
+            :type="
+              isTrueAnswer(value)
+                ? 'success'
+                : isWrongAnswer(value)
+                ? 'danger'
+                : undefined
+            "
+            >{{ value }}</a-typography-text
+          >
         </template>
       </a-checkbox-group>
 
@@ -63,6 +72,9 @@
       <template #actions>
         <a-typography-link key="back" @click="() => goToQuestion(-1)"
           >Câu trước</a-typography-link
+        >
+        <a-typography-link key="back" @click="() => goToQuestion(0)"
+          >Lưu đáp án</a-typography-link
         >
         <a-typography-link key="next" @click="() => goToQuestion(1)"
           >Câu tiếp theo</a-typography-link
@@ -123,6 +135,10 @@ function isWrongAnswer(value: string) {
     !selectedQuestion.value.rightAnswers.includes(value) &&
     selectedQuestion.value.answers.includes(value)
   )
+}
+
+function isTrueAnswer(value: string) {
+  return props.readonly && selectedQuestion.value.rightAnswers.includes(value)
 }
 
 function isChooseWrongMultiple() {

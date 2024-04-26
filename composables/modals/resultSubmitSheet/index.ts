@@ -5,6 +5,7 @@ import { VIEW_MODES } from '~/constants/course'
 
 export const openResultSubmitSheet = () => {
   const router = useRouter()
+  const quizStore = useQuizStore()
   return Modal.confirm({
     title: 'Kết quả bài thi',
     width: 600,
@@ -12,8 +13,9 @@ export const openResultSubmitSheet = () => {
     content: h(ModalsResultSubmitSheetContent),
     okText: 'Review lại bài kiểm tra',
     cancelText: 'Thoát',
-    onOk: () => {
-      router.push({ 
+    onOk: async () => {
+      await quizStore.fetchQuizSheet(useRoute().params.sheetId as string)
+      router.push({
         query: {
           mode: VIEW_MODES.READ,
         },

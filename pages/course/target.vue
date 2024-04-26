@@ -97,7 +97,7 @@ chapters?.map((chapter) => {
   chapter.figures.map((figure) => {
     figures.push({
       value: `${chapter.chapterNumber} ${figure.figureNumber}`.toString(),
-      label: `${chapter.chapterName}: ${figure.figureName}`,
+      label: `Chương ${chapter.chapterNumber}: ${figure.figureName}`,
     })
   })
 })
@@ -109,7 +109,7 @@ const selectConfig: selectType[] = [
     config: {
       label: 'Điểm đầu ra:',
       min: 0,
-      max: 10,
+      max: 15,
     },
   },
   {
@@ -146,7 +146,7 @@ const selectConfig: selectType[] = [
     id: 'studiedChapter',
     type: 'select',
     config: {
-      label: 'Chọn chương đã học',
+      label: 'Chọn chương đã học tới:',
       options: figures,
     },
   },
