@@ -1,5 +1,10 @@
 <template>
-  <div style="width: 270px">
+  <a-card>
+    <template #title>
+      <a-typography-title :level="3"
+        >Còn lại {{ remainDays || 0 }} ngày</a-typography-title
+      >
+    </template>
     <a-calendar
       v-model:value="value"
       :fullscreen="false"
@@ -10,9 +15,6 @@
         #headerRender="{ value: current, type, onChange, onTypeChange }"
       >
         <div style="padding: 10px">
-          <a-typography-title :level="3"
-            >Còn lại {{ remainDays || 0 }} ngày</a-typography-title
-          >
           <a-row type="flex" justify="space-between">
             <a-col>
               <a-radio-group
@@ -69,14 +71,26 @@
         </div>
       </template>
       <template #dateFullCellRender="{ current }">
-        <a-popover title="Title" v-if="getStudyNotif(current)">
+        <a-popover v-if="getStudyNotif(current)">
+          <template #title>
+            <a-typography-text
+              v-if="getStudyNotif(current)?.complete"
+              type="success"
+              ><CheckCircleFilled /> Đã hoàn thành</a-typography-text
+            >
+            <a-typography-text v-else type="danger"
+              ><CloseCircleFilled /> Chưa oàn thành</a-typography-text
+            >
+          </template>
           <template #content>
-            <p>{{ getStudyNotif(current)?.message }}</p>
+            <a-typography-text type="secondary">{{
+              getStudyNotif(current)?.message
+            }}</a-typography-text>
           </template>
           <a-typography-text
             :disabled="!isSameMonth(current)"
             :strong="isSameDay(current, today)"
-            :underline="isSameDay(value, current)"
+            :underline="isSameDay(current, value)"
             type="danger"
             >{{ current.date() }}</a-typography-text
           >
@@ -85,17 +99,18 @@
           v-else
           :disabled="!isSameMonth(current)"
           :strong="isSameDay(current, today)"
-          :underline="isSameDay(value, current)"
+          :underline="isSameDay(current, value)"
           >{{ current.date() }}</a-typography-text
         >
       </template>
     </a-calendar>
-  </div>
+  </a-card>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
 import dayjs from 'dayjs'
 import type { Dayjs } from 'dayjs'
+import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue'
 const today = dayjs()
 const studyMapStore = useStudyMapStore()
 const { remainDays, calendar } = studyMapStore.$state

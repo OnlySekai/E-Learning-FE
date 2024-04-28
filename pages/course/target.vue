@@ -107,7 +107,7 @@ const selectConfig: selectType[] = [
     id: 'score',
     type: 'inputNumber',
     config: {
-      label: 'Điểm đầu ra:',
+      label: 'Điểm mong muốn (Thang 15):',
       min: 0,
       max: 15,
     },

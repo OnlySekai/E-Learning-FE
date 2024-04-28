@@ -5,32 +5,84 @@
       breakpoint="lg"
       collapsedWidth="0"
       class="layout-sider"
+      :style="{ backgroundColor: '#F5F5F5' }"
+      width="400"
     >
-      <a-card >
-        <a-typography-title :level="3">
-            <CalendarOutlined />Lộ trình học </a-typography-title>
-        <a-flex vertical gap="large">
-        <app-calendar class="calendar" </app-calendar>
-        <a-tree :tree-data="treeData" @select="console.log"> </a-tree>
+      <a-flex
+        vertical
+        gap="large"
+        align="center"
+        ,
+        style="margin-right: 10px; margin-left: 10px"
+      >
+        <app-calendar class="calendar"></app-calendar>
+
+        <a-card title="Cần hoàn thành" style="width: 100%">
+          <a-space direction="vertical">
+            <a-typography-link type="success">
+              <CheckCircleOutlined /> Chương 1 dạng 1
+            </a-typography-link>
+            <a-typography-link type="success">
+              <CheckCircleOutlined /> Chương 1 dạng 2</a-typography-link
+            >
+            <a-typography-link type="danger">
+              <CloseCircleOutlined /> Chương 1 dạng 3
+            </a-typography-link>
+          </a-space>
+        </a-card>
+
+        <a-card title="Lộ trình học ">
+          <a-tree :tree-data="treeData" @select="console.log"> </a-tree>
+        </a-card>
       </a-flex>
-      </a-card>
     </a-layout-sider>
     <a-layout-content>
-      <CourseMapChapter v-for="(item, index) in mapContent" :chapter-name="item.chapterName" :figure-name="item.figureName" :key="index" />
+      <a-flex vertical gap="large">
+        <CourseMapChapter
+          v-for="(item, index) in mapContent"
+          :chapter-name="item.chapterName"
+          :figure-name="item.figureName"
+          :key="index"
+        />
+      </a-flex>
     </a-layout-content>
-    <a-layout-sider>
-      <a-card>
-        <template #title>
-          <a-typography-title :level="3">
-            <BookOutlined />Luyện đề</a-typography-title
-          >
-        </template>
-      </a-card>
-      <a-card>
-        <template #title>
-          <a-typography-title :level="3">
-            <FlagOutlined />REMEMBER</a-typography-title
-          >
+    <a-layout-sider
+      breakpoint="sm"
+      collapsedWidth="0"
+      class="layout-sider"
+      style="background-color: #f5f5f5"
+      width="400"
+    >
+      <a-flex
+        vertical
+        gap="large"
+        align="center"
+        style="margin-right: 10px; margin-left: 10px"
+      >
+        <a-card style="width: 100%">
+          <template #title>
+            <a-typography-title :level="3">
+              <BookOutlined />Luyện đề
+            </a-typography-title>
+          </template>
+          <template #actions>
+            <a-button type="primary">
+              <PlusSquareOutlined />
+              TÀI LIỆU THAM KHẢO
+            </a-button>
+          </template>
+          <a-space direction="vertical">
+            <a-typography-link>Thi thử lần 1 </a-typography-link>
+            <a-typography-link> Thi thử lần 2 </a-typography-link>
+            <a-typography-link> Thi thử cuối kì </a-typography-link>
+          </a-space>
+        </a-card>
+        <a-card style="width: 100%">
+          <template #title>
+            <a-typography-title :level="3">
+              <FlagOutlined />REMEMBER
+            </a-typography-title>
+          </template>
           <a-card>
             <a-typography>content</a-typography>
           </a-card>
@@ -49,8 +101,8 @@
           <a-card>
             <a-typography>content</a-typography>
           </a-card>
-        </template>
-      </a-card>
+        </a-card>
+      </a-flex>
     </a-layout-sider>
   </a-layout>
 </template>
@@ -65,15 +117,15 @@ definePageMeta({
 })
 const studyMapStore = useStudyMapStore()
 await useAsyncData('get-study-map', () => studyMapStore.fetchStudyMap())
-const {chapters =[]} = studyMapStore.$state
-const treeData = computed(():TreeDataItem[] => {
-  return chapters.map((chapter):DataNode  => {
-    const {chapterNumber, chapterName, figures} = chapter
+const { chapters = [] } = studyMapStore.$state
+const treeData = computed((): TreeDataItem[] => {
+  return chapters.map((chapter): DataNode => {
+    const { chapterNumber, chapterName, figures } = chapter
     return {
       key: `${chapterNumber}`,
       title: `Chương ${chapterNumber}: ${chapterName}`,
-      children: figures.map((figure):DataNode => {
-        const {figureNumber, figureName} = figure
+      children: figures.map((figure): DataNode => {
+        const { figureNumber, figureName } = figure
         return {
           key: `${chapterNumber}-${figureNumber}`,
           title: `Dạng ${figureNumber}: ${figureName}`,
@@ -84,12 +136,15 @@ const treeData = computed(():TreeDataItem[] => {
 })
 
 const mapContent = computed(() => {
-  const mapStudyConfig: {figureName: string; chapterName: string}[] = []
+  const mapStudyConfig: { figureName: string; chapterName: string }[] = []
   chapters.forEach((chapter) => {
-    const {chapterName, figures,chapterNumber} = chapter
+    const { chapterName, figures, chapterNumber } = chapter
     figures.forEach((figure) => {
-      const {figureName, figureNumber} = figure
-      mapStudyConfig.push({figureName: `Dạng ${figureNumber} ${figureName}`, chapterName: ` Chương ${chapterNumber}: ${chapterName}`})
+      const { figureName, figureNumber } = figure
+      mapStudyConfig.push({
+        figureName: `Dạng ${figureNumber} ${figureName}`,
+        chapterName: ` Chương ${chapterNumber}: ${chapterName}`,
+      })
     })
   })
   return mapStudyConfig

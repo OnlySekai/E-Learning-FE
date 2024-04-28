@@ -2,8 +2,24 @@
   "remainDays": 10,
   "calendar": {
     "2024-04-26": {
-      "complete": true,
-      "message": "Complete"
+      "complete": false,
+      "message": "Hoàn thành mức 1 dạng 1 chương 1"
+    },
+    "2024-04-20": {
+      "complete": false,
+      "message": "Hoàn thành mức 1 dạng 1 chương 1"
+    },
+    "2024-04-18": {
+      "complete": false,
+      "message": "Hoàn thành mức 1 dạng 1 chương 1"
+    },
+    "2024-04-23": {
+      "complete": false,
+      "message": "Hoàn thành mức 1 dạng 1 chương 1"
+    },
+    "2024-04-21": {
+      "complete": false,
+      "message": "Hoàn thành mức 1 dạng 1 chương 1"
     }
   },
   "chapters": [

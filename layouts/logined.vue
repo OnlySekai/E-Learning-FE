@@ -1,6 +1,9 @@
 <template>
   <a-layout class="layout">
-    <a-layout-header class="layout-header">
+    <a-layout-header
+      class="layout-header"
+      :style="{ backgroundColor: '#F5F5F5' }"
+    >
       <img src="/images/logo.png" alt="logo" class="logo" />
       <a-input-search placeholder="input search text" style="width: 200px" />
       <div>
