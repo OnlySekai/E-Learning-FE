@@ -1,42 +1,104 @@
 <template>
-  <a-card title="Default size card" style="width: 300px">
-    <a-form>
-      <a-form-item
-        label="Username"
-        name="username"
-        :rules="[{ required: true, message: 'Please input your username!' }]"
-      >
-        <a-input v-model:value="formState.username" />
-      </a-form-item>
-      <a-form-item
-        label="Password"
-        name="password"
-        :rules="[{ required: true, message: 'Please input your password!' }]"
-      >
-        <a-input-password v-model:value="formState.password" />
-      </a-form-item>
+  <div class='login-page'>
+    <div class='login-content'>
+      <div style='font-size: 36px; font-weight: 700;color: #FFFFFF'>Chào mừng đến với ...</div>
+      <a-image
+        :width='500'
+        src='/images/login.png '
+        :preview='false'
+      />
+    </div>
+    <div class='login-card'>
+      <a-flex :vertical='true' align='center' gap='large'>
+        <UserOutlined style='font-size: 32px; color: #4B89DC' />
+        <div style='font-size: 32px'>Đăng Nhập</div>
+      </a-flex>
+      <a-form :model='loginData' class='login-form'>
+        <a-form-item
+          label='Email'
+          name='email'
+          :rules="[{ required: true, message: 'Please input your username!' }]"
+        >
+          <a-input v-model:value='loginData.email' />
+        </a-form-item>
+        <a-form-item
+          label='Password'
+          name='password'
+          :rules="[{ required: true, message: 'Please input your password!' }]"
+        >
+          <a-input-password v-model:value='loginData.password' />
+        </a-form-item>
 
-      <a-form-item name="remember" :wrapper-col="{ offset: 8, span: 16 }">
-      <a-checkbox v-model:checked="formState.remember">Remember me</a-checkbox>
-    </a-form-item>
-
-    <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
-      <a-button type="primary" html-type="submit">Submit</a-button>
-    </a-form-item>  
-    </a-form>
-  </a-card>
+        <a-button type='primary' html-type='submit' @click='onSubmit'>Đăng Nhập</a-button>
+      </a-form>
+    </div>
+  </div>
 </template>
 
-<script setup lang="ts">
-const formState = reactive({
-  username: '',
-  password: '',
-  remember: false
+<script setup lang='ts'>
+definePageMeta({
+  layout: 'login',
 })
+
+interface loginFormType {
+  email: string;
+  password: string;
+}
+
+const loginData = reactive<loginFormType>({
+  email: '',
+  password: '',
+})
+
+async function onSubmit() {
+  if (!loginData.email || !loginData.password) {
+    message.error('Vui lòng nhập đầy đủ thông tin')
+    return
+  }
+  const userInfor = {
+    email: loginData.email,
+    password: loginData.password,
+  }
+  console.log(userInfor)
+}
 </script>
 
-<style lang="scss" scoped>
-body {
-  background-color: blue;
+<style lang='scss' scoped>
+.login-page {
+  background-color: #4B89DC;
+  height: 91vh;
+  width: 100vw;
+  padding: 35px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
 }
+
+.login-card {
+  width: 45%;
+  height: 100%;
+  background-color: white;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 20px;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%
+}
+
 </style>
