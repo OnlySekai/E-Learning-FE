@@ -1,22 +1,24 @@
 <template>
   <a-layout class='layout'>
     <a-layout-header class='layout-header'>
-      <a-input-search placeholder='input search text' style='width: 400px' />
-      <a-flex gap='small'>
-        <a-button>
+      <a-flex gap='middle'>
+        <a-button style='color: #4B89DC; border: 0px;'>
           <HomeOutlined />
-          Trang chủ
+          TRANG CHỦ
         </a-button>
 
-        <a-button>
+        <a-button style='color: #4B89DC; border: 0px;'>
           <PlusOutlined />
-          Khóa ôn thi
+          KHÓA ÔN THI
         </a-button>
-        <a-button>
+        <a-button style='color: #4B89DC; border: 0px;'>
           <PlusOutlined />
-          Khóa học
+          KHÓA HỌC
         </a-button>
       </a-flex>
+
+      <a-input-search placeholder='search' style='width: 400px;color:#F6F6F6' />
+
       <a-flex gap='small'>
         <a-button class='login-btn' type='primary' @click='useRouter().push(`/login`)'>
           Đăng nhập
@@ -38,11 +40,12 @@ function handleMenuClick() {
 function handleButtonClick() {
 }
 </script>
-<style lang='scss'>
+<style lang='scss' scoped>
 .layout-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: $secondary;
 }
 
 .site-layout-content {
@@ -51,13 +54,14 @@ function handleButtonClick() {
   background: #fff;
 }
 
+
 .login-btn {
   width: 98px;
 }
 
 .signup-btn {
   width: 98px;
-  background-color: $primary;
+  background-color: $secondary;
   color: $black;
   border-color: $blue;
 }

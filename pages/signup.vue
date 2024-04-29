@@ -1,7 +1,7 @@
 <template>
   <div class='login-page'>
     <div class='login-content'>
-      <div style='font-size: 36px; font-weight: 700;color: #FFFFFF'>Chào mừng đến với ...</div>
+      <div style='font-size: 36px; font-weight: 700;color: #FFFFFF'>Chào mừng đến với dự án E-learning</div>
       <a-image
         :width='500'
         src='/images/login.png '
@@ -35,7 +35,7 @@
 
 <script setup lang='ts'>
 definePageMeta({
-  layout: 'login',
+  layout: 'unlogin',
 })
 import type { Rule } from 'ant-design-vue/es/form'
 
