@@ -1,16 +1,16 @@
 <template>
-  <iframe allow="autoplay" :src="newSrc"></iframe>
+  <a-image :src="newSrc" />
 </template>
 
 <script setup lang="ts">
+const prefix = 'https://lh3.googleusercontent.com/d'
 const props = defineProps<{
   src: string
 }>()
 const splitUrl = props.src.split('/')
 const dIndex = splitUrl.findIndex((path) => path === 'd')
-const newUrl = splitUrl.slice(0, dIndex + 2)
-newUrl.push('preview')
-const newSrc = newUrl.join('/')
+const imageId = splitUrl[dIndex + 1]
+const newSrc = `${prefix}/${imageId}`
 </script>
 
 <style scoped lang="scss">
