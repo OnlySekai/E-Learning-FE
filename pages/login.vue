@@ -1,7 +1,7 @@
 <template>
   <div class='login-page'>
     <div class='login-content'>
-      <div style='font-size: 36px; font-weight: 700;color: #FFFFFF'>Chào mừng đến với ...</div>
+      <div style='font-size: 36px; font-weight: 700;color: #FFFFFF'>Chào mừng đến với dự án E-learning</div>
       <a-image
         :width='500'
         src='/images/login.png '
@@ -14,19 +14,22 @@
         <div style='font-size: 32px'>Đăng Nhập</div>
       </a-flex>
       <a-form :model='loginData' class='login-form'>
-        <a-form-item
-          label='Email'
-          name='email'
-          :rules="[{ required: true, message: 'Please input your username!' }]"
+        <a-form-item name='email'
+                     :rules="[{ required: true, message: 'Please input your username!' }]"
         >
-          <a-input v-model:value='loginData.email' />
+          <a-flex :vertical='true' gap='middle'>
+            <label style='font-size: 18px'>Email: </label>
+            <a-input v-model:value='loginData.email' />
+          </a-flex>
         </a-form-item>
         <a-form-item
-          label='Password'
           name='password'
           :rules="[{ required: true, message: 'Please input your password!' }]"
         >
-          <a-input-password v-model:value='loginData.password' />
+          <a-flex :vertical='true' gap='middle'>
+            <label style='font-size: 18px'>Password: </label>
+            <a-input-password v-model:value='loginData.password' />
+          </a-flex>
         </a-form-item>
 
         <a-button type='primary' html-type='submit' @click='onSubmit'>Đăng Nhập</a-button>
@@ -37,7 +40,7 @@
 
 <script setup lang='ts'>
 definePageMeta({
-  layout: 'login',
+  layout: 'unlogin',
 })
 
 interface loginFormType {
@@ -88,9 +91,12 @@ async function onSubmit() {
 
 .login-form {
   width: 100%;
+  height: 75%;
   display: flex;
   flex-direction: column;
-  padding: 10%;
+  gap: 25px;
+  padding: 0% 10%;
+  margin-top: 10%;
 }
 
 .login-content {
