@@ -68,6 +68,7 @@
 </template>
 <script setup lang="ts">
 import type { DefaultOptionType } from 'ant-design-vue/es/select'
+import { createMap } from '~/helper/create-map'
 
 definePageMeta({
   layout: 'course',
@@ -83,6 +84,7 @@ interface selectType {
     options?: {
       value: unknown
       label: string
+      disabled?: boolean
     }[]
   }
 }
@@ -105,11 +107,27 @@ chapters?.map((chapter) => {
 const selectConfig: selectType[] = [
   {
     id: 'score',
-    type: 'inputNumber',
+    type: 'select',
     config: {
       label: 'Điểm mong muốn (Thang 15):',
-      min: 0,
-      max: 15,
+      options: [
+        {
+          value: '0-2',
+          label: '0-2',
+        },
+        {
+          value: '3-7',
+          label: '3-7',
+        },
+        {
+          value: '8-13',
+          label: '8-13',
+        },
+        {
+          value: '14-15',
+          label: '14-15',
+        },
+      ],
     },
   },
   {
@@ -129,6 +147,7 @@ const selectConfig: selectType[] = [
         {
           value: 3,
           label: 'Kì cuối kì',
+          disabled: true,
         },
       ],
     },
@@ -173,19 +192,21 @@ const data = reactive<dataType>({
   studiedChapter: '',
 })
 
+const { startLoading, finishLoading } = useLoading()
+
 async function onSubmit() {
   if (!data.score || !data.period || !data.remainDays || !data.studiedChapter) {
     message.error('Vui lòng nhập đầy đủ thông tin')
     return
   }
-  const target = {
-    score: data.score,
-    period: data.period,
-    remainDays: data.remainDays,
-    studiedChapter: data.studiedChapter?.split(' ').map(Number),
-  }
-  const sheetId = await useCourseStore().submitTarget(target)
-  useRouter().push(`/quiz/attempt/${sheetId}`)
+  startLoading()
+  const target = `${data.period}-${data.score}`
+  const studyPath = createMap(target, data.remainDays * 14)
+  console.log(studyPath)
+  finishLoading()
+  // const
+  // const sheetId = await useCourseStore().submitTarget(target)
+  // useRouter().push(`/quiz/attempt/${sheetId}`)
 }
 </script>
 <style scoped lang="scss">
