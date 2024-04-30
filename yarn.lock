@@ -1678,6 +1678,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4":
+  version: 4.17.0
+  resolution: "@types/lodash@npm:4.17.0"
+  checksum: 10/2053203292b5af99352d108656ceb15d39da5922fc3fb8186e1552d65c82d6e545372cc97f36c95873aa7186404d59d9305e9d49254d4ae55e77df1e27ab7b5d
+  languageName: node
+  linkType: hard
+
 "@types/moment@npm:^2.13.0":
   version: 2.13.0
   resolution: "@types/moment@npm:2.13.0"
@@ -5479,10 +5486,12 @@ __metadata:
     "@ant-design/icons-vue": "npm:^7.0.1"
     "@nuxt/devtools": "npm:latest"
     "@pinia/nuxt": "npm:^0.5.1"
+    "@types/lodash": "npm:^4"
     "@types/moment": "npm:^2.13.0"
     ant-design-vue: "npm:^4.1.2"
     dayjs: "npm:^1.11.10"
     dayjs-nuxt: "npm:^2.1.9"
+    lodash: "npm:^4.17.21"
     moment: "npm:^2.30.1"
     nuxt: "npm:^3.10.0"
     sass: "npm:^1.69.5"

@@ -8,16 +8,42 @@
       "figures": [
         {
           "figureName": "Bài toán đếm",
+          "documents": [
+            {
+              "type": "pdf",
+              "url": "https://drive.google.com/file/d/1"
+            },
+            {
+              "type": "video",
+              "url": "https://drive.google.com/file/d/2"
+            }
+          ],
           "figureNumber": 1,
           "_id": "661ab9d6b63bd525425ba91d"
         },
         {
           "figureName": "Công thức xác suất cổ điển",
+          "document": [
+            {
+              "type": "pdf",
+              "url": "https://drive.google.com/file/d/1"
+            }
+          ],
           "figureNumber": 2,
           "_id": "661ab9d6b63bd525425ba91e"
         },
         {
           "figureName": "Công thức xác suất có điều kiện",
+          "document": [
+            {
+              "type": "pdf",
+              "url": "https://drive.google.com/file/d/1"
+            },
+            {
+              "type": "video",
+              "url": "https://drive.google.com/file/d/2"
+            }
+          ],
           "figureNumber": 3,
           "_id": "661ab9d6b63bd525425ba91f"
         },
