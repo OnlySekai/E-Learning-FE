@@ -15,7 +15,7 @@
       </a-flex>
       <a-form :model='loginData' class='login-form'>
         <a-form-item name='email'
-                     :rules="[{ required: true, message: 'Please input your username!' }]"
+                     :rules="[{ required: true, message: 'Please input your email!' }]"
         >
           <a-flex :vertical='true' gap='middle'>
             <label style='font-size: 18px'>Email: </label>
