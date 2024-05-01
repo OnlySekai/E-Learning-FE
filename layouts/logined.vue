@@ -2,15 +2,25 @@
   <a-layout class='layout'>
     <a-layout-header
       class='layout-header'
-      :style="{ backgroundColor: '#F5F5F5' }"
+      :style="{ backgroundColor: 'white' }"
     >
-      <img src='/images/logo.png' alt='logo' class='logo' />
-      <a-input-search placeholder='input search text' style='width: 200px' />
-      <div>
-        <a-button>
+      <a-flex gap='middle'>
+        <a-button style='color: #4B89DC; border: 0px;'>
           <HomeOutlined />
-          Trang chủ
+          TRANG CHỦ
         </a-button>
+
+        <a-button style='color: #4B89DC; border: 0px;'>
+          <PlusOutlined />
+          KHÓA ÔN THI
+        </a-button>
+        <a-button style='color: #4B89DC; border: 0px;'>
+          <PlusOutlined />
+          KHÓA HỌC
+        </a-button>
+      </a-flex>
+      <a-input-search placeholder='input search text' style='width: 400px ;color:#F6F6F6' />
+      <a-flex gap='middle'>
         <a-dropdown>
           <a-button>
             <BellOutlined />
@@ -49,7 +59,7 @@
             </a-menu>
           </template>
         </a-dropdown>
-      </div>
+      </a-flex>
     </a-layout-header>
     <a-layout-content>
       <slot />
