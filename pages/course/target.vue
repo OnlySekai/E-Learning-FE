@@ -1,32 +1,32 @@
 <template>
-  <div class='target-page'>
+  <div class="target-page">
     <CourseCarousel />
-    <div class='target-title'>
+    <div class="target-title">
       <p>NHẬP THÔNG TIN ĐỂ TẠO LỘ TRÌNH CÁ NHÂN</p>
     </div>
-    <a-row :gutter='[40, 40]'>
-      <a-col v-for='(rows, index) in splitCols' :key='index' :span='12'>
+    <a-row :gutter="[40, 40]">
+      <a-col v-for="(rows, index) in splitCols" :key="index" :span="12">
         <a-flex
-          v-for='item in rows'
-          :key='item.id'
-          :vertical='true'
-          style='margin-top: 20px'
+          v-for="item in rows"
+          :key="item.id"
+          :vertical="true"
+          style="margin-top: 20px"
         >
           <label>
             {{ item.config.label }}
           </label>
           <a-select
             v-if="item.type === 'select'"
-            v-model:value='data[item.id]'
-            :options='item.config.options as DefaultOptionType[]'
+            v-model:value="data[item.id]"
+            :options="item.config.options as DefaultOptionType[]"
           >
           </a-select>
           <a-input-number
             v-else
-            v-model:value='data[item.id]'
-            :min='item.config.min!'
-            :max='item.config.max!'
-            style='width: 100%'
+            v-model:value="data[item.id]"
+            :min="item.config.min!"
+            :max="item.config.max!"
+            style="width: 100%"
           >
             <template #upIcon>
               <ArrowUpOutlined />
@@ -39,12 +39,12 @@
       </a-col>
     </a-row>
     <a-flex
-      :vertical='false'
-      justify='space-between'
-      class='tutorial-details'
-      style='margin-top: 20px'
+      :vertical="false"
+      justify="space-between"
+      class="tutorial-details"
+      style="margin-top: 20px"
     >
-      <div class='testTutorial' style='width: 65%'>
+      <div class="testTutorial" style="width: 65%">
         <p>Hướng dẫn làm bài trắc nghiệm:</p>
         <p>
           1. Click vào nút "Bắt đầu làm bài" để tiến hành làm bài thi <br />
@@ -54,20 +54,21 @@
         </p>
       </div>
       <div
-        style='
+        style="
           display: flex;
           justify-content: center;
           align-items: center;
           width: 35%;
-        '
+        "
       >
-        <a-button type='primary' @click='onSubmit'>Bắt đầu làm bài</a-button>
+        <a-button type="primary" @click="onSubmit">Bắt đầu làm bài</a-button>
       </div>
     </a-flex>
   </div>
 </template>
-<script setup lang='ts'>
+<script setup lang="ts">
 import type { DefaultOptionType } from 'ant-design-vue/es/select'
+import { COURSE_ID } from '~/constants/course'
 import { createMap } from '~/helper/create-map'
 
 definePageMeta({
@@ -179,10 +180,10 @@ const splitCols = [
 ]
 
 interface dataType {
-  score: number | null
-  period: number | null
-  remainDays: number | null
-  studiedChapter: string | null
+  score: number
+  period: number
+  remainDays: number
+  studiedChapter: string
 }
 
 const data = reactive<dataType>({
@@ -202,14 +203,21 @@ async function onSubmit() {
   startLoading()
   const target = `${data.period}-${data.score}`
   const studyPath = createMap(target, data.remainDays * 14)
-  console.log(studyPath)
+  const sheetId = await useCourseStore().submitTarget({
+    remainDays: data.remainDays,
+    studyPath,
+    score: data.score,
+    period: data.period,
+    studiedChapter: data.studiedChapter
+      .split(' ')
+      .map((item) => parseInt(item)),
+    courseId: COURSE_ID,
+  })
+  useRouter().push(`/quiz/attempt/${sheetId}`)
   finishLoading()
-  // const
-  // const sheetId = await useCourseStore().submitTarget(target)
-  // useRouter().push(`/quiz/attempt/${sheetId}`)
 }
 </script>
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .target-title {
   align-content: center;
   text-align: center;
@@ -223,5 +231,4 @@ async function onSubmit() {
 .target-page {
   margin: 0 10% 0 10%;
 }
-
 </style>

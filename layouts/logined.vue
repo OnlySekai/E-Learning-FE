@@ -1,12 +1,18 @@
 <template>
-  <a-layout class='layout'>
+  <a-layout class="layout">
     <a-layout-header
-      class='layout-header'
+      class="layout-header"
       :style="{ backgroundColor: '#F5F5F5' }"
     >
-      <img src='/images/logo.png' alt='logo' class='logo' />
-      <a-input-search placeholder='input search text' style='width: 200px' />
+      <img src="/images/logo.png" alt="logo" class="logo" />
+      <a-input-search placeholder="input search text" style="width: 200px" />
       <div>
+        <NuxtLink to="/course/target">
+          <a-button>
+            <PlusSquareOutlined />
+            Cá nhân hoá lộ trình
+          </a-button>
+        </NuxtLink>
         <a-button>
           <HomeOutlined />
           Trang chủ
@@ -19,13 +25,13 @@
           <template #overlay>
             <a-menu>
               <a-menu-item>
-                <a href='javascript:;'>1st menu item</a>
+                <a href="javascript:;">1st menu item</a>
               </a-menu-item>
               <a-menu-item>
-                <a href='javascript:;'>2nd menu item</a>
+                <a href="javascript:;">2nd menu item</a>
               </a-menu-item>
               <a-menu-item>
-                <a href='javascript:;'>3rd menu item</a>
+                <a href="javascript:;">3rd menu item</a>
               </a-menu-item>
             </a-menu>
           </template>
@@ -33,18 +39,18 @@
         <a-dropdown>
           <a-button>
             <UserOutlined />
-            Tài khoản
+            Xin chào, {{ userStore.$state.owner?.lastName }}
           </a-button>
           <template #overlay>
             <a-menu>
               <a-menu-item>
-                <a href='javascript:;'>1st menu item</a>
+                <a href="javascript:;">1st menu item</a>
               </a-menu-item>
               <a-menu-item>
-                <a href='javascript:;'>2nd menu item</a>
+                <a href="javascript:;">2nd menu item</a>
               </a-menu-item>
               <a-menu-item>
-                <a href='javascript:;'>3rd menu item</a>
+                <a href="javascript:;">3rd menu item</a>
               </a-menu-item>
             </a-menu>
           </template>
@@ -54,19 +60,26 @@
     <a-layout-content>
       <slot />
     </a-layout-content>
-    <a-layout-footer style='text-align: center'>
+    <a-layout-footer style="text-align: center">
       Ant Design ©2018 Created by Ant UED
     </a-layout-footer>
   </a-layout>
 </template>
-<script lang='ts' setup>
-function handleMenuClick() {
-}
+<script lang="ts" setup>
+const userStore = useUserStore()
+const courseStore = useCourseStore()
 
-function handleButtonClick() {
-}
+onBeforeMount(async () => {
+  await Promise.allSettled([
+    userStore.fetchProfile(),
+    courseStore.fetchCourse(),
+  ])
+})
+function handleMenuClick() {}
+
+function handleButtonClick() {}
 </script>
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .layout-header {
   display: flex;
   justify-content: space-between;

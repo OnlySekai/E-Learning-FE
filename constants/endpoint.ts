@@ -10,6 +10,10 @@ export const QUIZ_ENDPOINT: Record<string, EndPointConfigEntity> = {
     path: `${API_URL}/quiz`,
     method: 'POST',
   },
+  joinQuizInput: {
+    path: `${API_URL}/quiz/input`,
+    method: 'POST',
+  },
   submitQuiz: {
     path: `${API_URL}/quiz`,
     method: 'PATCH',
@@ -41,9 +45,22 @@ export const COURSE_ENDPOINT: Record<string, EndPointConfigEntity> = {
     method: 'GET',
   },
   submitTarget: {
-    path: `${API_URL}/course/{courseId}`,
+    path: `${API_URL}/study-path`,
     method: 'POST',
   },
 }
 
-export const USER_ENDPOINT: Record<string, EndPointConfigEntity> = {}
+export const USER_ENDPOINT: Record<string, EndPointConfigEntity> = {
+  login: {
+    path: `${API_URL}/auth/login`,
+    method: 'POST',
+  },
+  register: {
+    path: `${API_URL}/auth/register`,
+    method: 'POST',
+  },
+  profile: {
+    path: `${API_URL}/auth/profile`,
+    method: 'GET',
+  },
+}

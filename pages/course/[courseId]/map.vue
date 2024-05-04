@@ -108,18 +108,16 @@
 </template>
 
 <script lang="ts" setup>
-import { BookOutlined } from '@ant-design/icons-vue'
 import type { DataNode, TreeDataItem } from 'ant-design-vue/es/tree'
-import { useStudyMapStore } from '~/stores/map'
 
 definePageMeta({
   layout: 'logined',
 })
-const studyMapStore = useStudyMapStore()
-await useAsyncData('get-study-map', () => studyMapStore.fetchStudyMap())
-const { chapters = [] } = studyMapStore.$state
+const courseStore = useCourseStore()
+const { chapters } = storeToRefs(courseStore)
 const treeData = computed((): TreeDataItem[] => {
-  return chapters.map((chapter): DataNode => {
+  if (!chapters?.value) return []
+  return chapters.value.map((chapter): DataNode => {
     const { chapterNumber, chapterName, figures } = chapter
     return {
       key: `${chapterNumber}`,
@@ -136,8 +134,9 @@ const treeData = computed((): TreeDataItem[] => {
 })
 
 const mapContent = computed(() => {
+  if (!chapters?.value) return []
   const mapStudyConfig: { figureName: string; chapterName: string }[] = []
-  chapters.forEach((chapter) => {
+  chapters.value.forEach((chapter) => {
     const { chapterName, figures, chapterNumber } = chapter
     figures.forEach((figure) => {
       const { figureName, figureNumber } = figure

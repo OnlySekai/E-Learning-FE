@@ -1,16 +1,16 @@
 export interface StudyNodeEntity {
   time: number
-  children: string[] | number[]
-  parent: string[] | number[]
+  children: string[]
+  parent: string[]
 }
 
 export interface ClusterStudyNode {
-  members: string[] | number[]
+  members: string[]
   point: number
 }
 
 export interface StudyPathState {
-  seeds: Set<string | number>
-  nodes: Set<string | number>
+  seeds: Set<string>
+  nodes: Set<string>
   time: number
 }

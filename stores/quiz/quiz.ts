@@ -28,7 +28,7 @@ export const useQuizStore = defineStore('quiz', {
       // fetch quiz sheet from api
       const response = isMock
         ? quiz
-        : await $fetch(
+        : await $api(
             QUIZ_ENDPOINT.getQuizSession.path.replace('{sessionId}', sheetId)
           )
 
@@ -84,7 +84,7 @@ export const useQuizStore = defineStore('quiz', {
     ) {
       if (isMock) return
       try {
-        await $fetch(QUIZ_ENDPOINT.submitAnswer.path, {
+        await $api(QUIZ_ENDPOINT.submitAnswer.path, {
           method: QUIZ_ENDPOINT.submitAnswer.method,
           body: {
             ...payload,
@@ -99,7 +99,7 @@ export const useQuizStore = defineStore('quiz', {
     },
 
     async submitAnswerSurvey(payload: SubmitSurveryRequest) {
-      await $fetch(QUIZ_ENDPOINT.submitSurvey.path, {
+      await $api(QUIZ_ENDPOINT.submitSurvey.path, {
         method: QUIZ_ENDPOINT.submitSurvey.method,
         body: payload,
       })
@@ -110,7 +110,7 @@ export const useQuizStore = defineStore('quiz', {
         questionId: this.currentQuestion.questionId,
         message,
       }
-      await $fetch(REPORT_ENDPOINT.reportQuestion.path, {
+      await $api(REPORT_ENDPOINT.reportQuestion.path, {
         method: REPORT_ENDPOINT.reportQuestion.method,
         body: payload,
       })
@@ -129,7 +129,7 @@ export const useQuizStore = defineStore('quiz', {
             sheetId: sheetId,
             submittedAt: new Date(),
           }
-        : await $fetch(QUIZ_ENDPOINT.submitQuiz.path, {
+        : await $api(QUIZ_ENDPOINT.submitQuiz.path, {
             method: QUIZ_ENDPOINT.submitQuiz.method,
             body: payload,
           })

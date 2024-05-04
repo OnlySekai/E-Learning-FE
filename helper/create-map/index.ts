@@ -7,6 +7,7 @@ import type {
 import { MinHeap } from './heapStructure'
 import tartGetStudyPathJson from '~/assets/data/target-study-path.json'
 import studyPathJson from '~/assets/data/study-path.json'
+import { sortStudyNodeIds } from '../common'
 
 const tartGetStudyPath = tartGetStudyPathJson as Record<
   string,
@@ -37,23 +38,10 @@ export function createMap(target: string | number, limitTime: number) {
   if (!bestSolution) {
     throw new Error('No solution found')
   }
-  const merged = [
-    ...Array.from(bestSolution.seeds),
-    ...Array.from(bestSolution.nodes),
-  ]
-  merged.sort((a, b) => {
-    const [c1, d1, m1] = a.split('-').reverse()
-    const [c2, d2, m2] = b.split('-').reverse()
-
-    if (c1 !== c2) {
-      return c1.localeCompare(c2)
-    } else if (d1 !== d2) {
-      return d1.localeCompare(d2)
-    } else {
-      return m1.localeCompare(m2)
-    }
-  })
-  return merged
+  const merged = Array.from(bestSolution.nodes).concat(
+    Array.from(bestSolution.seeds).filter((seed) => !/^start/.test(seed))
+  )
+  return sortStudyNodeIds(merged)
 }
 
 function getInitState(target: string | number): StudyPathState {
@@ -62,8 +50,8 @@ function getInitState(target: string | number): StudyPathState {
     throw new Error('Invalid target')
   }
   return {
-    seeds: new Set<string | number>(clusterTarget.members),
-    nodes: new Set<string | number>(),
+    seeds: new Set<string>(clusterTarget.members),
+    nodes: new Set<string>(),
     time: 0,
   }
 }

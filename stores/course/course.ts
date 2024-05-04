@@ -2,10 +2,9 @@ import { COURSE_ENDPOINT, QUIZ_ENDPOINT } from '~/constants/endpoint'
 import { COURSE_ID } from '~/constants/course'
 import type { CourseEntity } from './entities/course.entity'
 import course from '~/assets/mock/course.json'
+import type { SubmitTargetRequest } from './dto/SubmitTarget.request'
 
 const isMock = useRuntimeConfig().public.mockEnable
-
-import type { targetEntity } from '~/stores/course/entities/target.entity'
 
 export const useCourseStore = defineStore('course', {
   state: (): Partial<CourseEntity> => ({
@@ -15,7 +14,7 @@ export const useCourseStore = defineStore('course', {
     async fetchCourse() {
       const response = isMock
         ? course
-        : await $fetch(
+        : await $api(
             COURSE_ENDPOINT.getCourseById.path.replace('{courseId}', COURSE_ID),
             {
               method: COURSE_ENDPOINT.getCourseById.method,
@@ -23,15 +22,24 @@ export const useCourseStore = defineStore('course', {
           )
       this.$patch(response as CourseEntity)
     },
-    async submitTarget(target: targetEntity): Promise<string> {
-      const response = isMock
-        ? { sheetId: '123' }
-        : ((await $fetch(QUIZ_ENDPOINT.joinQuiz.path, {
-            method: QUIZ_ENDPOINT.joinQuiz.method,
+    async submitTarget(target: SubmitTargetRequest): Promise<string> {
+      const targetResponse: { _id: string } = isMock
+        ? { _id: 'string' }
+        : await $api(COURSE_ENDPOINT.submitTarget.path, {
+            method: COURSE_ENDPOINT.submitTarget.method,
             body: target,
-          })) as { sheetId: string })
+          })
+      const joinQuizResponse: { sheetId: string } = isMock
+        ? { sheetId: '123' }
+        : await $api(QUIZ_ENDPOINT.joinQuizInput.path, {
+            method: QUIZ_ENDPOINT.joinQuizInput.method,
+            body: {
+              studiedChapter: target.studiedChapter,
+              studyPathId: targetResponse._id,
+            },
+          })
       console.log(target)
-      return response.sheetId
+      return joinQuizResponse.sheetId
     },
   },
 })

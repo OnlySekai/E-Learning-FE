@@ -9,7 +9,7 @@ export const useStudyMapStore = defineStore('map', {
     async fetchStudyMap() {
       const response = isMock
         ? mapConfigMock
-        : await $fetch(USER_ENDPOINT.getMap.path, {
+        : await $api(USER_ENDPOINT.getMap.path, {
             method: USER_ENDPOINT.getMap.method,
           })
       this.$patch(response as StudyMapStateEntity)
