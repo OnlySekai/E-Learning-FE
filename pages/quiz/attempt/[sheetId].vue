@@ -4,7 +4,7 @@
     <a-breadcrumb-item>List</a-breadcrumb-item>
     <a-breadcrumb-item>App</a-breadcrumb-item>
   </a-breadcrumb>
-  <a-flex justify="center" gap="middle">
+  <a-flex justify="center" gap="middle" wrap="wrap">
     <DuringQuizInformation :readonly="readonly" />
     <DuringQuizWorkingArea
       :readonly="readonly"

@@ -1,7 +1,7 @@
 <template>
   <a-layout class='layout'>
     <a-layout-header class='layout-header'>
-      <a-flex gap='middle'>
+      <a-flex gap='middle' wrap="wrap">
         <a-button style='color: #4B89DC; border: 0px;'>
           <HomeOutlined />
           TRANG CHỦ
@@ -19,7 +19,7 @@
 
       <a-input-search placeholder='search' style='width: 400px;color:#F6F6F6' />
 
-      <a-flex gap='small'>
+      <a-flex gap='small' wrap="wrap" align="center" justify="center">
         <a-button class='login-btn' type='primary' @click='useRouter().push(`/login`)'>
           Đăng nhập
         </a-button>
@@ -43,6 +43,8 @@ function handleButtonClick() {
 <style lang='scss' scoped>
 .layout-header {
   display: flex;
+  height: auto;
+  padding: 20px;
   justify-content: space-between;
   align-items: center;
   background-color: $secondary;

@@ -1,5 +1,5 @@
 <template>
-  <a-flex gap="middle" vertical class="working-area">
+  <a-flex gap="middle" vertical class="working-area" wrap="wrap">
     <a-card class="question" :title="questionTittle">
       <template #extra>
         <a-button @click="openModalReportQuestion">

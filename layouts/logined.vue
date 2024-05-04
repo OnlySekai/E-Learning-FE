@@ -6,13 +6,13 @@
     >
       <img src="/images/logo.png" alt="logo" class="logo" />
       <a-input-search placeholder="input search text" style="width: 200px" />
-      <div>
-        <NuxtLink to="/course/target">
-          <a-button>
+      <a-flex wrap="wrap" justify="center">
+        <a-button>
+          <NuxtLink to="/course/target">
             <PlusSquareOutlined />
             Cá nhân hoá lộ trình
-          </a-button>
-        </NuxtLink>
+          </NuxtLink>
+        </a-button>
         <a-button>
           <HomeOutlined />
           Trang chủ
@@ -55,7 +55,7 @@
             </a-menu>
           </template>
         </a-dropdown>
-      </div>
+      </a-flex>
     </a-layout-header>
     <a-layout-content>
       <slot />
@@ -82,6 +82,7 @@ function handleButtonClick() {}
 <style lang="scss" scoped>
 .layout-header {
   display: flex;
+  height: auto;
   justify-content: space-between;
   align-items: center;
 }

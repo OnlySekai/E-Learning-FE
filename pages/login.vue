@@ -1,15 +1,27 @@
 <template>
-  <div class="login-page">
-    <div class="login-content">
-      <div style="font-size: 36px; font-weight: 700; color: #ffffff">
+  <a-flex
+    class="login-page"
+    wrap="wrap"
+    justify="center"
+    align="center"
+    gap="100"
+  >
+    <a-flex class="login-content" vertical justify="center" align="center">
+      <a-typography-title style="color: #ffffff">
         Chào mừng đến với dự án E-learning
-      </div>
-      <a-image :width="500" src="/images/login.png " :preview="false" />
-    </div>
-    <div class="login-card">
+      </a-typography-title>
+      <a-image
+        src="/images/login.png "
+        :preview="false"
+        :style="{ width: '500px', maxWidth: '100%' }"
+      />
+    </a-flex>
+    <a-card class="login-card">
       <a-flex :vertical="true" align="center" gap="large">
         <UserOutlined style="font-size: 32px; color: #4b89dc" />
-        <div style="font-size: 32px">Đăng Nhập</div>
+        <a-typography-title style="font-size: 32px"
+          >Đăng Nhập</a-typography-title
+        >
       </a-flex>
       <a-form :model="loginData" class="login-form">
         <a-form-item
@@ -35,8 +47,8 @@
           >Đăng Nhập</a-button
         >
       </a-form>
-    </div>
-  </div>
+    </a-card>
+  </a-flex>
 </template>
 
 <script setup lang="ts">
@@ -80,29 +92,16 @@ async function onSubmit() {
 <style lang="scss" scoped>
 .login-page {
   background-color: #4b89dc;
-  height: 91vh;
-  width: 100vw;
-  padding: 35px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
+  padding-top: 50px;
+  padding-bottom: 200px;
 }
 
 .login-card {
-  width: 45%;
-  height: 100%;
-  background-color: white;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+  min-width: 40%;
   border-radius: 20px;
 }
 
 .login-form {
-  width: 100%;
-  height: 75%;
   display: flex;
   flex-direction: column;
   gap: 25px;
@@ -111,9 +110,6 @@ async function onSubmit() {
 }
 
 .login-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: space-between;
   height: 100%;
 }

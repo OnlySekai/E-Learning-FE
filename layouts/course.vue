@@ -1,7 +1,6 @@
 <template>
   <a-layout class="layout">
     <a-layout-header class="course-header">
-      <div class="logo" />
       <a-typography-title class="title"
         >{{ courseStore.$state.courseName }}
         <ReadOutlined />
@@ -11,25 +10,28 @@
       <slot />
     </a-layout-content>
     <a-layout-footer class="course-footer">
-      <a-flex justify="space-between">
-        <a-flex :vertical="true" style="width: 30%">
+      <a-flex justify="space-between" wrap="wrap" gap="small">
+        <a-flex :vertical="true">
           <div class="title">CÁC CHUYÊN MỤC CHÍNH</div>
+          <a-divider class="divider" />
           <div>
             <p>Trắc nghiệm</p>
             <p>Chương trình</p>
             <p>Ngân hàng câu hỏi</p>
           </div>
         </a-flex>
-        <a-flex :vertical="true" style="width: 30%">
+        <a-flex :vertical="true">
           <div class="title">CÁC CHUYÊN MỤC CHÍNH</div>
+          <a-divider class="divider" />
           <div>
             <p>Trắc nghiệm</p>
             <p>Chương trình</p>
             <p>Ngân hàng câu hỏi</p>
           </div>
         </a-flex>
-        <a-flex :vertical="true" style="width: 30%">
+        <a-flex :vertical="true">
           <div class="title">CÁC CHUYÊN MỤC CHÍNH</div>
+          <a-divider class="divider" />
           <div>
             <p>Trắc nghiệm</p>
             <p>Chương trình</p>
@@ -49,6 +51,7 @@ await useAsyncData('get-course', () => courseStore.fetchCourse())
 <style scoped lang="scss">
 .course-header {
   display: flex;
+  height: auto;
   margin-bottom: 20px;
   align-items: center;
 
@@ -61,11 +64,13 @@ await useAsyncData('get-course', () => courseStore.fetchCourse())
   margin: 0 10% 0 10%;
 }
 
-.course-footer .title {
-  border-bottom: solid 2px;
-  border-bottom-color: $gold;
-  color: $gold;
-  height: 50px;
-  align-content: center;
+.course-footer {
+  .title {
+    color: $gold;
+    align-content: center;
+  }
+  .divider {
+    border-color: $gold;
+  }
 }
 </style>

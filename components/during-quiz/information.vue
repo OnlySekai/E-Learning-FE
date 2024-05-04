@@ -1,5 +1,5 @@
 <template>
-  <a-flex gap="middle" vertical>
+  <a-flex gap="middle" vertical wrap="wrap">
     <app-count-down
       :endTime="endTimeCountDown"
       @finish="() => console.log('end')"

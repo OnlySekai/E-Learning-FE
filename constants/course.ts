@@ -1,4 +1,4 @@
-export const COURSE_ID = '661ab9d6b63bd525425ba91b'
+export const COURSE_ID = '663622ce4728cc97a0b8717d'
 
 export const VIEW_MODES = {
   READ: 'read',
