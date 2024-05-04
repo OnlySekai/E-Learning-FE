@@ -1,12 +1,10 @@
 <template>
   <a-layout>
     <a-layout-sider
-      reverseArrow
       breakpoint="lg"
       collapsedWidth="0"
       class="layout-sider"
-      :style="{ backgroundColor: '#F5F5F5' }"
-      width="400"
+      :style="{ backgroundColor: '#F5F5F5', width: '500px', maxWidth: '100%' }"
     >
       <a-flex
         vertical
@@ -50,7 +48,7 @@
       breakpoint="sm"
       collapsedWidth="0"
       class="layout-sider"
-      style="background-color: #f5f5f5"
+      :style="{ backgroundColor: '#F5F5F5', width: '500px', maxWidth: '100%' }"
       width="400"
     >
       <a-flex
