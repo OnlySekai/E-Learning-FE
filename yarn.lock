@@ -5493,14 +5493,14 @@ __metadata:
     dayjs-nuxt: "npm:^2.1.9"
     lodash: "npm:^4.17.21"
     moment: "npm:^2.30.1"
-    nuxt: "npm:^3.10.0"
+    nuxt: "npm:^3.11.2"
     sass: "npm:^1.69.5"
     vue: "npm:^3.3.7"
     vue-router: "npm:^4.2.5"
   languageName: unknown
   linkType: soft
 
-"nuxt@npm:^3.10.0":
+"nuxt@npm:^3.11.2":
   version: 3.11.2
   resolution: "nuxt@npm:3.11.2"
   dependencies:

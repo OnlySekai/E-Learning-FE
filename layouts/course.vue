@@ -45,7 +45,6 @@
 
 <script lang="ts" setup>
 const courseStore = useCourseStore()
-await useAsyncData('get-course', () => courseStore.fetchCourse())
 </script>
 
 <style scoped lang="scss">

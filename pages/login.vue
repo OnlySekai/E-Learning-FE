@@ -53,6 +53,7 @@
 
 <script setup lang="ts">
 import { COURSE_ID } from '~/constants/course'
+import { USER_ENDPOINT } from '~/constants/endpoint'
 
 definePageMeta({
   layout: 'unlogin',
@@ -79,13 +80,21 @@ async function onSubmit() {
   try {
     startLoading()
     await userStore.login(loginData)
-    await userStore.fetchProfile()
     finishLoading()
+    useRouter().push(`/course/${COURSE_ID}/map`)
   } catch (error) {
     finishLoading()
     throw error
   }
-  useRouter().push(`/course/${COURSE_ID}/map`)
+}
+
+async function login(payload: LoginRequest) {
+  const response = (await $api(USER_ENDPOINT.login.path, {
+    method: USER_ENDPOINT.login.method,
+    body: payload,
+  })) as LoginResponse
+  const { token } = response
+  localStorage.setItem('token', token)
 }
 </script>
 

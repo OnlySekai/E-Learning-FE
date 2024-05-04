@@ -2,7 +2,7 @@
   <a-flex gap="middle" vertical class="working-area" wrap="wrap">
     <a-card class="question" :title="questionTittle">
       <template #extra>
-        <a-button @click="openModalReportQuestion">
+        <a-button @click="openModalReportQuestion" danger>
           <alert-filled />
           Báo cáo sai đề
         </a-button>

@@ -24,14 +24,15 @@
     </a-card>
     <a-card class="action-button">
       <template #actions>
-        <a-typography-text
-          strong
-          type="danger"
+        <a-button
+          type="text"
+          style="width: 100%"
+          danger
           @click="
             () =>
               props.readonly ? useRouter().push('/') : openConfirmSubmitSheet()
           "
-          >{{ `${props.readonly ? 'Thoát' : 'Nộp bài'}` }}</a-typography-text
+          >{{ `${props.readonly ? 'Thoát' : 'Nộp bài'}` }}</a-button
         >
         <!-- <a-typography-text
           strong

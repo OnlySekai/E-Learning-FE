@@ -11,9 +11,7 @@ export const openConfirmSubmitSheet = () => {
       try {
         await quizStore.submitQuizSheet()
         openResultSubmitSheet()
-      } catch (error) {
-        window.alert('Có lỗi xảy ra, vui lòng thử lại sau')
-      }
+      } catch (error) {}
     },
   })
 }

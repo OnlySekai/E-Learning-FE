@@ -44,13 +44,9 @@
           <template #overlay>
             <a-menu>
               <a-menu-item>
-                <a href="javascript:;">1st menu item</a>
-              </a-menu-item>
-              <a-menu-item>
-                <a href="javascript:;">2nd menu item</a>
-              </a-menu-item>
-              <a-menu-item>
-                <a href="javascript:;">3rd menu item</a>
+                <a-button type="text" danger @click="logout"
+                  >Đăng xuất</a-button
+                >
               </a-menu-item>
             </a-menu>
           </template>
@@ -69,15 +65,14 @@
 const userStore = useUserStore()
 const courseStore = useCourseStore()
 
-onBeforeMount(async () => {
-  await Promise.allSettled([
-    userStore.fetchProfile(),
-    courseStore.fetchCourse(),
-  ])
-})
 function handleMenuClick() {}
 
 function handleButtonClick() {}
+
+function logout() {
+  localStorage.removeItem('token')
+  navigateTo('/login')
+}
 </script>
 <style lang="scss" scoped>
 .layout-header {

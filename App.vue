@@ -19,6 +19,9 @@ html {
 
 <script setup lang="ts">
 const { loading } = useLoading()
+window.onbeforeunload = function () {
+  sessionStorage.removeItem('logged')
+}
 </script>
 
 <style>

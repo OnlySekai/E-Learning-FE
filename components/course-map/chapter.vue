@@ -4,7 +4,7 @@
       <a-space>
         <a-typography-title
           :level="4"
-          style="word-wrap: break-word; white-space: normal"
+          style="word-wrap: break-word; white-space: normal; color: white"
         >
           <BookOutlined />
           {{ chapterName }}
@@ -14,7 +14,7 @@
     <a-flex vertical justify="center" align="center">
       <a-typography-title
         :level="4"
-        style="word-wrap: break-word; white-space: normal"
+        style="word-wrap: break-word; white-space: normal; text-align: center"
       >
         {{ figureName }}
       </a-typography-title>
@@ -44,7 +44,7 @@ const props = defineProps<{
 </script>
 <style scoped lang="scss">
 ::v-deep(.ant-card-head) {
-  background-color: $blue
+  background-color: $blue;
 }
 
 .icon {
