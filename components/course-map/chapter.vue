@@ -1,14 +1,15 @@
 <template>
   <a-card>
     <template #title>
-      <a-typography-title
-        :level="4"
-        style="word-wrap: break-word; white-space: normal"
-      >
-        <BookOutlined />
-        {{ chapterName }}
-      </a-typography-title>
-      <a-divider type="vertical" />
+      <a-space>
+        <a-typography-title
+          :level="4"
+          style="word-wrap: break-word; white-space: normal"
+        >
+          <BookOutlined />
+          {{ chapterName }}
+        </a-typography-title>
+      </a-space>
     </template>
     <a-flex vertical justify="center" align="center">
       <a-typography-title
@@ -42,6 +43,10 @@ const props = defineProps<{
 }>()
 </script>
 <style scoped lang="scss">
+::v-deep(.ant-card-head) {
+  background-color: $blue
+}
+
 .icon {
   width: 5em;
   height: 5em;
