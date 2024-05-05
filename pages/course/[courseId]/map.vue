@@ -80,23 +80,13 @@
               <FlagOutlined />REMEMBER
             </a-typography-title>
           </template>
-          <a-card>
-            <a-typography>content</a-typography>
-          </a-card>
-          <a-card>
-            <a-typography>content</a-typography>
-          </a-card>
-          <a-card>
-            <a-typography>content</a-typography>
-          </a-card>
-          <a-card>
-            <a-typography>content</a-typography>
-          </a-card>
-          <a-card>
-            <a-typography>content</a-typography>
-          </a-card>
-          <a-card>
-            <a-typography>content</a-typography>
+          <a-card
+            v-for="(remember, i) in remembers"
+            :key="i"
+            :title="remember.title"
+          >
+            <a-typography-text>{{ remember.text }}</a-typography-text>
+            <app-image :src="remember.img"></app-image>
           </a-card>
         </a-card>
       </a-flex>
@@ -106,11 +96,13 @@
 
 <script lang="ts" setup>
 import type { DataNode, TreeDataItem } from 'ant-design-vue/es/tree'
+import { useRememberStore } from '~/stores/remember'
 
 definePageMeta({
   layout: 'logined',
 })
 const courseStore = useCourseStore()
+const { remembers } = storeToRefs(useRememberStore())
 const { chapters } = storeToRefs(courseStore)
 const treeData = computed((): TreeDataItem[] => {
   if (!chapters?.value) return []
