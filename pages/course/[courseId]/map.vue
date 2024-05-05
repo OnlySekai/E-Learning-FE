@@ -12,18 +12,18 @@
         align="center"
         style="margin-right: 10px; margin-left: 10px"
       >
-        <app-calendar class="calendar"></app-calendar>
+        <app-calendar class="calendar" v-model="selectedDay"></app-calendar>
 
         <a-card title="Cần hoàn thành" style="width: 100%">
           <a-space direction="vertical">
-            <a-typography-link type="success">
-              <CheckCircleOutlined /> Chương 1 dạng 1
-            </a-typography-link>
-            <a-typography-link type="success">
-              <CheckCircleOutlined /> Chương 1 dạng 2</a-typography-link
+            <a-typography-link
+              v-for="(item, i) in mustStudy"
+              :type="item.complete ? 'success' : 'danger'"
+              :key="i"
             >
-            <a-typography-link type="danger">
-              <CloseCircleOutlined /> Chương 1 dạng 3
+              <CheckCircleOutlined v-if="item.complete" />
+              <CloseCircleOutlined v-else />
+              {{ item.message }}
             </a-typography-link>
           </a-space>
         </a-card>
@@ -63,10 +63,15 @@
             </a-typography-title>
           </template>
           <template #actions>
-            <a-button type="primary">
-              <PlusSquareOutlined />
-              TÀI LIỆU THAM KHẢO
-            </a-button>
+            <a
+              href="https://drive.google.com/drive/folders/14WeqHLELG9k8IzjN9apXhy30247gUb6J"
+              target="_blank"
+            >
+              <a-button type="primary">
+                <PlusSquareOutlined />
+                TÀI LIỆU THAM KHẢO
+              </a-button>
+            </a>
           </template>
           <a-space direction="vertical">
             <a-typography-link>Thi thử lần 1 </a-typography-link>
@@ -96,12 +101,20 @@
 
 <script lang="ts" setup>
 import type { DataNode, TreeDataItem } from 'ant-design-vue/es/tree'
+import type { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 import { useRememberStore } from '~/stores/remember'
 
 definePageMeta({
   layout: 'logined',
 })
 const courseStore = useCourseStore()
+const studyMapStore = useStudyMapStore()
+const selectedDay = ref(dayjs())
+const mustStudy = computed((): CaLendarStudyEntity[] => {
+  const key = selectedDay.value.format('YYYY-MM-DD')
+  return studyMapStore.$state.calendar[key] || []
+})
 const { remembers } = storeToRefs(useRememberStore())
 const { chapters } = storeToRefs(courseStore)
 const treeData = computed((): TreeDataItem[] => {

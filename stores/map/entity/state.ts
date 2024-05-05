@@ -1,6 +1,6 @@
 export interface StudyMapStateEntity {
   remainDays: number
-  calendar: Record<string, CaLendarStudyEntity>
+  calendar: Record<string, CaLendarStudyEntity[]>
   chapters: CourseChapterEntity[]
 }
 

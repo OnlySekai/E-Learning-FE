@@ -9,7 +9,6 @@
       v-model:value="value"
       :fullscreen="false"
       @panelChange="onPanelChange!"
-      @select=""
     >
       <template
         #headerRender="{ value: current, type, onChange, onTypeChange }"
@@ -74,23 +73,28 @@
         <a-popover v-if="getStudyNotif(current)">
           <template #title>
             <a-typography-text
-              v-if="getStudyNotif(current)?.complete"
+              v-if="getStudyNotif(current)?.every(({ complete }) => complete)"
               type="success"
               ><CheckCircleFilled /> Đã hoàn thành</a-typography-text
             >
             <a-typography-text v-else type="danger"
-              ><CloseCircleFilled /> Chưa oàn thành</a-typography-text
+              ><CloseCircleFilled /> Chưa hoàn thành</a-typography-text
             >
           </template>
           <template #content>
-            <a-typography-text type="secondary">{{
-              getStudyNotif(current)?.message
-            }}</a-typography-text>
+            <a-space direction="vertical">
+              <a-typography-text
+                type="secondary"
+                v-for="(item, index) in getStudyNotif(current)"
+                :key="index"
+                >{{ item.message }}</a-typography-text
+              >
+            </a-space>
           </template>
           <a-typography-text
             :disabled="!isSameMonth(current)"
             :strong="isSameDay(current, today)"
-            :underline="isSameDay(current, value)"
+            :mark="isSameDay(current, value as Dayjs)"
             type="danger"
             >{{ current.date() }}</a-typography-text
           >
@@ -99,7 +103,7 @@
           v-else
           :disabled="!isSameMonth(current)"
           :strong="isSameDay(current, today)"
-          :underline="isSameDay(current, value)"
+          :mark="isSameDay(current, value as Dayjs)"
           >{{ current.date() }}</a-typography-text
         >
       </template>
@@ -107,7 +111,6 @@
   </a-card>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
 import dayjs from 'dayjs'
 import type { Dayjs } from 'dayjs'
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons-vue'
@@ -115,8 +118,9 @@ const today = dayjs()
 const studyMapStore = useStudyMapStore()
 const { remainDays, calendar } = studyMapStore.$state
 
-const value = ref<Dayjs>(today)
-function getStudyNotif(value: Dayjs): CaLendarStudyEntity | undefined {
+const value = defineModel<Dayjs>()
+
+function getStudyNotif(value: Dayjs): CaLendarStudyEntity[] | undefined {
   const dateString = value.format('YYYY-MM-DD')
   if (!calendar) return
   return calendar[dateString]
@@ -130,9 +134,7 @@ function isSameDay(day1: Dayjs, day2: Dayjs): boolean {
   return day1.isSame(day2, 'date')
 }
 
-const onPanelChange = (value: Dayjs, mode: string) => {
-  console.log(value, mode)
-}
+const onPanelChange = (value: Dayjs, mode: string) => {}
 
 const getMonths = (value: Dayjs) => {
   const localeData = value.localeData()

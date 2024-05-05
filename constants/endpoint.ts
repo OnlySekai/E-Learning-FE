@@ -63,4 +63,8 @@ export const USER_ENDPOINT: Record<string, EndPointConfigEntity> = {
     path: `${API_URL}/auth/profile`,
     method: 'GET',
   },
+  getMission: {
+    path: `${API_URL}/mission`,
+    method: 'GET',
+  },
 }
