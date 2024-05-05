@@ -4,13 +4,12 @@
       breakpoint="lg"
       collapsedWidth="0"
       class="layout-sider"
-      :style="{ backgroundColor: '#F5F5F5', width: '500px', maxWidth: '100%' }"
+      :style="{ backgroundColor: '#F5F5F5' }"
     >
       <a-flex
         vertical
         gap="large"
         align="center"
-        ,
         style="margin-right: 10px; margin-left: 10px"
       >
         <app-calendar class="calendar"></app-calendar>
@@ -39,7 +38,7 @@
         <CourseMapChapter
           v-for="(item, index) in mapContent"
           :chapter-name="item.chapterName"
-          :figure-name="item.figureName"
+          :figure-config="item.figureConfig"
           :key="index"
         />
       </a-flex>
@@ -48,7 +47,7 @@
       breakpoint="sm"
       collapsedWidth="0"
       class="layout-sider"
-      :style="{ backgroundColor: '#F5F5F5', width: '500px', maxWidth: '100%' }"
+      style="background-color: #f5f5f5"
       width="400"
     >
       <a-flex
@@ -133,13 +132,16 @@ const treeData = computed((): TreeDataItem[] => {
 
 const mapContent = computed(() => {
   if (!chapters?.value) return []
-  const mapStudyConfig: { figureName: string; chapterName: string }[] = []
+  const mapStudyConfig: {
+    figureConfig: CourseFigureChapter
+    chapterName: string
+  }[] = []
   chapters.value.forEach((chapter) => {
     const { chapterName, figures, chapterNumber } = chapter
     figures.forEach((figure) => {
       const { figureName, figureNumber } = figure
       mapStudyConfig.push({
-        figureName: `Dạng ${figureNumber} ${figureName}`,
+        figureConfig: figure,
         chapterName: ` Chương ${chapterNumber}: ${chapterName}`,
       })
     })

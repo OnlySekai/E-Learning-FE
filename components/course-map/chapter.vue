@@ -18,7 +18,22 @@
       >
         {{ figureName }}
       </a-typography-title>
-      <AppIconTask type="theory" class="icon" />
+      <AppIconTask type="theory" class="icon" @click="showModal" />
+      <a-modal
+        title="Document"
+        :visible="visible"
+        @ok="handleOk"
+        @cancel="handleCancel"
+      >
+        <div v-for="doc in figureConfig.documents" :key="doc.url">
+          <iframe
+            v-if="visible && doc.url"
+            :src="getUrl(doc.url)"
+            width="100%"
+            height="500px"
+          ></iframe>
+        </div>
+      </a-modal>
       <AppIconTask
         v-for="i in 4"
         :type="i"
@@ -38,10 +53,34 @@
 
 <script lang="ts" setup>
 const props = defineProps<{
+  figureConfig: CourseFigureChapter
   chapterName: string
-  figureName: string
 }>()
+const {
+  figureConfig: { figureName },
+} = props
+
+const visible = ref(false)
+
+const showModal = () => {
+  visible.value = true
+}
+
+const handleOk = () => {
+  visible.value = false
+}
+
+const handleCancel = () => {
+  visible.value = false
+}
+
+const getUrl = (url: string) => {
+  const base = url.split('/view')[0]
+  // Append '/preview' to the base URL
+  return `${base}/preview`
+}
 </script>
+
 <style scoped lang="scss">
 ::v-deep(.ant-card-head) {
   background-color: $blue;

@@ -1,6 +1,12 @@
+export interface FigureDocument {
+  type: 'pdf' | 'video'
+  url: string
+}
+
 export interface CourseFigureChapter {
   figureName: string
   figureNumber: number
+  documents: FigureDocument[]
 }
 
 export interface CourseChapterEntity {
