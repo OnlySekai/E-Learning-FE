@@ -3,6 +3,7 @@ import type { LoginRequest } from './dto/login.request'
 import type { UserStateEntity } from './entity/state'
 import type { LoginResponse } from './dto/login.response'
 import type { ProfileResponse } from './dto/profile.response'
+import type { SignInRequest } from './dto/signIn.request'
 
 export const useUserStore = defineStore('user', {
   state: (): UserStateEntity => ({
@@ -16,6 +17,12 @@ export const useUserStore = defineStore('user', {
       })) as LoginResponse
       const { token } = response
       localStorage.setItem('token', token)
+    },
+    async register(payload: SignInRequest) {
+      return $api(USER_ENDPOINT.register.path, {
+        method: USER_ENDPOINT.register.method,
+        body: payload,
+      })
     },
     async fetchProfile() {
       const profile = (await $api(USER_ENDPOINT.profile.path, {

@@ -28,10 +28,7 @@
           type="text"
           style="width: 100%"
           danger
-          @click="
-            () =>
-              props.readonly ? useRouter().push('/') : openConfirmSubmitSheet()
-          "
+          @click="() => (props.readonly ? goHome() : openConfirmSubmitSheet())"
           >{{ `${props.readonly ? 'Thoát' : 'Nộp bài'}` }}</a-button
         >
         <!-- <a-typography-text
@@ -46,6 +43,8 @@
 </template>
 
 <script setup lang="ts" script>
+import { COURSE_ID } from '~/constants/course'
+
 const props = defineProps<{
   readonly: boolean
 }>()
@@ -55,6 +54,10 @@ const duration = computed(() =>
   props.readonly ? 0 : quizStore.$state.quizDuration
 )
 const endTimeCountDown = computed(() => Date.now() + duration.value)
+
+function goHome() {
+  window.location.href = `/course/${COURSE_ID}/map`
+}
 </script>
 
 <style scoped lang="scss">

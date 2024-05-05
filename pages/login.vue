@@ -87,15 +87,6 @@ async function onSubmit() {
     throw error
   }
 }
-
-async function login(payload: LoginRequest) {
-  const response = (await $api(USER_ENDPOINT.login.path, {
-    method: USER_ENDPOINT.login.method,
-    body: payload,
-  })) as LoginResponse
-  const { token } = response
-  localStorage.setItem('token', token)
-}
 </script>
 
 <style lang="scss" scoped>

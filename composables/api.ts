@@ -23,7 +23,7 @@ export async function $api<T>(
     notification.error({
       message: fetchError.data.error,
       description: fetchError.data.message,
-      duration: 0,
+      duration: 10,
     })
     throw error
   }

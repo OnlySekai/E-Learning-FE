@@ -71,7 +71,7 @@ function handleButtonClick() {}
 
 function logout() {
   localStorage.removeItem('token')
-  navigateTo('/login')
+  window.location.href = '/login'
 }
 </script>
 <style lang="scss" scoped>

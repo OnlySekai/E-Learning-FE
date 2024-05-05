@@ -119,7 +119,8 @@ const formSignUp: formSignUp[] = [
     message: "Two password don't match!",
   },
 ]
-
+const userStore = useUserStore()
+const { startLoading, finishLoading } = useLoading()
 async function onSubmit() {
   if (
     !signUpData.firstName ||
@@ -130,13 +131,16 @@ async function onSubmit() {
     message.error('Vui lòng nhập đầy đủ thông tin')
     return
   }
-  const userInfor = {
-    firstName: signUpData.firstName,
-    lastName: signUpData.lastName,
-    email: signUpData.email,
-    password: signUpData.password,
-  }
-  console.log(userInfor)
+  startLoading()
+  await userStore.register(signUpData)
+  finishLoading()
+  //create message success
+  notification.success({
+    message: 'Đăng ký thành công',
+    duration: 10,
+  })
+  //redirect to login page
+  navigateTo('/login')
 }
 </script>
 
