@@ -12,9 +12,13 @@ const studyMapStore = useStudyMapStore()
 try {
   await userStore.fetchProfile()
   sessionStorage.setItem('logged', 'true')
-  await useAsyncData('get-course', () => courseStore.fetchCourse())
-  await useAsyncData('get-remember', () => rememberStore.fetchRemembers())
-  await useAsyncData('get-study-map', () => studyMapStore.fetchMission())
+  await Promise.all([
+    useAsyncData('get-course', () => courseStore.fetchCourse()),
+    useAsyncData('get-remember', () => rememberStore.fetchRemembers()),
+    useAsyncData('get-study-map', () => studyMapStore.fetchMission()),
+    useAsyncData('get-study-map', () => studyMapStore.fetchStudyMap()),
+  ])
+
   const { query } = useRoute()
   const { redirect, ...restQuery } = query
   navigateTo({

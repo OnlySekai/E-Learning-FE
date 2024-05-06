@@ -1,7 +1,12 @@
 export interface StudyMapStateEntity {
   remainDays: number
   calendar: Record<string, CaLendarStudyEntity[]>
-  chapters: CourseChapterEntity[]
+  unlockIndex: number
+  content: {
+    element: string
+    status: string
+    lastStudy?: Date
+  }[]
 }
 
 export interface CaLendarStudyEntity {

@@ -75,4 +75,8 @@ export const USER_ENDPOINT: Record<string, EndPointConfigEntity> = {
     path: `${API_URL}/mission`,
     method: 'GET',
   },
+  getStudyPath: {
+    path: `${API_URL}/study-path`,
+    method: 'GET',
+  },
 }

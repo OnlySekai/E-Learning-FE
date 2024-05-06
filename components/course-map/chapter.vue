@@ -38,6 +38,7 @@
         v-for="i in 4"
         :id="`M${i}-D${figureConfig.figureNumber}-C${chapterNumber}`"
         @click="joinQuizLevel(i)"
+        :disabled="!getCanStudyThisLevel(i)"
         :type="i"
         :class="[
           'icon',
@@ -49,6 +50,7 @@
       />
       <AppIconTask
         type="end"
+        :disabled="!canStudyThisFigure"
         class="icon"
         :id="figureId"
         @click="joinQuizEndFigure"
@@ -58,6 +60,8 @@
 </template>
 
 <script lang="ts" setup>
+import { slitIdToNumbers } from '~/utils'
+
 const props = defineProps<{
   figureConfig: CourseFigureChapter
   chapterName: string
@@ -65,11 +69,35 @@ const props = defineProps<{
 }>()
 const figureId = `D${props.figureConfig.figureNumber}-C${props.chapterNumber}`
 const quizStore = useQuizStore()
+const mapStore = useStudyMapStore()
+const currentStudy = computed((): number => {
+  if (!mapStore.currentStudy) return 0
+  return slitIdToNumbers(mapStore.currentStudy.element)
+    .reverse()
+    .reduce((acc, cur, i) => {
+      return acc * 100 + cur
+    }, 0)
+})
+const canStudyThisFigure = computed(() => {
+  const { figureNumber } = props.figureConfig
+  const value = figureNumber * 100 + props.chapterNumber * 10000
+  return currentStudy.value >= value
+})
+function getCanStudyThisLevel(level: number) {
+  const { figureNumber } = props.figureConfig
+  const value = figureNumber * 100 + props.chapterNumber * 10000 + level
+  return currentStudy.value >= value
+}
+
 const {
   figureConfig: { figureName },
 } = props
 
 async function joinQuizLevel(level: number) {
+  if (!getCanStudyThisLevel(level))
+    return notification.error({
+      message: 'Bạn cần hoàn thành các nhiệm vụ trước đó.',
+    })
   const sheetId = await quizStore.joinQuizLevel({
     level,
     figure: props.figureConfig.figureNumber,

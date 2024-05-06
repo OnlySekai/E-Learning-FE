@@ -1,23 +1,27 @@
 import { USER_ENDPOINT } from '~/constants/endpoint'
 import type { CaLendarStudyEntity, StudyMapStateEntity } from './entity/state'
-import mapConfigMock from '~/assets/mock/map.json'
 import type { GetMissionResponse } from './dto/get-mission.response'
-const isMock = useRuntimeConfig().public.mockEnable
+import { COURSE_ID } from '~/constants/course'
 
 export const useStudyMapStore = defineStore('map', {
   state: (): StudyMapStateEntity => ({
     calendar: {},
     remainDays: 0,
-    chapters: [],
+    content: [],
+    unlockIndex: 0,
   }),
+  getters: {
+    currentStudy: (state) => state.content[state.unlockIndex],
+  },
   actions: {
     async fetchStudyMap() {
-      const response = isMock
-        ? mapConfigMock
-        : await $api(USER_ENDPOINT.getMap.path, {
-            method: USER_ENDPOINT.getMap.method,
-          })
-      this.$patch(response as StudyMapStateEntity)
+      const response = (await $api(USER_ENDPOINT.getStudyPath.path, {
+        query: {
+          courseId: COURSE_ID,
+        },
+      })) as any[]
+      const { remainDays, content, unlockIndex } = response[0]
+      this.$patch({ remainDays, content, unlockIndex })
     },
     async fetchMission() {
       const response: GetMissionResponse[] = await $api(
