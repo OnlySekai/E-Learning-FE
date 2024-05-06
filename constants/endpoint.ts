@@ -30,6 +30,10 @@ export const QUIZ_ENDPOINT: Record<string, EndPointConfigEntity> = {
     path: `${API_URL}/quiz/survey`,
     method: 'PATCH',
   },
+  joinQuizLevel: {
+    path: `${API_URL}/quiz/level`,
+    method: 'POST',
+  },
 }
 
 export const REPORT_ENDPOINT: Record<string, EndPointConfigEntity> = {

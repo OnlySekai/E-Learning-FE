@@ -18,7 +18,7 @@
       >
         {{ figureName }}
       </a-typography-title>
-      <AppIconTask type="theory" class="icon" @click="showModal" />
+      <AppIconTask type="theory" class="icon" @onClick="showModal" />
       <a-modal
         title="Document"
         :visible="visible"
@@ -36,8 +36,8 @@
       </a-modal>
       <AppIconTask
         v-for="i in 4"
+        @click="joinQuiz(i)"
         :type="i"
-        disabled
         :class="[
           'icon',
           {
@@ -55,10 +55,21 @@
 const props = defineProps<{
   figureConfig: CourseFigureChapter
   chapterName: string
+  chapterNumber: number
 }>()
+const quizStore = useQuizStore()
 const {
   figureConfig: { figureName },
 } = props
+
+async function joinQuiz(level: number) {
+  const sheetId = await quizStore.joinQuizLevel({
+    level,
+    figure: props.figureConfig.figureNumber,
+    chapter: props.chapterNumber,
+  })
+  navigateTo(`/quiz/attempt/${sheetId}`)
+}
 
 const visible = ref(false)
 

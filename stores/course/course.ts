@@ -38,7 +38,6 @@ export const useCourseStore = defineStore('course', {
               studyPathId: targetResponse._id,
             },
           })
-      console.log(target)
       return joinQuizResponse.sheetId
     },
   },

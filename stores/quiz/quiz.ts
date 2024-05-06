@@ -6,6 +6,7 @@ import type { QuizStateEntity } from './entity/state.entity'
 import quiz from '~/assets/mock/quiz.json'
 import type { SubmitSurveryRequest } from './dto/submitSurvey.request'
 import type { ReportQuestionRequest } from './dto/reportQuestion.request'
+import type { AttemptQuizLevelRequest } from './dto/attemptQuizLevel.request'
 
 const isMock = useRuntimeConfig().public.mockEnable
 
@@ -24,6 +25,16 @@ export const useQuizStore = defineStore('quiz', {
     },
   },
   actions: {
+    async joinQuizLevel(payload: AttemptQuizLevelRequest): Promise<string> {
+      const response: { sheetId: string } = await $api(
+        QUIZ_ENDPOINT.joinQuizLevel.path,
+        {
+          method: QUIZ_ENDPOINT.joinQuizLevel.method,
+          body: payload,
+        }
+      )
+      return response.sheetId
+    },
     async fetchQuizSheet(sheetId: string) {
       // fetch quiz sheet from api
       const response = isMock

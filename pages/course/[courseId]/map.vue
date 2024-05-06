@@ -38,6 +38,7 @@
         <CourseMapChapter
           v-for="(item, index) in mapContent"
           :chapter-name="item.chapterName"
+          :chapter-number="item.chapterNumber"
           :figure-config="item.figureConfig"
           :key="index"
         />
@@ -139,15 +140,16 @@ const mapContent = computed(() => {
   if (!chapters?.value) return []
   const mapStudyConfig: {
     figureConfig: CourseFigureChapter
+    chapterNumber: number
     chapterName: string
   }[] = []
   chapters.value.forEach((chapter) => {
     const { chapterName, figures, chapterNumber } = chapter
     figures.forEach((figure) => {
-      const { figureName, figureNumber } = figure
       mapStudyConfig.push({
         figureConfig: figure,
         chapterName: ` Chương ${chapterNumber}: ${chapterName}`,
+        chapterNumber,
       })
     })
   })

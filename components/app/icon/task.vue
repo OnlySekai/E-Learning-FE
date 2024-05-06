@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="$emit('click')">
     <img
       :src="iconSrc"
       alt="First Task Icon"
@@ -9,6 +9,7 @@
 </template>
 
 <script setup lang="ts">
+defineEmits(['click'])
 const props = defineProps<{
   disabled?: boolean
   type: number | '1' | '2' | '3' | '4' | 'end' | 'theory'
