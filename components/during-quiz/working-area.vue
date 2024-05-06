@@ -92,10 +92,9 @@
     </a-card>
     <a-pagination
       class="-center"
-      show-less-items
+      simple
       :current="quizStore.questionIndex"
       @change="(page) => quizStore.goToQuestion(page, !props.readonly)"
-      show-quick-jumper
       :total="quizStore.questions.length * 10"
     />
   </a-flex>

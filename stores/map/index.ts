@@ -24,7 +24,7 @@ export const useStudyMapStore = defineStore('map', {
         USER_ENDPOINT.getMission.path
       )
       const calendar = response.reduce(
-        (pre, { dueDate, isComplete, title }) => {
+        (pre, { dueDate, isComplete, title, id }) => {
           const key = dueDate.split('T')[0]
           if (!pre[key]) {
             pre[key] = []
@@ -32,6 +32,7 @@ export const useStudyMapStore = defineStore('map', {
           pre[key].push({
             complete: isComplete,
             message: title,
+            id,
           })
           return pre
         },

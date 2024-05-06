@@ -81,7 +81,7 @@ async function onSubmit() {
     startLoading()
     await userStore.login(loginData)
     finishLoading()
-    useRouter().push(`/course/${COURSE_ID}/map`)
+    useRouter().push('/course/map')
   } catch (error) {
     finishLoading()
     throw error

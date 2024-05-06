@@ -5,6 +5,7 @@ export interface StudyMapStateEntity {
 }
 
 export interface CaLendarStudyEntity {
+  id: string
   complete: boolean
   message: string
 }

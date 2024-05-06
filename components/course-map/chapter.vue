@@ -36,7 +36,8 @@
       </a-modal>
       <AppIconTask
         v-for="i in 4"
-        @click="joinQuiz(i)"
+        :id="`M${i}-D${figureConfig.figureNumber}-C${chapterNumber}`"
+        @click="joinQuizLevel(i)"
         :type="i"
         :class="[
           'icon',
@@ -46,7 +47,12 @@
           },
         ]"
       />
-      <AppIconTask type="end" disabled class="icon" />
+      <AppIconTask
+        type="end"
+        class="icon"
+        :id="figureId"
+        @click="joinQuizEndFigure"
+      />
     </a-flex>
   </a-card>
 </template>
@@ -57,16 +63,25 @@ const props = defineProps<{
   chapterName: string
   chapterNumber: number
 }>()
+const figureId = `D${props.figureConfig.figureNumber}-C${props.chapterNumber}`
 const quizStore = useQuizStore()
 const {
   figureConfig: { figureName },
 } = props
 
-async function joinQuiz(level: number) {
+async function joinQuizLevel(level: number) {
   const sheetId = await quizStore.joinQuizLevel({
     level,
     figure: props.figureConfig.figureNumber,
     chapter: props.chapterNumber,
+  })
+  navigateTo(`/quiz/attempt/${sheetId}`)
+}
+
+async function joinQuizEndFigure() {
+  debugger
+  const sheetId = await quizStore.joinQuizEndFigure({
+    figureId,
   })
   navigateTo(`/quiz/attempt/${sheetId}`)
 }

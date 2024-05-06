@@ -18,7 +18,10 @@
           phút</a-typography-text
         >
         <a-typography-text strong
-          >Họ và Tên: <span>{{ quizStore.fullName }}</span></a-typography-text
+          >Họ và Tên:
+          <span>{{
+            owner?.firstName + owner?.lastName
+          }}</span></a-typography-text
         >
       </a-space>
     </a-card>
@@ -50,13 +53,14 @@ const props = defineProps<{
 }>()
 const courseStore = useCourseStore()
 const quizStore = useQuizStore()
+const { owner } = storeToRefs(useUserStore())
 const duration = computed(() =>
   props.readonly ? 0 : quizStore.$state.quizDuration
 )
 const endTimeCountDown = computed(() => Date.now() + duration.value)
 
 function goHome() {
-  window.location.href = `/course/${COURSE_ID}/map`
+  window.location.href = '/course/map'
 }
 </script>
 

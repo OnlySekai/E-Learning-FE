@@ -18,6 +18,7 @@
           <a-space direction="vertical">
             <a-typography-link
               v-for="(item, i) in mustStudy"
+              :href="`#${item.id}`"
               :type="item.complete ? 'success' : 'danger'"
               :key="i"
             >
@@ -102,7 +103,6 @@
 
 <script lang="ts" setup>
 import type { DataNode, TreeDataItem } from 'ant-design-vue/es/tree'
-import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
 import { useRememberStore } from '~/stores/remember'
 

@@ -14,6 +14,10 @@ export const QUIZ_ENDPOINT: Record<string, EndPointConfigEntity> = {
     path: `${API_URL}/quiz/input`,
     method: 'POST',
   },
+  joinQuizEndFigure: {
+    path: `${API_URL}/quiz/end-figure`,
+    method: 'POST',
+  },
   submitQuiz: {
     path: `${API_URL}/quiz`,
     method: 'PATCH',
