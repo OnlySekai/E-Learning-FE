@@ -18,7 +18,7 @@
       >
         {{ figureName }}
       </a-typography-title>
-      <AppIconTask type="theory" class="icon" @onClick="showModal" />
+      <AppIconTask type="theory" class="icon" @click="showModal" />
       <a-modal
         title="Document"
         :visible="visible"
@@ -117,6 +117,7 @@ async function joinQuizEndFigure() {
 const visible = ref(false)
 
 const showModal = () => {
+  console.log(visible)
   visible.value = true
 }
 
