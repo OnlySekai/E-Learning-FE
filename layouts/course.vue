@@ -9,7 +9,7 @@
     <a-layout-content style="padding: 0 50px">
       <slot />
     </a-layout-content>
-    <a-layout-footer class="course-footer">
+    <!-- <a-layout-footer class="course-footer">
       <a-flex justify="space-between" wrap="wrap" gap="small">
         <a-flex :vertical="true">
           <div class="title">CÁC CHUYÊN MỤC CHÍNH</div>
@@ -39,7 +39,7 @@
           </div>
         </a-flex>
       </a-flex>
-    </a-layout-footer>
+    </a-layout-footer> -->
   </a-layout>
 </template>
 
