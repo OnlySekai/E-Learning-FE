@@ -26,6 +26,13 @@
       </a-space>
     </a-card>
     <a-card class="action-button">
+      <a-pagination
+        class="-center"
+        simple
+        :current="quizStore.questionIndex"
+        @change="(page) => quizStore.goToQuestion(page, !props.readonly)"
+        :total="quizStore.questions.length * 10"
+      />
       <template #actions>
         <a-button
           type="text"
@@ -46,8 +53,6 @@
 </template>
 
 <script setup lang="ts" script>
-import { COURSE_ID } from '~/constants/course'
-
 const props = defineProps<{
   readonly: boolean
 }>()
@@ -66,6 +71,9 @@ function goHome() {
 
 <style scoped lang="scss">
 .action-button {
+  text-align: center;
+}
+.-center {
   text-align: center;
 }
 </style>

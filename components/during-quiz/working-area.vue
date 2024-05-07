@@ -1,5 +1,5 @@
 <template>
-  <a-flex gap="middle" vertical class="working-area" wrap="wrap">
+  <a-flex gap="middle" vertical class="working-area">
     <a-card class="question" :title="questionTittle">
       <template #extra>
         <a-button @click="openModalReportQuestion" danger>
@@ -14,11 +14,12 @@
       <a-typography-text>
         {{ selectedQuestion.note }}
       </a-typography-text>
-      <a-space class="list-image-wrapper">
+      <a-space class="list-image-wrapper" vertical>
         <AppImage
           v-for="link in selectedQuestion.images"
           :src="link"
           :key="link"
+          :style="{ maxWidth: '100%', width: '600px' }"
           class="question-image"
         />
       </a-space>
@@ -109,6 +110,7 @@
         Bạn có thấy mình yếu câu này không?
       </a-checkbox>
     </a-card>
+
     <a-card v-if="canShowSolvement" title="Lời giải">
       <AppImage
         v-for="src in selectedQuestion.solveImg"
@@ -116,17 +118,11 @@
         :src="src"
       />
     </a-card>
-    <a-pagination
-      class="-center"
-      simple
-      :current="quizStore.questionIndex"
-      @change="(page) => quizStore.goToQuestion(page, !props.readonly)"
-      :total="quizStore.questions.length * 10"
-    />
   </a-flex>
 </template>
 
 <script setup lang="ts">
+import type { max } from 'lodash'
 import { QUESTION_TYPE, QUIZ_SHEET_CONFIG_TYPE } from '~/constants/course'
 import { compareTwoArray } from '~/utils'
 const visableModalGuideQuestion = ref(false)

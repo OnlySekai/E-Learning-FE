@@ -6,40 +6,46 @@
         <ReadOutlined />
       </a-typography-title>
     </a-layout-header>
-    <a-layout-content style="padding: 0 50px">
+    <a-layout-content style="height: auto">
       <slot />
     </a-layout-content>
-    <!-- <a-layout-footer class="course-footer">
+    <a-layout-footer class="course-footer">
       <a-flex justify="space-between" wrap="wrap" gap="small">
         <a-flex :vertical="true">
-          <div class="title">CÁC CHUYÊN MỤC CHÍNH</div>
+          <a-typography-title :level="4" class="title"
+            >CÁC CHUYÊN MỤC CHÍNH</a-typography-title
+          >
           <a-divider class="divider" />
-          <div>
-            <p>Trắc nghiệm</p>
-            <p>Chương trình</p>
-            <p>Ngân hàng câu hỏi</p>
-          </div>
+          <a-space direction="vertical">
+            <a-typography-text>Trắc nghiệm</a-typography-text>
+            <a-typography-text>Chương trình</a-typography-text>
+            <a-typography-text>Ngân hàng câu hỏi</a-typography-text>
+          </a-space>
         </a-flex>
         <a-flex :vertical="true">
-          <div class="title">CÁC CHUYÊN MỤC CHÍNH</div>
+          <a-typography-title :level="4" class="title"
+            >CÁC CHUYÊN MỤC CHÍNH</a-typography-title
+          >
           <a-divider class="divider" />
-          <div>
-            <p>Trắc nghiệm</p>
-            <p>Chương trình</p>
-            <p>Ngân hàng câu hỏi</p>
-          </div>
+          <a-space direction="vertical">
+            <a-typography-text>Trắc nghiệm</a-typography-text>
+            <a-typography-text>Chương trình</a-typography-text>
+            <a-typography-text>Ngân hàng câu hỏi</a-typography-text>
+          </a-space>
         </a-flex>
         <a-flex :vertical="true">
-          <div class="title">CÁC CHUYÊN MỤC CHÍNH</div>
+          <a-typography-title class="title" :level="4"
+            >CÁC CHUYÊN MỤC CHÍNH</a-typography-title
+          >
           <a-divider class="divider" />
-          <div>
-            <p>Trắc nghiệm</p>
-            <p>Chương trình</p>
-            <p>Ngân hàng câu hỏi</p>
-          </div>
+          <a-space direction="vertical">
+            <a-typography-text>Trắc nghiệm</a-typography-text>
+            <a-typography-text>Chương trình</a-typography-text>
+            <a-typography-text>Ngân hàng câu hỏi</a-typography-text>
+          </a-space>
         </a-flex>
       </a-flex>
-    </a-layout-footer> -->
+    </a-layout-footer>
   </a-layout>
 </template>
 

@@ -1,11 +1,12 @@
 <template>
-  <a-image :src="newSrc" />
+  <a-image :src="newSrc" :width="width" />
 </template>
 
 <script setup lang="ts">
 const prefix = 'https://lh3.googleusercontent.com/d'
 const props = defineProps<{
   src: string
+  width?: number
 }>()
 const splitUrl = props.src.split('/')
 const dIndex = splitUrl.findIndex((path) => path === 'd')
