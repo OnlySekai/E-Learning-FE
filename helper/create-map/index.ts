@@ -36,6 +36,10 @@ export function createMap(target: string | number, limitTime: number) {
   }
   const bestSolution = solution.sort((a, b) => a.time - b.time)[0]
   if (!bestSolution) {
+    notification.error({
+      message:
+        'Không tìm lấy lộ trình, hãy thử lại hoặc giảm thời gian nếu thấy bất khả thiÏ',
+    })
     throw new Error('No solution found')
   }
   const merged = Array.from(bestSolution.nodes).concat(

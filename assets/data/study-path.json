@@ -1,35 +1,4 @@
 {
-  "M1-D1-C1": { "time": 0.5, "children": ["M2-D1-C1"], "parent": ["start1"] },
-  "M1-D2-C1": {
-    "time": 0.25,
-    "children": ["M2-D2-C1"],
-    "parent": ["M3-D1-C1", "M4-D1-C1"]
-  },
-  "M1-D3-C1": {
-    "time": 0.5,
-    "children": ["M2-D3-C1"],
-    "parent": ["M3-D2-C2", "M4-D2-C1"]
-  },
-  "M1-D4-C1": {
-    "time": 0.25,
-    "children": ["M2-D4-C1"],
-    "parent": ["M3-D1-C2", "M4-D1-C2"]
-  },
-  "M1-D5-C1": {
-    "time": 0.25,
-    "children": ["M2-D5-C1"],
-    "parent": ["M3-D4-C1", "M4-D4-C1"]
-  },
-  "M1-D6-C1": {
-    "time": 0.25,
-    "children": ["M2-D6-C1"],
-    "parent": ["M3-D5-C1", "M4-D4-C1"]
-  },
-  "M1-D1-C2": {
-    "time": 0.5,
-    "children": ["M2-D1-C2"],
-    "parent": ["M3-D3-C1", "M4-D3-C1"]
-  },
   "M1-D2-C2": { "time": 0.17, "children": ["M2-D2-C2"], "parent": ["start2"] },
   "M1-D3-C2": {
     "time": 0.17,
