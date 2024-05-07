@@ -81,7 +81,7 @@
               ><CloseCircleFilled /> Chưa hoàn thành</a-typography-text
             >
           </template>
-          <template #content>
+          <!-- <template #content>
             <a-space direction="vertical">
               <a-typography-text
                 type="secondary"
@@ -90,7 +90,7 @@
                 >{{ item.message }}</a-typography-text
               >
             </a-space>
-          </template>
+          </template> -->
           <a-typography-text
             :disabled="!isSameMonth(current)"
             :strong="isSameDay(current, today)"

@@ -87,12 +87,8 @@
               <FlagOutlined />REMEMBER
             </a-typography-title>
           </template>
-          <a-card
-            v-for="(remember, i) in remembers"
-            :key="i"
-            :title="remember.title"
-          >
-            <a-typography-text>{{ remember.text }}</a-typography-text>
+          <a-card v-for="(remember, i) in remembers" :key="remember.img">
+            <!-- <a-typography-text>{{ remember.text }}</a-typography-text> -->
             <app-image :src="remember.img"></app-image>
           </a-card>
         </a-card>
