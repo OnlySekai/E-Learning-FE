@@ -24,6 +24,25 @@
       </a-space>
     </a-card>
     <a-card class="-center">
+      <template #extra v-if="canShowGuide">
+        <a-button @click="openModalGuideQuestion">
+          <QuestionCircleOutlined />
+          Gợi ý
+        </a-button>
+      </template>
+
+      <a-modal
+        title="Gợi ý"
+        v-model:open="visableModalGuideQuestion"
+        @ok="() => (visableModalGuideQuestion = false)"
+        @cancel="() => (visableModalGuideQuestion = false)"
+      >
+        <AppImage
+          v-for="(src, idx) in selectedQuestion.guideImg"
+          :src="src"
+          :key="idx"
+        />
+      </a-modal>
       <a-checkbox-group
         v-if="selectedQuestion.type === QUESTION_TYPE.MULTIPLE_CHOICE"
         class="checkbox-group"
@@ -90,6 +109,13 @@
         Bạn có thấy mình yếu câu này không?
       </a-checkbox>
     </a-card>
+    <a-card v-if="canShowSolvement" title="Lời giải">
+      <AppImage
+        v-for="(src, idx) in selectedQuestion.solveImg"
+        :key="idx"
+        :src="src"
+      />
+    </a-card>
     <a-pagination
       class="-center"
       simple
@@ -101,14 +127,21 @@
 </template>
 
 <script setup lang="ts">
-import { QUESTION_TYPE } from '~/constants/course'
+import { QUESTION_TYPE, QUIZ_SHEET_CONFIG_TYPE } from '~/constants/course'
 import { compareTwoArray } from '~/utils'
+const visableModalGuideQuestion = ref(false)
+
 const props = defineProps({
   readonly: Boolean,
 })
 const quizStore = useQuizStore()
 const selectedQuestion = computed(() => quizStore.currentQuestion)
-
+const canShowGuide = computed(
+  () =>
+    quizStore.$state.configType === QUIZ_SHEET_CONFIG_TYPE.LEVEL &&
+    quizStore.questionIndex < 3
+)
+const canShowSolvement = computed(() => quizStore.$state.submittedAt)
 const chossenAnwser = computed(() =>
   props.readonly
     ? selectedQuestion.value.rightAnswers
@@ -136,6 +169,10 @@ function isWrongAnswer(value: string) {
 
 function isTrueAnswer(value: string) {
   return props.readonly && selectedQuestion.value.rightAnswers.includes(value)
+}
+
+function openModalGuideQuestion() {
+  visableModalGuideQuestion.value = true
 }
 
 function isChooseWrongMultiple() {

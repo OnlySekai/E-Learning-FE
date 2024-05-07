@@ -12,7 +12,6 @@ const isMock = useRuntimeConfig().public.mockEnable
 
 export const useQuizStore = defineStore('quiz', {
   state: (): QuizStateEntity => ({
-    configType: '',
     courseId: '',
     quizDuration: 0,
     questions: [],
@@ -73,6 +72,8 @@ export const useQuizStore = defineStore('quiz', {
             type,
             config: { options, answers = [] },
             note,
+            guideImg = [],
+            solveImg = [],
           } = questionConfig
           const currentAnswers = histories.at(-1)?.answers || []
           return {
@@ -88,6 +89,8 @@ export const useQuizStore = defineStore('quiz', {
             correct,
             isRandom,
             isWeak,
+            guideImg,
+            solveImg,
           }
         }
       )

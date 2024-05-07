@@ -1,5 +1,7 @@
 // create interface quiz sheet link quiz-answers.schema.ts
 
+import type { QUIZ_SHEET_CONFIG_TYPE } from '~/constants/course'
+
 export interface AnswerHistoryEntity {
   answers: string[]
   start: Date
@@ -20,10 +22,12 @@ export interface LeanerQuestionEntity {
   correct: boolean
   isRandom?: boolean
   isWeak?: boolean
+  guideImg?: string[]
+  solveImg?: string[]
 }
 
 export interface QuizAnswerSheetEntity {
-  configType: string
+  configType?: QUIZ_SHEET_CONFIG_TYPE
   courseId: string
   quizDuration: number
   fullName: String

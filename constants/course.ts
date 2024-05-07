@@ -9,3 +9,10 @@ export const QUESTION_TYPE = {
   MULTIPLE_CHOICE: 0,
   WRITE_INPUT: 1,
 }
+
+export enum QUIZ_SHEET_CONFIG_TYPE {
+  INPUT = 0,
+  LEVEL = 1,
+  FIGURE = 2,
+  EXAM = 3,
+}
