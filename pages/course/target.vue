@@ -140,6 +140,7 @@ const selectConfig: selectType[] = [
         {
           value: 1,
           label: 'Kì giữa kì 1',
+          disabled: true,
         },
         {
           value: 2,
