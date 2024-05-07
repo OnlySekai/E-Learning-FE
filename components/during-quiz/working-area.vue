@@ -14,14 +14,14 @@
       <a-typography-text>
         {{ selectedQuestion.note }}
       </a-typography-text>
-      <div class="list-image-wrapper">
+      <a-space class="list-image-wrapper">
         <app-image
           v-for="link in selectedQuestion.images"
           :key="link"
           :src="link"
           class="question-image"
         />
-      </div>
+      </a-space>
     </a-card>
     <a-card class="-center">
       <a-checkbox-group
