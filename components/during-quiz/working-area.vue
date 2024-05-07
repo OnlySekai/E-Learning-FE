@@ -148,7 +148,9 @@ const chossenAnwser = computed(() =>
     : selectedQuestion.value.answers
 )
 
-const questionTittle = computed(() => `Câu hỏi ${quizStore.questionIndex}:`)
+const questionTittle = computed(
+  () => `Câu hỏi ${quizStore.questionIndex}/ ${quizStore.questions.length}:`
+)
 const getIsWrongQuestion = computed(() => {
   return !quizStore.currentQuestion.correct
 })

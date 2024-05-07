@@ -97,6 +97,7 @@ const figures: {
 }[] = []
 
 chapters?.map((chapter) => {
+  if (chapter.chapterNumber < 2) return
   chapter.figures.map((figure) => {
     figures.push({
       value: `${chapter.chapterNumber} ${figure.figureNumber}`.toString(),
