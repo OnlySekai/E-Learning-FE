@@ -15,9 +15,8 @@
         {{ selectedQuestion.note }}
       </a-typography-text>
       <a-space class="list-image-wrapper">
-        <app-image
+        <AppImage
           v-for="link in selectedQuestion.images"
-          :key="link"
           :src="link"
           class="question-image"
         />
@@ -37,11 +36,7 @@
         @ok="() => (visableModalGuideQuestion = false)"
         @cancel="() => (visableModalGuideQuestion = false)"
       >
-        <AppImage
-          v-for="(src, idx) in selectedQuestion.guideImg"
-          :src="src"
-          :key="idx"
-        />
+        <AppImage v-for="src in selectedQuestion.guideImg" :src="src" />
       </a-modal>
       <a-checkbox-group
         v-if="selectedQuestion.type === QUESTION_TYPE.MULTIPLE_CHOICE"
@@ -110,11 +105,7 @@
       </a-checkbox>
     </a-card>
     <a-card v-if="canShowSolvement" title="Lời giải">
-      <AppImage
-        v-for="(src, idx) in selectedQuestion.solveImg"
-        :key="idx"
-        :src="src"
-      />
+      <AppImage v-for="src in selectedQuestion.solveImg" :src="src" />
     </a-card>
     <a-pagination
       class="-center"
