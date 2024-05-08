@@ -16,3 +16,5 @@ export enum QUIZ_SHEET_CONFIG_TYPE {
   FIGURE = 2,
   EXAM = 3,
 }
+
+export const STUDY_REVIEW_RATIO = 1 / 2

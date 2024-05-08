@@ -8,6 +8,7 @@ import { MinHeap } from './heapStructure'
 import tartGetStudyPathJson from '~/assets/data/target-study-path.json'
 import studyPathJson from '~/assets/data/study-path.json'
 import { sortStudyNodeIds } from '../common'
+import { STUDY_REVIEW_RATIO } from '~/constants/course'
 
 const tartGetStudyPath = tartGetStudyPathJson as Record<
   string,
@@ -25,7 +26,7 @@ export function createMap(target: string | number, limitTime: number) {
     const haveNewGeneration = population.reduce((pre, state) => {
       const newGeneration = generateState(
         state,
-        limitTime,
+        limitTime * STUDY_REVIEW_RATIO,
         newPopulation,
         solution
       )
@@ -38,7 +39,7 @@ export function createMap(target: string | number, limitTime: number) {
   if (!bestSolution) {
     notification.error({
       message:
-        'Không tìm lấy lộ trình, hãy thử lại hoặc giảm thời gian nếu thấy bất khả thiÏ',
+        'Không tìm lấy lộ trình, hãy thử lại hoặc giảm thời gian nếu thấy bất khả thi',
     })
     throw new Error('No solution found')
   }
