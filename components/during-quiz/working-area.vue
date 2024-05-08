@@ -103,12 +103,23 @@
     </a-card>
 
     <a-card title="Khảo sát" v-if="$props.readonly">
-      <a-checkbox v-model:checked="selectedQuestion.isRandom">
-        Bạn có khoanh bừa câu hỏi này không?
-      </a-checkbox>
-      <a-checkbox v-model:checked="selectedQuestion.isWeak">
-        Bạn có thấy mình yếu câu này không?
-      </a-checkbox>
+      <a-space direction="vertical">
+        <a-typography-text>
+          Bạn có khoanh bừa câu hỏi này không?
+          <a-radio-group
+            v-model:value="selectedQuestion.isRandom"
+            :options="yesNoQuestion"
+          />
+        </a-typography-text>
+
+        <a-typography-text>
+          Bạn có thấy mình yếu câu này không?
+          <a-radio-group
+            v-model:value="selectedQuestion.isWeak"
+            :options="yesNoQuestion"
+          />
+        </a-typography-text>
+      </a-space>
     </a-card>
 
     <a-card v-if="canShowSolvement" title="Lời giải">
@@ -126,7 +137,10 @@ import type { max } from 'lodash'
 import { QUESTION_TYPE, QUIZ_SHEET_CONFIG_TYPE } from '~/constants/course'
 import { compareTwoArray } from '~/utils'
 const visableModalGuideQuestion = ref(false)
-
+const yesNoQuestion = [
+  { label: 'Có', value: true },
+  { label: 'Không', value: false },
+]
 const props = defineProps({
   readonly: Boolean,
 })

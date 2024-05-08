@@ -6,7 +6,7 @@
         <ReadOutlined />
       </a-typography-title>
     </a-layout-header>
-    <a-layout-content style="height: auto">
+    <a-layout-content style="overflow: scroll;">
       <slot />
     </a-layout-content>
     <a-layout-footer class="course-footer">

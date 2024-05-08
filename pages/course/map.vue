@@ -76,9 +76,13 @@
             </a>
           </template>
           <a-space direction="vertical">
-            <a-typography-link>Thi thử lần 1 </a-typography-link>
-            <a-typography-link> Thi thử lần 2 </a-typography-link>
-            <a-typography-link> Thi thử cuối kì </a-typography-link>
+            <!-- <a-typography-link>Thi thử lần 1 </a-typography-link>
+            <a-typography-link> Thi thử lần 2 </a-typography-link> -->
+            <a-typography-link
+              href="https://drive.google.com/drive/folders/1YaUM34qGeS7j17A2eJPoO7InBjEBRXkn"
+            >
+              Đề tổng hợp
+            </a-typography-link>
           </a-space>
         </a-card>
         <a-card style="width: 100%">

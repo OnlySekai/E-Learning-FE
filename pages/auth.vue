@@ -20,7 +20,6 @@ try {
     path: redirect as string,
     query: restQuery,
   })
-  console.log('redirect to', redirect)
 } catch (error) {
   navigateTo('/login')
 }

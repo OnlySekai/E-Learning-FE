@@ -8,6 +8,5 @@ export const compareTwoArray = (arr1: unknown[], arr2: unknown[]): boolean => {
 
 export function slitIdToNumbers(id: string): number[] {
   const numbers = id.match(/\d+/g)?.map(Number) ?? []
-  console.log(numbers)
   return numbers
 }
