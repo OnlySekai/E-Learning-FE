@@ -65,7 +65,7 @@ const duration = computed(() =>
 const endTimeCountDown = computed(() => Date.now() + duration.value)
 
 function goHome() {
-  window.location.href = '/course/map'
+  navigateTo('/course/map')
 }
 </script>
 

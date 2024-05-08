@@ -107,6 +107,15 @@ definePageMeta({
 })
 const courseStore = useCourseStore()
 const studyMapStore = useStudyMapStore()
+const rememberStore = useRememberStore()
+onMounted(() => {
+  return Promise.all([
+    useAsyncData('get-study-map', () => studyMapStore.fetchMission()),
+    useAsyncData('get-study-map', () => studyMapStore.fetchStudyMap()),
+    useAsyncData('get-remember', () => rememberStore.fetchRemembers()),
+  ])
+})
+
 const selectedDay = ref(dayjs())
 const mustStudy = computed((): CaLendarStudyEntity[] => {
   const key = selectedDay.value.format('YYYY-MM-DD')

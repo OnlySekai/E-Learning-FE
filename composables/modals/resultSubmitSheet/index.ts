@@ -22,7 +22,7 @@ export const openResultSubmitSheet = () => {
       })
     },
     onCancel: () => {
-      router.push('/')
+      navigateTo('/course/map')
     },
   })
 }
