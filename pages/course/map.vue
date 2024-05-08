@@ -2,13 +2,13 @@
   <a-layout>
     <a-layout-sider
       breakpoint="lg"
+      v-model:collapsed="collapsedSidebar.calendar"
       collapsedWidth="0"
       class="layout-sider"
-      :style="{ backgroundColor: '#F5F5F5' }"
     >
       <a-flex
         vertical
-        gap="large"
+        gap="small"
         align="center"
         style="margin-right: 10px; margin-left: 10px"
       >
@@ -34,8 +34,8 @@
         </a-card>
       </a-flex>
     </a-layout-sider>
-    <a-layout-content>
-      <a-flex vertical gap="large">
+    <a-layout-content style="overflow: scroll; height: 80vh">
+      <a-flex vertical gap="small" style="overflow: scroll">
         <CourseMapChapter
           v-for="(item, index) in mapContent"
           :chapter-name="item.chapterName"
@@ -48,8 +48,8 @@
     <a-layout-sider
       breakpoint="sm"
       collapsedWidth="0"
+      v-model:collapsed="collapsedSidebar.remember"
       class="layout-sider"
-      style="background-color: #f5f5f5"
       width="400"
     >
       <a-flex
@@ -99,6 +99,46 @@
       </a-flex>
     </a-layout-sider>
   </a-layout>
+  <a-float-button-group
+    v-if="collapsedSidebar.remember || collapsedSidebar.calendar"
+    trigger="hover"
+    type="primary"
+
+  >
+    <template #icon>
+      <PlusCircleOutlined />
+    </template>
+    <a-float-button
+      @click="
+        () => {
+          collapsedSidebar.remember = !collapsedSidebar.remember
+          collapsedSidebar.calendar = true
+        }
+      "
+    >
+      <template #icon>
+        <BookOutlined />
+      </template>
+      <template #tooltip>
+        <div>Remember</div>
+      </template>
+    </a-float-button>
+    <a-float-button
+      @click="
+        () => {
+          collapsedSidebar.calendar = !collapsedSidebar.calendar
+          collapsedSidebar.remember = true
+        }
+      "
+    >
+      <template #icon>
+        <CalendarOutlined />
+      </template>
+      <template #tooltip>
+        <div>Lịch học</div>
+      </template>
+    </a-float-button>
+  </a-float-button-group>
 </template>
 
 <script lang="ts" setup>
@@ -118,6 +158,11 @@ onMounted(() => {
     useAsyncData('get-study-map', () => studyMapStore.fetchStudyMap()),
     useAsyncData('get-remember', () => rememberStore.fetchRemembers()),
   ])
+})
+
+const collapsedSidebar = reactive({
+  calendar: false,
+  remember: false,
 })
 
 const selectedDay = ref(dayjs())
@@ -167,6 +212,11 @@ const mapContent = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+.layout-sider {
+  overflow: scroll;
+  height: 80vh;
+  background-color: #f5f5f5;
+}
 .ant-layout-sider:not(.ant-layout-sider-collapsed) {
   min-width: 320px !important;
 }

@@ -13,16 +13,7 @@ export const openResultSubmitSheet = () => {
     content: h(ModalsResultSubmitSheetContent),
     okText: 'Review lại bài kiểm tra',
     cancelText: 'Thoát',
-    onOk: async () => {
-      await quizStore.fetchQuizSheet(useRoute().params.sheetId as string)
-      router.push({
-        query: {
-          mode: VIEW_MODES.READ,
-        },
-      })
-    },
-    onCancel: () => {
-      navigateTo('/course/map')
-    },
+    centered: true,
+    footer: null,
   })
 }
