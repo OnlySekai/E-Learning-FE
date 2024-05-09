@@ -8,13 +8,16 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "build-sw": "SW=true nuxi build",
+    "dev-sw": "SW=true nuxi dev"
   },
   "devDependencies": {
     "@ant-design-vue/nuxt": "^1.4.1",
     "@nuxt/devtools": "latest",
     "@types/lodash": "^4",
     "@types/moment": "^2.13.0",
+    "@vite-pwa/nuxt": "^0.7.0",
     "dayjs-nuxt": "^2.1.9",
     "nuxt": "^3.11.2",
     "vue": "^3.3.7",

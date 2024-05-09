@@ -1,4 +1,5 @@
 <template>
+  <VitePwaManifest />
   <a-spin :spinning="loading">
     <NuxtLayout>
       <NuxtPage />

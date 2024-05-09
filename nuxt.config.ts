@@ -1,3 +1,5 @@
+const sw = process.env.SW === 'true'
+
 export default defineNuxtConfig({
   css: ['~/assets/scss/main.scss'],
   ssr: false,
@@ -10,7 +12,12 @@ export default defineNuxtConfig({
       },
     },
   },
-  modules: ['@ant-design-vue/nuxt', '@pinia/nuxt', 'dayjs-nuxt'],
+  modules: [
+    '@ant-design-vue/nuxt',
+    '@pinia/nuxt',
+    'dayjs-nuxt',
+    '@vite-pwa/nuxt',
+  ],
   imports: {
     dirs: [
       // Scan top-level modules
@@ -22,6 +29,54 @@ export default defineNuxtConfig({
     ],
   },
   pinia: { storesDirs: ['./stores/**'] },
+  pwa: {
+    strategies: sw ? 'injectManifest' : 'generateSW',
+    srcDir: sw ? 'service-worker' : undefined,
+    filename: sw ? 'sw.ts' : undefined,
+    registerType: 'autoUpdate',
+    manifest: {
+      name: 'Nuxt Vite PWA',
+      short_name: 'NuxtVitePWA',
+      theme_color: '#ffffff',
+      icons: [
+        {
+          src: '/images/logo.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: '/public/images/logo.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+        {
+          src: '/images/logo.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any maskable',
+        },
+      ],
+    },
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+    },
+    injectManifest: {
+      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+    },
+    client: {
+      installPrompt: true,
+      // you don't need to include this: only for testing purposes
+      // if enabling periodic sync for update use 1 hour or so (periodicSyncForUpdates: 3600)
+      periodicSyncForUpdates: 20,
+    },
+    devOptions: {
+      enabled: true,
+      suppressWarnings: true,
+      navigateFallback: '/',
+      navigateFallbackAllowlist: [/^\/$/],
+      type: 'module',
+    },
+  },
   runtimeConfig: {
     public: {
       apiBase: process.env.API_URL,
