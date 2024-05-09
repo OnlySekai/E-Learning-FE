@@ -21,8 +21,8 @@ export async function $api<T>(
   } catch (error) {
     const fetchError = error as FetchError
     notification.error({
-      message: fetchError.data.error,
-      description: fetchError.data.message,
+      message: fetchError.data?.error || 'No internet',
+      description: fetchError.data?.message,
       duration: 10,
     })
     throw error
