@@ -35,8 +35,8 @@ export default defineNuxtConfig({
     filename: sw ? 'sw.ts' : undefined,
     registerType: 'autoUpdate',
     manifest: {
-      name: 'Nuxt Vite PWA',
-      short_name: 'NuxtVitePWA',
+      name: 'Ôn thi Bách Khoa',
+      short_name: 'BKLearning',
       theme_color: '#ffffff',
       icons: [
         {
