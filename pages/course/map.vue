@@ -1,4 +1,20 @@
 <template>
+  <a-modal
+    title="Bạn có bài tập nhắc lại nè"
+    :open="!!notificationStore.remindQuestions.length"
+    :footer="false"
+    :closable="false"
+  >
+    <NuxtLink
+      v-for="(question, i) in notificationStore.remindQuestions"
+      :key="question._id"
+      :to="`/quiz/attempt/${question.message}`"
+    >
+      <a-button @click="notificationStore.makeRead(question._id)">
+        Ôn lại kiến thức</a-button
+      >
+    </NuxtLink>
+  </a-modal>
   <a-layout>
     <a-layout-sider
       breakpoint="lg"
@@ -103,7 +119,6 @@
     v-if="collapsedSidebar.remember || collapsedSidebar.calendar"
     trigger="hover"
     type="primary"
-
   >
     <template #icon>
       <PlusCircleOutlined />
@@ -152,11 +167,13 @@ definePageMeta({
 const courseStore = useCourseStore()
 const studyMapStore = useStudyMapStore()
 const rememberStore = useRememberStore()
+const notificationStore = useNotificationState()
 onMounted(() => {
   return Promise.all([
-    useAsyncData('get-study-map', () => studyMapStore.fetchMission()),
-    useAsyncData('get-study-map', () => studyMapStore.fetchStudyMap()),
-    useAsyncData('get-remember', () => rememberStore.fetchRemembers()),
+    studyMapStore.fetchMission(),
+    studyMapStore.fetchStudyMap(),
+    rememberStore.fetchRemembers(),
+    notificationStore.fetchNotifications(),
   ])
 })
 

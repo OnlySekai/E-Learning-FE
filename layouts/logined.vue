@@ -24,14 +24,18 @@
           </a-button>
           <template #overlay>
             <a-menu>
-              <a-menu-item>
-                <a href="javascript:;">1st menu item</a>
-              </a-menu-item>
-              <a-menu-item>
-                <a href="javascript:;">2nd menu item</a>
-              </a-menu-item>
-              <a-menu-item>
-                <a href="javascript:;">3rd menu item</a>
+              <a-menu-item
+                v-for="notif in notificationStore.notifications"
+                @click="
+                  () => {
+                    if (notif.type === NOTIFICATION_TYPE.REMIND_QUESTION)
+                      navigateTo(`/quiz/attempt/${notif.message}`)
+                  }
+                "
+              >
+                <a-typography-text strong>{{ notif.title }}</a-typography-text>
+                <br />
+                <a-typography-tex>{{ notif.message }}</a-typography-tex>
               </a-menu-item>
             </a-menu>
           </template>
@@ -60,7 +64,10 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
+import { NOTIFICATION_TYPE } from '~/constants/course'
+
 const userStore = useUserStore()
+const notificationStore = useNotificationState()
 
 function logout() {
   localStorage.removeItem('token')

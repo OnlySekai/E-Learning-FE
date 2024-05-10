@@ -18,3 +18,8 @@ export enum QUIZ_SHEET_CONFIG_TYPE {
 }
 
 export const STUDY_REVIEW_RATIO = 1 / 2
+
+export const NOTIFICATION_TYPE = {
+  REPORT_QUESTION: 1,
+  REMIND_QUESTION: 2,
+}

@@ -40,10 +40,18 @@ export const QUIZ_ENDPOINT: Record<string, EndPointConfigEntity> = {
   },
 }
 
-export const REPORT_ENDPOINT: Record<string, EndPointConfigEntity> = {
+export const NOTIFICATION_ENDPOINT: Record<string, EndPointConfigEntity> = {
   reportQuestion: {
-    path: `${API_URL}/report`,
+    path: `${API_URL}/notifications/report`,
     method: 'POST',
+  },
+  getNotification: {
+    path: `${API_URL}/notifications`,
+    method: 'GET',
+  },
+  makeRead: {
+    path: `${API_URL}/notifications/read/{id}`,
+    method: 'PATCH',
   },
 }
 

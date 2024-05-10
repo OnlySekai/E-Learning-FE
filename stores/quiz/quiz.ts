@@ -1,4 +1,4 @@
-import { QUIZ_ENDPOINT, REPORT_ENDPOINT } from '~/constants/endpoint'
+import { QUIZ_ENDPOINT, NOTIFICATION_ENDPOINT } from '~/constants/endpoint'
 import type { SubmitQuizSheetRequest } from './dto/submitQuizSheet.request'
 import type { LeanerQuestionEntity } from './entity/quizSheet.entity'
 import type { QuizStateEntity } from './entity/state.entity'
@@ -135,8 +135,8 @@ export const useQuizStore = defineStore('quiz', {
         questionId: this.currentQuestion.questionId,
         message,
       }
-      await $api(REPORT_ENDPOINT.reportQuestion.path, {
-        method: REPORT_ENDPOINT.reportQuestion.method,
+      await $api(NOTIFICATION_ENDPOINT.reportQuestion.path, {
+        method: NOTIFICATION_ENDPOINT.reportQuestion.method,
         body: payload,
       })
     },
