@@ -35,7 +35,6 @@ export const useQuizStore = defineStore('quiz', {
       return response.sheetId
     },
     async joinQuizEndFigure(payload: { figureId: string }): Promise<string> {
-      debugger
       const response: { sheetId: string } = await $api(
         QUIZ_ENDPOINT.joinQuizEndFigure.path,
         {

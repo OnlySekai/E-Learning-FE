@@ -107,7 +107,6 @@ async function joinQuizLevel(level: number) {
 }
 
 async function joinQuizEndFigure() {
-  debugger
   const sheetId = await quizStore.joinQuizEndFigure({
     figureId,
   })
