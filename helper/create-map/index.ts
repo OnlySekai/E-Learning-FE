@@ -10,11 +10,11 @@ import studyPathJson from '~/assets/data/study-path.json'
 import { sortStudyNodeIds } from '../common'
 import { STUDY_REVIEW_RATIO } from '~/constants/course'
 
-const tartGetStudyPath = tartGetStudyPathJson as Record<
+export const tartGetStudyPath = tartGetStudyPathJson as Record<
   string,
   ClusterStudyNode
 >
-const studyPath = studyPathJson as Record<string, StudyNodeEntity>
+export const studyPath = studyPathJson as Record<string, StudyNodeEntity>
 
 export function createMap(target: string | number, limitTime: number) {
   let population = [getInitState(target)]

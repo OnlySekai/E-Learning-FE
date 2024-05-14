@@ -34,20 +34,28 @@
           ></iframe>
         </div>
       </a-modal>
-      <AppIconTask
-        v-for="i in 4"
-        :id="`M${i}-D${figureConfig.figureNumber}-C${chapterNumber}`"
-        @click="joinQuizLevel(i)"
-        :disabled="!getCanStudyThisLevel(i)"
-        :type="i"
-        :class="[
-          'icon',
-          {
-            '-left': i % 2 === 0,
-            '-right': i % 2 === 1,
-          },
-        ]"
-      />
+
+      <a-popover placement="right" v-for="i in 4">
+        <template #content>
+          <a-space v-if="lvs?.includes(i)" direction="vertical">
+            <a-typography-text> Lần: {{ period }} </a-typography-text>
+            <a-typography-text> Điểm: {{ groupPoint }} </a-typography-text>
+          </a-space>
+        </template>
+        <AppIconTask
+          :id="`M${i}-D${figureConfig.figureNumber}-C${chapterNumber}`"
+          @click="joinQuizLevel(i)"
+          :disabled="!getCanStudyThisLevel(i)"
+          :type="i"
+          :class="[
+            'icon',
+            {
+              '-left': i % 2 === 0,
+              '-right': i % 2 === 1,
+            },
+          ]"
+        />
+      </a-popover>
       <AppIconTask
         type="end"
         :disabled="!canStudyThisFigure"
@@ -60,6 +68,7 @@
 </template>
 
 <script lang="ts" setup>
+import { tartGetStudyPath } from '~/helper/create-map'
 import { slitIdToNumbers } from '~/utils'
 
 const props = defineProps<{
@@ -78,6 +87,25 @@ const currentStudy = computed((): number => {
       return acc * 100 + cur
     }, 0)
 })
+const groupTarget = Object.entries(tartGetStudyPath).find(
+  ([key, { members }]) => {
+    const studyNodeIds = Array.from(
+      { length: 4 },
+      (_, i) => `M${i}-${figureId}`
+    )
+    return members.some((member) => studyNodeIds.includes(member))
+  }
+)
+const [group = '', member] = groupTarget ?? []
+const groupPoint = group.split('-').slice(1).join('-')
+const period = group.split('-')[0]
+const lvs = member?.members.reduce((acc, cur) => {
+  const [m, f, c] = slitIdToNumbers(cur)
+  if (f === props.figureConfig.figureNumber && c === props.chapterNumber)
+    acc.push(m)
+  return acc
+}, [] as number[])
+
 const canStudyThisFigure = computed(() => {
   const { figureNumber } = props.figureConfig
   const value = figureNumber * 100 + props.chapterNumber * 10000
