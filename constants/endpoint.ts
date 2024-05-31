@@ -88,3 +88,22 @@ export const USER_ENDPOINT: Record<string, EndPointConfigEntity> = {
     method: 'GET',
   },
 }
+
+export const MANAGER_QUESTION_ENDPOINT: Record<string, EndPointConfigEntity> = {
+  getQuestions: {
+    path: `${API_URL}/questions`,
+    method: 'GET',
+  },
+  createQuestion: {
+    path: `${API_URL}/questions`,
+    method: 'POST',
+  },
+  editQuestion: {
+    path: `${API_URL}/questions/{questionId}`,
+    method: 'PATCH',
+  },
+  deleteQuestion: {
+    path: `${API_URL}/questions/{questionId}`,
+    method: 'DELETE',
+  },
+}

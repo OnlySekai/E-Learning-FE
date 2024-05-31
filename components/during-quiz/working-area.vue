@@ -12,11 +12,11 @@
         {{ selectedQuestion?.question }}</a-typography-text
       >
       <a-typography-text>
-        {{ selectedQuestion.note }}
+        {{ selectedQuestion?.note }}
       </a-typography-text>
       <a-space class="list-image-wrapper" vertical>
         <AppImage
-          v-for="link in selectedQuestion.images"
+          v-for="link in selectedQuestion?.images || []"
           :src="link"
           :key="link"
           :style="{ maxWidth: '100%', width: '600px' }"
@@ -45,7 +45,7 @@
         />
       </a-modal>
       <a-checkbox-group
-        v-if="selectedQuestion.type === QUESTION_TYPE.MULTIPLE_CHOICE"
+        v-if="selectedQuestion?.type === QUESTION_TYPE.MULTIPLE_CHOICE"
         class="checkbox-group"
         :value="chossenAnwser"
         @update:value="(value) => (selectedQuestion.answers = value as string[])"
@@ -68,7 +68,7 @@
 
       <div
         class="write-input"
-        v-if="selectedQuestion.type === QUESTION_TYPE.WRITE_INPUT"
+        v-if="selectedQuestion?.type === QUESTION_TYPE.WRITE_INPUT"
       >
         <a-input
           v-model:value="chossenAnwser[0]"
@@ -133,7 +133,6 @@
 </template>
 
 <script setup lang="ts">
-import type { max } from 'lodash'
 import { QUESTION_TYPE, QUIZ_SHEET_CONFIG_TYPE } from '~/constants/course'
 import { compareTwoArray } from '~/utils'
 const visableModalGuideQuestion = ref(false)

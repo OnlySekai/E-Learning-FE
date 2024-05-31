@@ -8,10 +8,18 @@ const props = defineProps<{
   src: string
   width?: number
 }>()
-const splitUrl = props.src.split('/')
-const dIndex = splitUrl.findIndex((path) => path === 'd')
-const imageId = splitUrl[dIndex + 1]
-const newSrc = `${prefix}/${imageId}`
+
+const newSrc = computed(() => {
+  if (!props.src) return ''
+  const splitUrl = props.src.split('/')
+  const dIndex = splitUrl.findIndex((path) => path === 'd')
+  const imageId = splitUrl[dIndex + 1]
+  const isGoogleDriveLink = props.src.includes('drive.google.com')
+  if (isGoogleDriveLink) {
+    return `${prefix}/${imageId}`
+  }
+  return props.src
+})
 </script>
 
 <style scoped lang="scss">

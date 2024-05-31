@@ -6,7 +6,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "SW=true nuxi generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "build-sw": "SW=true nuxi build",

@@ -5,7 +5,6 @@
       :style="{ backgroundColor: '#F5F5F5' }"
     >
       <img src="/images/logo.png" alt="logo" class="logo" />
-      <a-input-search placeholder="input search text" style="width: 200px" />
       <a-flex wrap="wrap" justify="center">
         <a-button>
           <NuxtLink to="/course/target">
@@ -35,7 +34,7 @@
               >
                 <a-typography-text strong>{{ notif.title }}</a-typography-text>
                 <br />
-                <a-typography-tex>{{ notif.message }}</a-typography-tex>
+                <a-typography-text>{{ notif.message }}</a-typography-text>
               </a-menu-item>
             </a-menu>
           </template>
