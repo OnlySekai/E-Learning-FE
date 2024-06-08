@@ -81,15 +81,21 @@
             </a-typography-title>
           </template>
           <template #actions>
-            <a
-              href="https://drive.google.com/drive/folders/14WeqHLELG9k8IzjN9apXhy30247gUb6J"
-              target="_blank"
-            >
-              <a-button type="primary">
-                <PlusSquareOutlined />
-                TÀI LIỆU THAM KHẢO
-              </a-button>
-            </a>
+            <a-space direction="vertical">
+              <a
+                href="https://drive.google.com/drive/folders/14WeqHLELG9k8IzjN9apXhy30247gUb6J"
+                target="_blank"
+              >
+                <a-button type="primary">
+                  <PlusSquareOutlined />
+                  TÀI LIỆU THAM KHẢO
+                </a-button>
+              </a>
+              <a-space>
+                <a-button disabled>Thi thử lần 1</a-button>
+                <a-button @click="joinQuizTestExam(2)"> Thi thử lần 2</a-button>
+              </a-space>
+            </a-space>
           </template>
           <a-space direction="vertical">
             <!-- <a-typography-link>Thi thử lần 1 </a-typography-link>
@@ -168,6 +174,7 @@ const courseStore = useCourseStore()
 const studyMapStore = useStudyMapStore()
 const rememberStore = useRememberStore()
 const notificationStore = useNotificationState()
+const quizStore = useQuizStore()
 onMounted(() => {
   return Promise.all([
     studyMapStore.fetchMission(),
@@ -226,6 +233,11 @@ const mapContent = computed(() => {
   })
   return mapStudyConfig
 })
+
+async function joinQuizTestExam(period: number) {
+  const sheetId = await quizStore.joinQuizTestExam({ period })
+  navigateTo(`/quiz/attempt/${sheetId}`)
+}
 </script>
 
 <style lang="scss" scoped>

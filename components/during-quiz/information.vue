@@ -20,7 +20,7 @@
         <a-typography-text strong
           >Họ và Tên:
           <span>{{
-            owner?.firstName + owner?.lastName
+            `${owner?.firstName || ''} ${owner?.lastName || ''}`
           }}</span></a-typography-text
         >
       </a-space>
@@ -58,7 +58,8 @@ const props = defineProps<{
 }>()
 const courseStore = useCourseStore()
 const quizStore = useQuizStore()
-const { owner } = storeToRefs(useUserStore())
+const userStore = useUserStore()
+const owner = computed(() => userStore.$state.owner)
 const duration = computed(() =>
   props.readonly ? 0 : quizStore.$state.quizDuration
 )

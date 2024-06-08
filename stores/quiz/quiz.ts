@@ -44,6 +44,16 @@ export const useQuizStore = defineStore('quiz', {
       )
       return response.sheetId
     },
+    async joinQuizTestExam(payload: { period: number }): Promise<string> {
+      const response: { sheetId: string } = await $api(
+        QUIZ_ENDPOINT.joinQuizTestExam.path,
+        {
+          method: QUIZ_ENDPOINT.joinQuizTestExam.method,
+          body: payload,
+        }
+      )
+      return response.sheetId
+    },
     async fetchQuizSheet(sheetId: string) {
       // fetch quiz sheet from api
       const response = isMock

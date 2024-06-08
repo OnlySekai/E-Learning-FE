@@ -38,6 +38,10 @@ export const QUIZ_ENDPOINT: Record<string, EndPointConfigEntity> = {
     path: `${API_URL}/quiz/level`,
     method: 'POST',
   },
+  joinQuizTestExam: {
+    path: `${API_URL}/quiz/test-exam`,
+    method: 'POST',
+  },
 }
 
 export const NOTIFICATION_ENDPOINT: Record<string, EndPointConfigEntity> = {

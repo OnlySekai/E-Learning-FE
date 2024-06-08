@@ -8,20 +8,22 @@
         </a-button>
       </template>
 
-      <a-typography-text class="question-content">
-        {{ selectedQuestion?.question }}</a-typography-text
-      >
-      <a-typography-text>
-        {{ selectedQuestion?.note }}
-      </a-typography-text>
-      <a-space class="list-image-wrapper" vertical>
-        <AppImage
-          v-for="link in selectedQuestion?.images || []"
-          :src="link"
-          :key="link"
-          :style="{ maxWidth: '100%', width: '600px' }"
-          class="question-image"
-        />
+      <a-space direction="vertical">
+        <a-typography-text class="question-content">
+          {{ selectedQuestion?.question }}</a-typography-text
+        >
+        <a-typography-text>
+          {{ selectedQuestion?.note }}
+        </a-typography-text>
+        <a-space class="list-image-wrapper" vertical>
+          <AppImage
+            v-for="link in selectedQuestion?.images || []"
+            :src="link"
+            :key="link"
+            :style="{ maxWidth: '100%', width: '600px' }"
+            class="question-image"
+          />
+        </a-space>
       </a-space>
     </a-card>
     <a-card class="-center">
