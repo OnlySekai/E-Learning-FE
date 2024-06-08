@@ -30,11 +30,15 @@
             :fallback="'/placeholder.png'"
             :width="100"
           />
-
-          <a-card-meta
-            :description="item.description || ' '"
-            :title="item.title"
-          />
+          <a-space direction="vertical">
+            <a-typography-title :level="4">{{ item.title }}</a-typography-title>
+            <a-typography-text
+              v-for="line in item.description.split('\n')"
+              :key="line"
+            >
+              {{ line }}
+            </a-typography-text>
+          </a-space>
         </a-flex>
       </a-card>
       <a-pagination

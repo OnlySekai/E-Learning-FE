@@ -38,8 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useQuestionsStore } from '~/stores/questions'
-const selectedIndex = ref<number>(0)
+const selectedIndex = ref(0)
 const questionsStore = useQuestionsStore()
 const searchResults = computed(() => {
   return questionsStore.$state.questions.map((q) => ({

@@ -16,6 +16,7 @@
 <script lang="ts" setup>
 import type { Component } from 'vue'
 import QuestionManger from './-question-manager.vue'
+import UserManager from './-user-manager.vue'
 import { BankOutlined, UserOutlined } from '@ant-design/icons-vue'
 definePageMeta({
   layout: 'logined',
@@ -32,7 +33,7 @@ const tabList = [
 ]
 const contentList: Record<string, Component> = {
   tab1: QuestionManger,
-  tab2: QuestionManger,
+  tab2: UserManager,
 }
 const iconTabs: Record<string, Component> = {
   tab1: BankOutlined,

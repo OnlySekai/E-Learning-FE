@@ -91,6 +91,18 @@ export const USER_ENDPOINT: Record<string, EndPointConfigEntity> = {
     path: `${API_URL}/study-path`,
     method: 'GET',
   },
+  getUsers: {
+    path: `${API_URL}/users`,
+    method: 'GET',
+  },
+  editUser: {
+    path: `${API_URL}/users/{userId}`,
+    method: 'PATCH',
+  },
+  deleteUser: {
+    path: `${API_URL}/users/{userId}`,
+    method: 'DELETE',
+  },
 }
 
 export const MANAGER_QUESTION_ENDPOINT: Record<string, EndPointConfigEntity> = {
