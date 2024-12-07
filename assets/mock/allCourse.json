@@ -1,0 +1,45 @@
+{
+  "_id": "1",
+  "allCourse": [
+    {
+      "_id": "661ab9d6b63bd525425ba91b",
+      "courseName": "Xác suất thống kê",
+      "courseImage": "https://tailieuhust.com/wp-content/uploads/2021/09/xac-suat-thong-ke-tai-lieu-1.jpg"
+    },
+    {
+      "_id": "2",
+      "courseName": "Cơ học kỹ thuật II",
+      "courseImage": "https://monkeymedia.vcdn.com.vn/upload/web/storage_web/27-05-2022_18:06:22_cong-co-hoc.jpg"
+    },
+    {
+      "_id": "3",
+      "courseName": "Kỹ thuật thủy khí ",
+      "courseImage": "https://monkeymedia.vcdn.com.vn/upload/web/storage_web/27-05-2022_18:06:22_cong-co-hoc.jpg"
+    },
+    {
+      "_id": "4",
+      "courseName": "Dung sai lắp ghép và kỹ thuật đo",
+      "courseImage": "https://primer.vn/wp-content/uploads/2023/05/cong-nghe-plasma-la-gi.jpg"
+    },
+    {
+      "_id": "661ab9d6b63bd525425ba91b",
+      "courseName": "Xác suất thống kê 2",
+      "courseImage": "https://ttnguyen.net/wp-content/uploads/2022/06/xac-suat-thong-ke.jpg"
+    },
+    {
+      "_id": "6",
+      "courseName": "Cơ học kỹ thuật II",
+      "courseImage": "https://monkeymedia.vcdn.com.vn/upload/web/storage_web/27-05-2022_18:06:22_cong-co-hoc.jpg"
+    },
+    {
+      "_id": "7",
+      "courseName": "Kỹ thuật thủy khí 2 ",
+      "courseImage": "https://monkeymedia.vcdn.com.vn/upload/web/storage_web/27-05-2022_18:06:22_cong-co-hoc.jpg"
+    },
+    {
+      "_id": "8",
+      "courseName": "Dung sai lắp ghép và kỹ thuật đo",
+      "courseImage": "https://primer.vn/wp-content/uploads/2023/05/cong-nghe-plasma-la-gi.jpg"
+    }
+  ]
+}

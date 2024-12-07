@@ -1,0 +1,124 @@
+{
+  "_id": "661ab9d6b63bd525425ba91b",
+  "courseName": "Xác suất thống kê - Đại Học Bách Khoa Hà Nội",
+  "reference": [
+    {
+      "title": "Giáo trình cô Nguyễn Thị Thu Thủy",
+      "id": "giaotrinh",
+      "src": "https://drive.google.com/drive/folders/1FTGn1cYSdiI97tQLONWZWdhBiyxJWX2I?usp=drive_link",
+      "referenceFiles": [
+        {
+          "title": "Chương 1: Sự kiện ngẫu nhiên và phép tính xác suất",
+          "id": "gtchuong1",
+          "src": "https://drive.google.com/file/d/1OFkGVlmuUcRQ5ifjpbQn5O94dWzdfArz/view?usp=drive_link",
+          "iframeSrc": "https://drive.google.com/file/d/1OFkGVlmuUcRQ5ifjpbQn5O94dWzdfArz/preview"
+        },
+        {
+          "title": "Chương 2: Biến ngẫu nhiên và quy luật phân phối xác suất",
+          "id": "gtchuong2",
+          "src": "https://drive.google.com/file/d/19cm02EIehefVmmP_iIiw_fl6-gwo4Ky2/view?usp=drive_link",
+          "iframeSrc": "https://drive.google.com/file/d/19cm02EIehefVmmP_iIiw_fl6-gwo4Ky2/preview"
+        },
+        {
+          "title": "Chương 3: Biến ngẫu nhiên nhiều chiều",
+          "id": "gtchuong3",
+          "src": "https://drive.google.com/file/d/1PNzgIT6OfShjbMsrUjIvMjB2xbQD0C4t/view?usp=drive_link",
+          "iframeSrc": "https://drive.google.com/file/d/1PNzgIT6OfShjbMsrUjIvMjB2xbQD0C4t/preview"
+        },
+        {
+          "title": "Chương 4: Thống kê. Ước lượng tham số",
+          "id": "gtchuong4",
+          "src": "https://drive.google.com/file/d/1Aa8NgvNsvKeuc9cXfm8xrvhrzy9ib_zQ/view",
+          "iframeSrc": "https://drive.google.com/file/d/1Aa8NgvNsvKeuc9cXfm8xrvhrzy9ib_zQ/preview"
+        }
+      ]
+    },
+    {
+      "title": "Silde thầy Lê Xuân Lý",
+      "id": "slide",
+      "src": "https://drive.google.com/drive/folders/1E6qCF9OUMBGWHLNKkqjE-9Ux18hlFOih?usp=drive_link",
+      "referenceFiles": [
+        {
+          "title": "Chương 1: Sự kiện ngẫu nhiên và phép tính xác suất",
+          "id": "slidechuong1",
+          "src": "https://drive.google.com/file/d/128G-ptn2B1OEEOwbs3_V-WrsuRunayGq/view",
+          "iframeSrc": "https://drive.google.com/file/d/128G-ptn2B1OEEOwbs3_V-WrsuRunayGq/preview"
+        },
+        {
+          "title": "Chương 2: Biến ngẫu nhiên và quy luật phân phối xác suất",
+          "id": "slidechuong2",
+          "src": "https://drive.google.com/file/d/1OqwAFyundTpq8WJsVKv-lYB37hgQkd2P/view",
+          "iframeSrc": "https://drive.google.com/file/d/1OqwAFyundTpq8WJsVKv-lYB37hgQkd2P/preview"
+        },
+        {
+          "title": "Chương 3: Biến ngẫu nhiên nhiều chiều",
+          "id": "slidechuong3",
+          "src": "https://drive.google.com/file/d/1eqgknRr_f0-Gk9CholHTw4Aa5v9bSq1n/view",
+          "iframeSrc": "https://drive.google.com/file/d/1eqgknRr_f0-Gk9CholHTw4Aa5v9bSq1n/preview"
+        },
+        {
+          "title": "Chương 4: Thống kê. Ước lượng tham số",
+          "id": "slidechuong4",
+          "src": "https://drive.google.com/file/d/1BUzFbiKFJThjQnWwG67y6DriqlU-Uuwy/view",
+          "iframeSrc": "https://drive.google.com/file/d/1BUzFbiKFJThjQnWwG67y6DriqlU-Uuwy/preview"
+        },
+        {
+          "title": "Chương 5: Kiểm định giả thuyết",
+          "id": "slidechuong5",
+          "src": "https://drive.google.com/file/d/1NCB_gtvTP7HtZ4mygtL6VpvxdkFbh23v/view",
+          "iframeSrc": "https://drive.google.com/file/d/1NCB_gtvTP7HtZ4mygtL6VpvxdkFbh23v/preview"
+        }
+      ]
+    },
+    {
+      "title": "Công thức",
+      "id": "ct",
+      "src": "https://drive.google.com/drive/folders/1pug7Jrmo_703TY-JF7lt-nL3otR5mBax?usp=drive_link",
+      "referenceFiles": [
+        {
+          "title": "Công thức chung",
+          "id": "ct1",
+          "src": "https://drive.google.com/file/d/1uSviwSP8FJVHD4bNlEf_u3s_WMehU0jE/view",
+          "iframeSrc": "https://drive.google.com/file/d/1uSviwSP8FJVHD4bNlEf_u3s_WMehU0jE/preview"
+        },
+        {
+          "title": "Công thức chi tiết theo dạng",
+          "id": "ct2",
+          "src": "https://drive.google.com/file/d/1j4nm6ksoUrY3x95bYILEoOG75WlYwEHZ/view",
+          "iframeSrc": "https://drive.google.com/file/d/1j4nm6ksoUrY3x95bYILEoOG75WlYwEHZ/preview"
+        },
+        {
+          "title": "CLB Hỗ Trợ Học Tập - Chương 1",
+          "id": "ct3",
+          "src": "https://drive.google.com/file/d/1p8Aaq2zIIFVF-17KLi0AqogYeQiPAAIy/view",
+          "iframeSrc": "https://drive.google.com/file/d/1p8Aaq2zIIFVF-17KLi0AqogYeQiPAAIy/preview"
+        },
+        {
+          "title": "CLB Hỗ Trợ Học Tập - Chương 2",
+          "id": "ct4",
+          "src": "https://drive.google.com/file/d/1YTsUhSZ9Jk9KtH3hbIZHYipKkSoR7c9E/view",
+          "iframeSrc": "https://drive.google.com/file/d/1YTsUhSZ9Jk9KtH3hbIZHYipKkSoR7c9E/preview"
+        },
+        {
+          "title": "CLB Hỗ Trợ Học Tập - Chương 3",
+          "id": "ct5",
+          "src": "https://drive.google.com/file/d/1TMK2yHPREnx0P-H8NSTbtXdVOzNUrtI1/view",
+          "iframeSrc": "https://drive.google.com/file/d/1TMK2yHPREnx0P-H8NSTbtXdVOzNUrtI1/preview"
+        }
+      ]
+    },
+    {
+      "title": "Công thi GK lần 2",
+      "src": "https://drive.google.com/file/d/1X3LQTfDyLrC6fGsAqFKcMBu-SHMbWjvX/view",
+      "id": "ctgk2",
+      "referenceFiles": [
+        {
+          "title": "Công thi GK lần 2",
+          "id": "ctgk21",
+          "src": "https://drive.google.com/file/d/1X3LQTfDyLrC6fGsAqFKcMBu-SHMbWjvX/view",
+          "iframeSrc": "https://drive.google.com/file/d/1X3LQTfDyLrC6fGsAqFKcMBu-SHMbWjvX/preview"
+        }
+      ]
+    }
+  ]
+}
